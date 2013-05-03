@@ -13,12 +13,14 @@ class Estado extends AppModel {
                 'required' => true,
                 'message'  => 'Este campo não pode ser vazio.'
             ),
-            'tamanho' => array(
-                'rule'    => array('minLength', '2'),
+            'tamanho' => array(                
                 'message' => 'Este campo deve possuir 2 caracteres.'
             )
         ),
     );
+    
+    
+    
     
 }
 
