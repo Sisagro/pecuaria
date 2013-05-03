@@ -17,11 +17,7 @@ class Estado extends AppModel {
                 'message' => 'Este campo deve possuir 2 caracteres.'
             )
         ),
-    );
-    
-    
-    
-    
+    );    
 }
 
 ?>
