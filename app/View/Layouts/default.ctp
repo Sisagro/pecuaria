@@ -1,62 +1,83 @@
-<?php
-/**
- *
- * PHP 5
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Layouts
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
-
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
-?>
 <!DOCTYPE html>
 <html>
-<head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $title_for_layout; ?>
-	</title>
+    <head>
+        <?php echo $this->Html->charset(); ?>
+        <title>
+            .:: Sisagro <?php echo " - " . $title_for_layout . " "; ?> ::.
+
+        </title>
 	<?php
-		echo $this->Html->meta('icon');
+            echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+            echo $this->Html->css('sisagro.default');
+            
+            echo $this->Html->script(array('jquery.js', 'gerais.js', 'jquery-ui.js'));
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
+            echo $this->fetch('meta');
+            echo $this->fetch('css');
+            echo $this->fetch('script');
 	?>
-</head>
-<body>
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
-		</div>
-		<div id="content">
+    </head>
+    <body>
+        
+        <div id="global">
 
-			<?php echo $this->Session->flash(); ?>
+            <div id="diferenca">
 
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
-		</div>
-	</div>
-	<?php echo $this->element('sql_dump'); ?>
-</body>
+            </div>
+
+            <div id="topo">
+                <div id="topoleft">
+                    <?php
+                    echo $this->Html->link($this->Html->image("marca.png", array("alt" => "Marca Cliente", "title" => "Marca Cliente")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
+                    ?>
+                </div>
+                <div id="toporight">
+                    <div id="internadomenu">
+                        <br></br>
+                        Bem vindo, <span class="fontNomeUsuario"><b>Daniel</b></span>.
+                        <br> <span class="fontUltimoAcesso">Seu último acesso foi: 15/01/2013 | 21:10</span> 
+                        <br></br>
+                        
+                            <select name="minutos" id="minutos" title="Informe os minutos">
+                                <option value="1">Fazenda Santa Helena</option>
+                                <option value="2">Fazenda Santa Silvana</option>
+                            </select>
+                        
+                        <?php
+                        echo $this->Html->link($this->Html->image("botoes/trocar.png", array("alt" => "Trocar empresa", "title" => "Trocar empresa")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
+                        echo $this->Html->link($this->Html->image("botoes/logout_01.png", array("alt" => "Sair", "title" => "Sair")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
+                        ?>
+                        <br></br>
+                        
+                        <?php echo $this->element('menu'); ?>
+                        
+                    </div>
+                </div>
+            </div>
+
+        
+            <div id="conteudo">
+                <div id="titulopagina">
+                    <?php echo $title_for_layout; ?>
+                </div>
+                <div id="corpo">
+                    <?php echo $this->Session->flash(); ?>
+                    <?php echo $this->fetch('content'); ?>
+                </div>
+
+            </div>
+
+            <div id="rodape">
+                <div id="internarodape">
+                    <?php
+                    echo $this->Html->image("logo_sisagro.png", array("alt" => "Sisagro", "title" => "Sisagro"));
+                    ?>
+                </div>
+
+            </div>
+            
+        </div>
+        
+    </body>
 </html>
