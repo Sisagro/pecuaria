@@ -7,7 +7,7 @@
 
         </title>
 	<?php
-            echo $this->Html->meta('icon');
+            //echo $this->Html->meta('icon');
 
             echo $this->Html->css('sisagro.default');
             
@@ -45,7 +45,7 @@
                             </select>
                         
                         <?php
-                        echo $this->Html->link($this->Html->image("botoes/trocar.png", array("alt" => "Trocar empresa", "title" => "Trocar empresa")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
+                        echo $this->Html->link($this->Html->image("botoes/user_02.png", array("alt" => "Trocar empresa", "title" => "Trocar empresa")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
                         echo $this->Html->link($this->Html->image("botoes/logout_01.png", array("alt" => "Sair", "title" => "Sair")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
                         ?>
                         <br></br>
