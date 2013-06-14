@@ -10,6 +10,7 @@
             //echo $this->Html->meta('icon');
 
             echo $this->Html->css('sisagro.default');
+            echo $this->Html->css('jquery-ui-1.10.3.custom.min');
             
             echo $this->Html->script(array('jquery.js', 'gerais.js', 'jquery-ui.js'));
 
@@ -33,26 +34,31 @@
                     ?>
                 </div>
                 <div id="toporight">
-                    <div id="internadomenu">
-                        <br></br>
-                        Bem vindo, <span class="fontNomeUsuario"><b>Daniel</b></span>.
-                        <br> <span class="fontUltimoAcesso">Seu último acesso foi: 15/01/2013 | 21:10</span> 
-                        <br></br>
-                        
-                            <select name="minutos" id="minutos" title="Informe os minutos">
-                                <option value="1">Fazenda Santa Helena</option>
-                                <option value="2">Fazenda Santa Silvana</option>
-                            </select>
-                        
-                        <?php
-                        echo $this->Html->link($this->Html->image("botoes/user_02.png", array("alt" => "Trocar empresa", "title" => "Trocar empresa")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
-                        echo $this->Html->link($this->Html->image("botoes/logout_01.png", array("alt" => "Sair", "title" => "Sair")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
-                        ?>
-                        <br></br>
-                        
-                        <?php echo $this->element('menu'); ?>
-                        
+                    <div id="marcacaoleft">
+                        <div id="internadomenu">
+                            <br></br>
+                            Bem vindo, <span class="fontNomeUsuario"><b>Daniel</b></span>.
+                            <br> <span class="fontUltimoAcesso">Seu último acesso foi: 15/01/2013 | 21:10</span> 
+                            <br></br>
+
+                                <select name="minutos" id="minutos" class="selectFazenda" title="Informe os minutos">
+                                    <option value="1">Fazenda Santa Helena</option>
+                                    <option value="2">Fazenda Santa Silvana</option>
+                                </select>
+
+                            <?php
+                            echo $this->Html->link($this->Html->image("botoes/user_02.png", array("alt" => "Trocar empresa", "title" => "Trocar empresa")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
+                            echo $this->Html->link($this->Html->image("botoes/logout_01.png", array("alt" => "Sair", "title" => "Sair")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false) );
+                            ?>
+                        </div>
                     </div>
+                    <div id="marcacaoright">
+                        <?php
+                        echo $this->Html->image("teste_logo.png", array("alt" => "Marca Cliente", "title" => "Marca Cliente"));
+                        ?>
+                    </div>
+                    <br></br>
+                    <?php echo $this->element('menu'); ?>
                 </div>
             </div>
 
@@ -62,6 +68,7 @@
                     <?php echo $title_for_layout; ?>
                 </div>
                 <div id="corpo">
+                    <?php echo $this->element('navegacao'); ?>
                     <?php echo $this->Session->flash(); ?>
                     <?php echo $this->fetch('content'); ?>
                 </div>
@@ -69,12 +76,7 @@
             </div>
 
             <div id="rodape">
-                <div id="internarodape">
-                    <?php
-                    echo $this->Html->image("logo_sisagro.png", array("alt" => "Sisagro", "title" => "Sisagro"));
-                    ?>
-                </div>
-
+                
             </div>
             
         </div>

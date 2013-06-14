@@ -6,7 +6,6 @@ class HoldingsController extends AppController {
     
     function beforeFilter() {
         $this->set('title_for_layout', 'Holdings');
-        //$this->set('title_for_layout', 'Holdings > ' . $this->action);
     }
     
     public function index() {
@@ -25,11 +24,12 @@ class HoldingsController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             $this->Holding->create();
+            $this->request->data['Holding']['validade'] = substr($this->request->data['datepicker'],6,4) . "-" . substr($this->request->data['datepicker'],3,2) . "-" . substr($this->request->data['datepicker'],0,2) . " 00:00:00";
             if ($this->Holding->save($this->request->data)) {
-                $this->Session->setFlash(__('The holding has been saved'));
+                $this->Session->setFlash('Holding adicionada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The holding could not be saved. Please, try again.'));
+                $this->Session->setFlash('Registro não foi salvo. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         }
     }
@@ -40,11 +40,12 @@ class HoldingsController extends AppController {
             throw new NotFoundException(__('Invalid holding'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
+            $this->request->data['Holding']['validade'] = substr($this->request->data['datepicker'],6,4) . "-" . substr($this->request->data['datepicker'],3,2) . "-" . substr($this->request->data['datepicker'],0,2) . " 00:00:00";
             if ($this->Holding->save($this->request->data)) {
-                $this->Session->setFlash(__('The holding has been saved'));
+                $this->Session->setFlash('Holding alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The holding could not be saved. Please, try again.'));
+                $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
             $this->request->data = $this->Holding->read(null, $id);
@@ -60,10 +61,10 @@ class HoldingsController extends AppController {
             throw new NotFoundException(__('Invalid holding'));
         }
         if ($this->Holding->delete()) {
-            $this->Session->setFlash(__('Holding deleted'));
+            $this->Session->setFlash('Holding deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Holding was not deleted'));
+        $this->Session->setFlash('Registro não foi deletada.', 'default', array('class' => 'mensagem_erro'));
         $this->redirect(array('action' => 'index'));
     }
 
