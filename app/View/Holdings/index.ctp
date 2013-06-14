@@ -20,11 +20,14 @@ echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => 
             <td><?php echo h($holding['Holding']['responsavel']); ?>&nbsp;</td>
             <td><?php echo h($holding['Holding']['contato']); ?>&nbsp;</td>
             <td><?php echo date('d/m/Y', strtotime($holding['Holding']['validade'])); ?></td>
-            <td class="actions">
-                <?php echo $this->Html->link(__('View'), array('action' => 'view', $holding['Holding']['id'])); ?>
-                <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $holding['Holding']['id'])); ?>
-                <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $holding['Holding']['id']), null, __('Are you sure you want to delete # %s?', $holding['Holding']['id'])); ?>
+            <td>
+                <?php
+                //echo $this->Html->link($this->Html->image("botoes/visualizar.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'add'), array('escape' => false));
+                echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'add'), array('escape' => false));
+                echo $this->Html->link($this->Html->image("botoes/excluir.gif", array("alt" => "Excluir", "title" => "Excluir")), array('action' => 'add'), array('escape' => false));
+                ?>
             </td>
+            
         </tr>
         <?php
     endforeach;

@@ -54,7 +54,7 @@
                     </div>
                     <div id="marcacaoright">
                         <?php
-                        echo $this->Html->image("teste_logo.png", array("alt" => "Marca Cliente", "title" => "Marca Cliente"));
+                        echo $this->Html->image("logo_sisagro.png", array("alt" => "Sisagro - Sistema Agropecuário", "title" => "Sisagro - Sistema Agropecuário"));
                         ?>
                     </div>
                     <br></br>
