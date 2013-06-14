@@ -21,11 +21,17 @@ echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => 
             <td><?php echo h($holding['Holding']['contato']); ?>&nbsp;</td>
             <td><?php echo date('d/m/Y', strtotime($holding['Holding']['validade'])); ?></td>
             <td>
-                <?php
-                //echo $this->Html->link($this->Html->image("botoes/visualizar.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'add'), array('escape' => false));
-                echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'add'), array('escape' => false));
-                echo $this->Html->link($this->Html->image("botoes/excluir.gif", array("alt" => "Excluir", "title" => "Excluir")), array('action' => 'add'), array('escape' => false));
-                ?>
+                <div id="botoes">
+                    <?php
+                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $holding['Holding']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $holding['Holding']['id']), array('escape' => false));
+//                    echo $this->Form->postLink($this->Html->image("botoes/excluir.gif", array("alt" => "Excluir", "title" => "Excluir")),
+//                                               array('action' => 'delete', $holding['Holding']['id']),
+//                                               array('confirm' => 'Você realmete deseja apagar esse item?'));
+                    ?>
+                    
+                      
+                </div>
             </td>
             
         </tr>
