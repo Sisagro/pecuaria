@@ -25,13 +25,12 @@ echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => 
                     <?php
                     echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $holding['Holding']['id']), array('escape' => false));
                     echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $holding['Holding']['id']), array('escape' => false));
-                    echo $this->Html->link($this->Html->image("botoes/excluir.gif", array("alt" => "Exluir", "title" => "Exluir")), array('action' => 'edit', $holding['Holding']['id']), array('escape' => false));
-//                    echo $this->Form->postLink($this->Html->image("botoes/excluir.gif", array("alt" => "Excluir", "title" => "Excluir")),
-//                                               array('action' => 'delete', $holding['Holding']['id']),
-//                                               array('confirm' => 'Você realmete deseja apagar esse item?'));
-                    ?>
+                    echo $this->Form->postLink($this->Html->image('botoes/excluir.gif', array('alt' => 'Exluir', 'title' => 'Exluir')),
+                                               array('action' => 'delete', $holding['Holding']['id']), array('escape' => false),
+                                               __('Você realmete deseja apagar esse item?')
+                                              );
                     
-                      
+                    ?>
                 </div>
             </td>
             
