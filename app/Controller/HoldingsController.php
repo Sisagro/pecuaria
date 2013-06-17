@@ -8,6 +8,10 @@ class HoldingsController extends AppController {
         $this->set('title_for_layout', 'Holdings');
     }
     
+    public $paginate = array(
+        'order' => array('nome' => 'asc')
+    );
+    
     public function index() {
         $this->Holding->recursive = 0;
         $this->set('holdings', $this->paginate());

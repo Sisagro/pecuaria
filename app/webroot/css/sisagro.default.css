@@ -92,7 +92,7 @@ body {
 }
 
 #marcacaoleft {
-    width: 58%;
+    width: 50%;
     height: 100%;
     float: left;
     position: relative;
@@ -100,7 +100,7 @@ body {
 
 #marcacaoright {
     margin-left: 50%;
-    width: 90%;
+    width: 50%;
     height: 100%;
     min-height: 90px;
 }
@@ -109,7 +109,7 @@ body {
     width: 155px;
     height: 45px;
     margin-top: 40px;
-    margin-left: 0px;
+    margin-left: 17%;
     opacity:0.5;
     -moz-opacity: 0.5;
     filter: alpha(opacity=5);

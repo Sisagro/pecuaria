@@ -6,7 +6,11 @@ App::uses('AppController', 'Controller');
  * Users Controller
  */
 class UsersController extends AppController {
-
+    
+    public $paginate = array(
+        'order' => array('nome' => 'asc')
+    );
+    
     public function index() {
         $this->User->recursive = 0;
         $this->set('users', $this->paginate());
