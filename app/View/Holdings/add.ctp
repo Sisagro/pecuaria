@@ -12,12 +12,13 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     ?>
     <div class="input text required">
         <label for="datepicker">Data de validade</label>
-        <input name="datepicker" type="text" class="datepicker" id="datepicker" title="Informe a data" required="required">
+        <input name="datepicker" type="text" class="datepicker" id="datepicker" title="Informe a data" required="required" maxlenght="10">
     </div>
 </fieldset>
 <?php echo $this->Form->end(__('Adicionar')); ?>
 <script type="text/javascript">
     jQuery(document).ready(function(){
+        $("#datepicker").mask("99/99/9999");
         $(".datepicker").datepicker({
             dateFormat: 'dd/mm/yy',
             dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
