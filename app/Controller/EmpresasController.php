@@ -50,15 +50,34 @@ class EmpresasController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             $this->Empresa->create();
+            $separadores = array(".", "-", "/");
+            $this->request->data['Empresa']['cnpj'] = str_replace($separadores, '', $this->request->data['Empresa']['cnpjEmpresa']);
+            $this->request->data['Empresa']['inscestadual'] = str_replace($separadores, '', $this->request->data['Empresa']['inscEstadualEmpresa']);
+            $this->request->data['Empresa']['inscmunicipal'] = str_replace($separadores, '', $this->request->data['Empresa']['inscMunicipalEmpresa']);
             if ($this->Empresa->save($this->request->data)) {
-                $this->Session->setFlash(__('The empresa has been saved'));
+                
+                $id = $this->Empresa->getLastInsertID();
+                $this->Empresa->id = $id;
+                
+                if ($this->request->data['Empresa']['logoempresa']['error'] == 0) {
+                    $nome_arquivo = "empresa_" . $id . "." . substr($this->request->data['Empresa']['logoempresa']['type'],6,3);
+                    $arquivo = new File($this->request->data['Empresa']['logoempresa']['tmp_name'],false);
+                    $imagem = $arquivo->read();
+                    $arquivo->close();
+                    $arquivo = new File(WWW_ROOT.'img/empresas/' . $nome_arquivo, false ,0777);
+                    if($arquivo->create()) {
+                        $arquivo->write($imagem);
+                        $arquivo->close();
+                    }
+                    $this->request->data['Empresa']['img_foto'] = $nome_arquivo;
+                    $this->Empresa->save($this->request->data);
+                }
+                $this->Session->setFlash('Empresa adicionada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The empresa could not be saved. Please, try again.'));
+                $this->Session->setFlash('Registro não foi salvo. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         }
-        $holdings = $this->Empresa->Holding->find('list');
-        $this->set(compact('holdings'));
     }
 
     /**
@@ -69,22 +88,38 @@ class EmpresasController extends AppController {
      * @return void
      */
     public function edit($id = null) {
+        $this->Empresa->id = $id;
         if (!$this->Empresa->exists($id)) {
             throw new NotFoundException(__('Invalid empresa'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->request->data['Empresa']['logoempresa']['error'] == 0) {
+                // Apaga a imagem antiga
+                if (!empty($this->request->data['Empresa']['img_foto'])) {
+                    $img_antiga = new File(WWW_ROOT.'img/empresas/' . $this->request->data['Empresa']['img_foto'], true, 0755);
+                    $img_antiga->delete();
+                }
+                // Insere a imagem nova
+                $nome_arquivo = "sup_" . $id . "." . substr($this->request->data['Empresa']['logoempresa']['type'],6,3);
+                $arquivo = new File($this->request->data['Empresa']['logoempresa']['tmp_name'],false);
+                $imagem = $arquivo->read();
+                $arquivo->close();
+                $arquivo = new File(WWW_ROOT.'img/empresas/' . $nome_arquivo, false ,0777);
+                if($arquivo->create()) {
+                    $arquivo->write($imagem);
+                    $arquivo->close();
+                }
+                $this->request->data['Empresa']['img_foto'] = $nome_arquivo;
+            }
             if ($this->Empresa->save($this->request->data)) {
-                $this->Session->setFlash(__('The empresa has been saved'));
+                $this->Session->setFlash('Empresa alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The empresa could not be saved. Please, try again.'));
+                $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $options = array('conditions' => array('Empresa.' . $this->Empresa->primaryKey => $id));
-            $this->request->data = $this->Empresa->find('first', $options);
+            $this->request->data = $this->Empresa->read(null, $id);
         }
-        $holdings = $this->Empresa->Holding->find('list');
-        $this->set(compact('holdings'));
     }
 
     /**
@@ -100,11 +135,16 @@ class EmpresasController extends AppController {
             throw new NotFoundException(__('Invalid empresa'));
         }
         $this->request->onlyAllow('post', 'delete');
+        $foto = $this->Empresa->field('img_foto');
         if ($this->Empresa->delete()) {
-            $this->Session->setFlash(__('Empresa deleted'));
+            if (!empty($foto)) {
+                $arquivo = new File(WWW_ROOT.'img/empresas/' . $foto, true, 0755);
+                $arquivo->delete();
+            }
+            $this->Session->setFlash('Empresa deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Empresa was not deleted'));
+        $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
         $this->redirect(array('action' => 'index'));
     }
 

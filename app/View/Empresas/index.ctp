@@ -15,9 +15,13 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     <?php foreach ($empresas as $empresa): ?>
         <tr>
             <td><?php echo h($empresa['Empresa']['id']); ?>&nbsp;</td>
-            <td><?php echo h($empresa['Empresa']['cdempmatriz']); ?>&nbsp;</td>
             <td><?php echo h($empresa['Empresa']['razaosocial']); ?>&nbsp;</td>
             <td><?php echo h($empresa['Empresa']['nomefantasia']); ?>&nbsp;</td>
+            <td><?php echo substr($empresa['Empresa']['cnpj'],0,3) . "." . 
+                           substr($empresa['Empresa']['cnpj'],3,3) . "." . 
+                           substr($empresa['Empresa']['cnpj'],6,3) . "/" . 
+                           substr($empresa['Empresa']['cnpj'],9,4) . "-" . 
+                           substr($empresa['Empresa']['cnpj'],13,2); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php
