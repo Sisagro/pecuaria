@@ -47,11 +47,6 @@ class Holding extends AppModel {
             'className' => 'Empresa',
             'foreignKey' => 'holding_id',
             'dependent' => false,
-        ),
-        'Menu' => array(
-            'className' => 'Menu',
-            'foreignKey' => 'holding_id',
-            'dependent' => false,
         )
     );
 
