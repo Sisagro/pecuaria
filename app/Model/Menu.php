@@ -41,19 +41,5 @@ class Menu extends AppModel {
             ),
         ),
     );
-    
-    /**
-     * belongsTo associations
-     *
-     */
-    public $belongsTo = array(
-        'Holding' => array(
-            'className' => 'Holding',
-            'foreignKey' => 'holding_id',
-            'conditions' => '',
-            'fields' => '',
-            'order' => ''
-        )
-    );
 
 }

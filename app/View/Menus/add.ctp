@@ -11,7 +11,6 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('mostramenu', array ('id' => 'mostraMenu', 'type' => 'select','options' => $opcoes, 'label' => 'Mostra menu', 'empty' => ''));
     echo $this->Form->input('menu', array ('id' => 'itemMenu'));
     echo $this->Form->input('ordem', array ('id' => 'itemOrdem'));
-    echo $this->Form->input('holding_id', array('type' => 'hidden', 'value' => '9'));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Adicionar')); ?>
