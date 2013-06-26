@@ -72,18 +72,10 @@ class User extends AppModel {
      *
      */
     public $hasMany = array(
-        'Userempresa' => array(
-            'className' => 'Userempresa',
+        'Usergroupempresa' => array(
+            'className' => 'Usergroupempresa',
             'foreignKey' => 'user_id',
-            'dependent' => false,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
+            'dependent' => false
         )
     );
 

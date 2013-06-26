@@ -68,7 +68,7 @@ class HoldingsController extends AppController {
             $this->Session->setFlash('Holding deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Registro não foi deletada.', 'default', array('class' => 'mensagem_erro'));
+        $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
         $this->redirect(array('action' => 'index'));
     }
 

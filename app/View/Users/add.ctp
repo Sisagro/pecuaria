@@ -13,4 +13,4 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('holding_id', array ('type' => 'select','options' => $holdings, 'label' => 'Holding', 'empty' => ''));
     ?>
 </fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(__('Adicionar')); ?>

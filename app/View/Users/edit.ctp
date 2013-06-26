@@ -10,8 +10,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('nome');
     echo $this->Form->input('sobrenome');
     echo $this->Form->input('email');
-    echo $this->Form->input('password');
     echo $this->Form->input('holding_id', array ('type' => 'select','options' => $holdings, 'label' => 'Holding'));
     ?>
 </fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(__('Editar')); ?>
