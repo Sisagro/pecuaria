@@ -7,26 +7,24 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
-        <th><?php echo $this->Paginator->sort('nome'); ?></th>
-        <th><?php echo $this->Paginator->sort('sobrenome'); ?></th>
-        <th><?php echo $this->Paginator->sort('email'); ?></th>
-        <th>Holding</th>
+        <th><?php echo $this->Paginator->sort('razaosocial'); ?></th>
+        <th><?php echo $this->Paginator->sort('nomefantasia'); ?></th>
+        <th><?php echo $this->Paginator->sort('cnpj'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
-    <?php foreach ($users as $user): ?>
+    <?php foreach ($empresas as $empresa): ?>
         <tr>
-            <td><?php echo h($user['User']['id']); ?>&nbsp;</td>
-            <td><?php echo h($user['User']['nome']); ?>&nbsp;</td>
-            <td><?php echo h($user['User']['sobrenome']); ?>&nbsp;</td>
-            <td><?php echo h($user['User']['email']); ?>&nbsp;</td>
-            <td><?php echo h($user['Holding']['nome']); ?>&nbsp;</td>
+            <td><?php echo h($empresa['Empresa']['id']); ?>&nbsp;</td>
+            <td><?php echo h($empresa['Empresa']['cdempmatriz']); ?>&nbsp;</td>
+            <td><?php echo h($empresa['Empresa']['razaosocial']); ?>&nbsp;</td>
+            <td><?php echo h($empresa['Empresa']['nomefantasia']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php
-                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $user['User']['id']), array('escape' => false));
-                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $user['User']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $empresa['Empresa']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $empresa['Empresa']['id']), array('escape' => false));
                     echo $this->Form->postLink($this->Html->image('botoes/excluir.gif', array('alt' => 'Exluir', 'title' => 'Exluir')),
-                                               array('action' => 'delete', $user['User']['id']), array('escape' => false),
+                                               array('action' => 'delete', $empresa['Empresa']['id']), array('escape' => false),
                                                __('Você realmete deseja apagar esse item?')
                                               );
                     

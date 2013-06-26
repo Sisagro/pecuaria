@@ -7,11 +7,10 @@
             <li><?php echo $this->Html->link('Menus', array('controller' => 'menus', 'action' => 'index')); ?></li>
         </ul>
     </li>
-    <li><a href="#">Clubes</a>
+    <li><a href="#">Empresa</a>
         <ul>
-            <li><a href="#">Slide Effect</a></li>
-            <li><a href="#">Fade Effect</a></li>
-            <li><a href="#">Opacity Mode</a></li>
+            <li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas', 'action' => 'index')); ?></li>
+            <li><?php echo $this->Html->link('Vincular perfil', array('controller' => 'usergroupempresas', 'action' => 'index')); ?></li>
         </ul>
     </li>
     <li><a href="#">Notícias</a>

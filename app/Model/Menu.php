@@ -3,13 +3,16 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Holding Model
+ * Menu Model
  *
+ * @property Groupmenu $Groupmenu
  */
-class Holding extends AppModel {
+class Menu extends AppModel {
 
     /**
      * Validation rules
+     *
+     * @var array
      */
     public $validate = array(
         'nome' => array(
@@ -17,17 +20,22 @@ class Holding extends AppModel {
                 'rule' => array('notempty'),
             ),
         ),
-        'responsavel' => array(
+        'controller' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
             ),
         ),
-        'contato' => array(
+        'mostramenu' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
             ),
         ),
-        'datepicker' => array(
+        'menu' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            ),
+        ),
+        'ordem' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
             ),
@@ -35,23 +43,16 @@ class Holding extends AppModel {
     );
     
     /**
-     * hasMany associations
+     * belongsTo associations
+     *
      */
-    public $hasMany = array(
-        'User' => array(
-            'className' => 'User',
+    public $belongsTo = array(
+        'Holding' => array(
+            'className' => 'Holding',
             'foreignKey' => 'holding_id',
-            'dependent' => false,
-        ),
-        'Empresa' => array(
-            'className' => 'Empresa',
-            'foreignKey' => 'holding_id',
-            'dependent' => false,
-        ),
-        'Menu' => array(
-            'className' => 'Menu',
-            'foreignKey' => 'holding_id',
-            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
         )
     );
 

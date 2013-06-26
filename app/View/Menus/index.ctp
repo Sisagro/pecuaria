@@ -8,36 +8,31 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
         <th><?php echo $this->Paginator->sort('nome'); ?></th>
-        <th><?php echo $this->Paginator->sort('responsavel'); ?></th>
-        <th><?php echo $this->Paginator->sort('contato'); ?></th>
-        <th><?php echo $this->Paginator->sort('validade'); ?></th>
+        <th><?php echo $this->Paginator->sort('controller'); ?></th>
+        <th>Mostra no menu</th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
-    <?php foreach ($holdings as $holding): ?>
+    <?php foreach ($menus as $menu): ?>
         <tr>
-            <td><?php echo h($holding['Holding']['id']); ?>&nbsp;</td>
-            <td><?php echo h($holding['Holding']['nome']); ?>&nbsp;</td>
-            <td><?php echo h($holding['Holding']['responsavel']); ?>&nbsp;</td>
-            <td><?php echo h($holding['Holding']['contato']); ?>&nbsp;</td>
-            <td><?php echo date('d/m/Y', strtotime($holding['Holding']['validade'])); ?></td>
+            <td><?php echo h($menu['Menu']['id']); ?>&nbsp;</td>
+            <td><?php echo h($menu['Menu']['nome']); ?>&nbsp;</td>
+            <td><?php echo h($menu['Menu']['controller']); ?>&nbsp;</td>
+            <td><?php if ($menu['Menu']['mostramenu'] == 1) { echo "SIM"; } else { echo "NÃO"; }; ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php
-                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $holding['Holding']['id']), array('escape' => false));
-                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $holding['Holding']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $menu['Menu']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $menu['Menu']['id']), array('escape' => false));
                     echo $this->Form->postLink($this->Html->image('botoes/excluir.gif', array('alt' => 'Exluir', 'title' => 'Exluir')),
-                                               array('action' => 'delete', $holding['Holding']['id']), array('escape' => false),
+                                               array('action' => 'delete', $menu['Menu']['id']), array('escape' => false),
                                                __('Você realmete deseja apagar esse item?')
                                               );
                     
                     ?>
                 </div>
             </td>
-            
         </tr>
-        <?php
-    endforeach;
-    ?>
+    <?php endforeach; ?>
 </table>
 <br>
 <p>
@@ -49,4 +44,3 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     }
     ?>
 </p>
-
