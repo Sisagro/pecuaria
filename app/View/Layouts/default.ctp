@@ -30,7 +30,7 @@
             <div id="topo">
                 <div id="topoleft">
                     <?php
-                    echo $this->Html->link($this->Html->image("marca.jpg", array("alt" => "Marca Cliente", "title" => "Marca Cliente")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("marca.png", array("alt" => "Marca Cliente", "title" => "Marca Cliente")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
                     ?>
                 </div>
                 <div id="toporight">

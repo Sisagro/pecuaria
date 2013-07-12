@@ -12,7 +12,6 @@
     <li><a href="#">Cadastros</a>
         <ul>
             <li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Vincular perfil', array('controller' => 'usergroupempresas', 'action' => 'index')); ?></li>
         </ul>
     </li>
     <li><a href="#">Produção</a>
