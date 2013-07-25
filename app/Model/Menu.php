@@ -41,5 +41,16 @@ class Menu extends AppModel {
             ),
         ),
     );
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Holdingmenu' => array(
+            'className' => 'Holdingmenu',
+            'foreignKey' => 'menu_id',
+            'dependent' => false,
+        )
+    );
 
 }

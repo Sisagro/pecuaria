@@ -51,6 +51,16 @@ class User extends AppModel {
                 'rule' => array('numeric'),
             ),
         ),
+        'adminmaster' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            ),
+        ),
+        'adminholding' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            ),
+        ),
     );
 
     /**

@@ -3,8 +3,6 @@ App::uses('AppController', 'Controller');
 
 /**
  * Menus Controller
- *
- * @property Menu $Menu
  */
 class MenusController extends AppController {
     
@@ -14,13 +12,11 @@ class MenusController extends AppController {
     
     
     public $paginate = array(
-        'order' => array('id' => 'asc')
+        'order' => array('menu' => 'asc', 'ordem' => 'asc')
     );
     
     /**
      * index method
-     * 
-     * @return void
      */
     public function index() {
         $this->Menu->recursive = 0;
@@ -29,10 +25,6 @@ class MenusController extends AppController {
 
     /**
      * view method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
      */
     public function view($id = null) {
         if (!$this->Menu->exists($id)) {
@@ -44,8 +36,6 @@ class MenusController extends AppController {
 
     /**
      * add method
-     *
-     * @return void
      */
     public function add() {
         
@@ -69,10 +59,6 @@ class MenusController extends AppController {
 
     /**
      * edit method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
      */
     public function edit($id = null) {
         $this->Menu->id = $id;
@@ -97,10 +83,6 @@ class MenusController extends AppController {
 
     /**
      * delete method
-     *
-     * @throws NotFoundException
-     * @param string $id
-     * @return void
      */
     public function delete($id = null) {
         $this->Menu->id = $id;

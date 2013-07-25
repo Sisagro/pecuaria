@@ -11,6 +11,8 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('sobrenome');
     echo $this->Form->input('email');
     echo $this->Form->input('holding_id', array ('type' => 'select','options' => $holdings, 'label' => 'Holding'));
+    echo $this->Form->input('adminmaster', array ('type' => 'select','options' => $opcoes, 'label' => 'Administrador master?', 'empty' => ''));
+    echo $this->Form->input('adminholding', array ('type' => 'select','options' => $opcoes, 'label' => 'Administrador da holding?', 'empty' => ''));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Editar')); ?>

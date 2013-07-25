@@ -1,6 +1,6 @@
 <?php
 echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adicionar", "title" => "Adicionar")), array('action' => 'add'), array('escape' => false));
-echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => "Imprimir", "title" => "Imprimir")), array('action' => 'print'), array('escape' => false));
+//echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => "Imprimir", "title" => "Imprimir")), array('action' => 'print'), array('escape' => false));
 ?>
 <br>
 <br>
@@ -9,7 +9,8 @@ echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => 
         <th><?php echo $this->Paginator->sort('id'); ?></th>
         <th><?php echo $this->Paginator->sort('nome'); ?></th>
         <th><?php echo $this->Paginator->sort('controller'); ?></th>
-        <th>Mostra no menu</th>
+        <th>Menu</th>
+        <th>Ordem</th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($menus as $menu): ?>
@@ -17,7 +18,8 @@ echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => 
             <td><?php echo h($menu['Menu']['id']); ?>&nbsp;</td>
             <td><?php echo h($menu['Menu']['nome']); ?>&nbsp;</td>
             <td><?php echo h($menu['Menu']['controller']); ?>&nbsp;</td>
-            <td><?php if ($menu['Menu']['mostramenu'] == 1) { echo "SIM"; } else { echo "NÃO"; }; ?>&nbsp;</td>
+            <td><?php echo h($menu['Menu']['menu']); ?>&nbsp;</td>
+            <td><?php echo h($menu['Menu']['ordem']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php

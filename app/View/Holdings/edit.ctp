@@ -9,8 +9,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     $datavalidade = date('d/m/Y', strtotime($this->request->data['Holding']['validade']));
     echo $this->Form->input('id');
     echo $this->Form->input('nome');
-    echo $this->Form->input('responsavel');
-    echo $this->Form->input('contato');
+    echo $this->Form->input('Menu.Menu',array('title' => 'CTRL + Click (para selecionar mais de um)', 'label'=>'Escolha os menus', 'type'=>'select', 'multiple'=>true));
     ?>
     <div class="input text required">
         <label for="datepicker">Data de validade</label>

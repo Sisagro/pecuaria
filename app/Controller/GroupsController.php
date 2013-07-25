@@ -46,12 +46,21 @@ class GroupsController extends AppController {
      * @return void
      */
     public function add() {
+        $holding_id = 7;
+        $this->set(compact('holding_id'));
         
-        $menus = $this->Group->Menu->find('list',array('fields'=>array('id','nome'),'order'=>array('Menu.menu' => 'asc','Menu.ordem' => 'asc')));
+        $this->loadModel('Holdingmenu');
+        $this->Holdingmenu->recursive = 1;
+        $holdingmenu = $this->Holdingmenu->find('all', array('fields'=>array('Menu.id','Menu.nome'),'conditions'=>array('holding_id'=>$holding_id)));
+        $menus = array();
+        foreach($holdingmenu as $key => $subcat){
+            $menus = $menus + array($subcat['Menu']['id'] => $subcat['Menu']['nome']);
+        }        
         $this->set(compact('menus'));
         
         if ($this->request->is('post')) {
             $this->Group->create();
+//            debug($this->request->data);
             if ($this->Group->save($this->request->data)) {
                 $this->Session->setFlash('Grupo adicionado com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
@@ -73,8 +82,16 @@ class GroupsController extends AppController {
         if (!$this->Group->exists($id)) {
             throw new NotFoundException(__('Invalid group'));
         }
+        $holding_id = 7;
+        $this->set(compact('holding_id'));
         
-        $menus = $this->Group->Menu->find('list',array('fields'=>array('id','nome'),'order'=>array('Menu.menu' => 'asc','Menu.ordem' => 'asc')));
+        $this->loadModel('Holdingmenu');
+        $this->Holdingmenu->recursive = 1;
+        $holdingmenu = $this->Holdingmenu->find('all', array('fields'=>array('Menu.id','Menu.nome'),'conditions'=>array('holding_id'=>$holding_id)));
+        $menus = array();
+        foreach($holdingmenu as $key => $subcat){
+            $menus = $menus + array($subcat['Menu']['id'] => $subcat['Menu']['nome']);
+        }        
         $this->set(compact('menus'));
         
         if ($this->request->is('post') || $this->request->is('put')) {

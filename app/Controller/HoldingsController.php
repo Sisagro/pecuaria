@@ -22,10 +22,15 @@ class HoldingsController extends AppController {
         if (!$this->Holding->exists()) {
             throw new NotFoundException(__('Invalid holding'));
         }
+        $this->Holding->recursive = 1;
         $this->set('holding', $this->Holding->read(null, $id));
     }
 
     public function add() {
+        
+        $menus = $this->Holding->Menu->find('list',array('fields'=>array('id','nome'),'order'=>array('Menu.menu' => 'asc','Menu.ordem' => 'asc')));
+        $this->set(compact('menus'));
+        
         if ($this->request->is('post')) {
             $this->Holding->create();
             $this->request->data['Holding']['validade'] = substr($this->request->data['datepicker'],6,4) . "-" . substr($this->request->data['datepicker'],3,2) . "-" . substr($this->request->data['datepicker'],0,2) . " 00:00:00";
@@ -41,8 +46,12 @@ class HoldingsController extends AppController {
     public function edit($id = null) {
         $this->Holding->id = $id;
         if (!$this->Holding->exists()) {
-            throw new NotFoundException(__('Invalid holding'));
+            throw new NotFoundException(__('Holding inválida'));
         }
+        
+        $menus = $this->Holding->Menu->find('list',array('fields'=>array('id','nome'),'order'=>array('Menu.menu' => 'asc','Menu.ordem' => 'asc')));
+        $this->set(compact('menus'));
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['Holding']['validade'] = substr($this->request->data['datepicker'],6,4) . "-" . substr($this->request->data['datepicker'],3,2) . "-" . substr($this->request->data['datepicker'],0,2) . " 00:00:00";
             if ($this->Holding->save($this->request->data)) {

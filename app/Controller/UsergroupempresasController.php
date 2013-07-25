@@ -35,7 +35,7 @@ class UsergroupempresasController extends AppController {
      */
     public function view($id = null) {
         if (!$this->Usergroupempresa->exists($id)) {
-            throw new NotFoundException(__('Invalid usergroupempresa'));
+            throw new NotFoundException(__('Perfil inválido.'));
         }
         $options = array('conditions' => array('Usergroupempresa.' . $this->Usergroupempresa->primaryKey => $id));
         $this->set('usergroupempresa', $this->Usergroupempresa->find('first', $options));
@@ -48,33 +48,11 @@ class UsergroupempresasController extends AppController {
      */
     public function add() {
         
-        $cadastrados = $this->Usergroupempresa->find('list', array('fields'=>array('user_id'),'conditions'=>array('empresa_id' => '8')));
-        $this->Usergroupempresa->recursive = 0;
-//        $allPublishedAuthors = $this->Usergroupempresa->User->find('all');
-        
-//        $this->Usergroupempresa->User->recursive = 1;
-//        $allPublishedAuthors = $this->Usergroupempresa->User->find('all', array(
-//                    'conditions' => array('Usergroupempresas.id' => '11'),
-//                    'joins' => array(
-//                      array(
-//                        'alias' => 'Usergroupempresas',
-//                        'table' => 'usergroupempresas',
-//                        'type' => 'LEFT',
-//                        'conditions' => '"Usergroupempresas"."user_id" = "User"."id"'
-//                      )
-//                    )
-//                  ));
-        
-        
-//        $allPublishedAuthors = $this->Usergroupempresa->User->find('all', array(
-//            'conditions' => array('Holding.id ' => '9')
-//        ));
-
-//        debug($allPublishedAuthors);
-        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => '9'),'order'=>array('nome' => 'asc')));
-        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => '9'),'order'=>array('name' => 'asc')));
+        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => '7'),'order'=>array('nome' => 'asc')));
+        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => '7'),'order'=>array('name' => 'asc')));
+        $empresas = $this->Usergroupempresa->Empresa->find('list', array('fields'=>array('id','nomefantasia'),'conditions'=>array('holding_id' => '7'),'order'=>array('nomefantasia' => 'asc')));
         $opcoes = array(1 => 'SIM', 2 => 'NAO');
-        $this->set(compact('usuarios', 'grupos', 'opcoes'));
+        $this->set(compact('usuarios', 'grupos', 'empresas', 'opcoes'));
         
         if ($this->request->is('post')) {
             $this->Usergroupempresa->create();
@@ -97,23 +75,27 @@ class UsergroupempresasController extends AppController {
      */
     public function edit($id = null) {
         if (!$this->Usergroupempresa->exists($id)) {
-            throw new NotFoundException(__('Invalid usergroupempresa'));
+            throw new NotFoundException(__('Perfil inválido.'));
         }
+        $this->Usergroupempresa->id = $id;
+        
+        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => '7'),'order'=>array('nome' => 'asc')));
+        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => '7'),'order'=>array('name' => 'asc')));
+        $empresas = $this->Usergroupempresa->Empresa->find('list', array('fields'=>array('id','nomefantasia'),'conditions'=>array('holding_id' => '7'),'order'=>array('nomefantasia' => 'asc')));
+        $opcoes = array(1 => 'SIM', 2 => 'NAO');
+        $this->set(compact('usuarios', 'grupos', 'empresas', 'opcoes'));
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Usergroupempresa->save($this->request->data)) {
-                $this->Session->setFlash(__('The usergroupempresa has been saved'));
+                $this->Session->setFlash('Perfil alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The usergroupempresa could not be saved. Please, try again.'));
+                $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
             $options = array('conditions' => array('Usergroupempresa.' . $this->Usergroupempresa->primaryKey => $id));
             $this->request->data = $this->Usergroupempresa->find('first', $options);
         }
-        $users = $this->Usergroupempresa->User->find('list');
-        $empresas = $this->Usergroupempresa->Empresa->find('list');
-        $groups = $this->Usergroupempresa->Group->find('list');
-        $this->set(compact('users', 'empresas', 'groups'));
     }
 
     /**
@@ -126,14 +108,14 @@ class UsergroupempresasController extends AppController {
     public function delete($id = null) {
         $this->Usergroupempresa->id = $id;
         if (!$this->Usergroupempresa->exists()) {
-            throw new NotFoundException(__('Invalid usergroupempresa'));
+            throw new NotFoundException(__('Perfil inválido.'));
         }
         $this->request->onlyAllow('post', 'delete');
         if ($this->Usergroupempresa->delete()) {
-            $this->Session->setFlash(__('Usergroupempresa deleted'));
+            $this->Session->setFlash('Perfil deletado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Usergroupempresa was not deleted'));
+        $this->Session->setFlash('Perfil não foi deletado.', 'default', array('class' => 'mensagem_erro'));
         $this->redirect(array('action' => 'index'));
     }
 

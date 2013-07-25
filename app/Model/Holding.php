@@ -17,16 +17,6 @@ class Holding extends AppModel {
                 'rule' => array('notempty'),
             ),
         ),
-        'responsavel' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-            ),
-        ),
-        'contato' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-            ),
-        ),
         'datepicker' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -47,7 +37,26 @@ class Holding extends AppModel {
             'className' => 'Empresa',
             'foreignKey' => 'holding_id',
             'dependent' => false,
+        ),
+        'Holdingmenu' => array(
+            'className' => 'Holdingmenu',
+            'foreignKey' => 'holding_id',
+            'dependent' => false,
         )
+    );
+    
+    /**
+     * hasAndBelongsToMany associations
+     */
+    public $hasAndBelongsToMany = array(
+        'Menu' =>
+            array(
+                'className'             => 'Menu',
+                'joinTable'             => 'holdingmenus',
+                'foreignKey'            => 'holding_id',
+                'associationForeignKey' => 'menu_id',
+                'order'                 => 'Menu.menu, Menu.ordem',
+            )
     );
 
 }

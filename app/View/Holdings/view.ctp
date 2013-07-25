@@ -8,12 +8,6 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 Holding: 
 <?php echo $holding['Holding']['nome']; ?>
 <br>
-Responsável: 
-<?php echo $holding['Holding']['responsavel']; ?>
-<br>
-Contato: 
-<?php echo $holding['Holding']['contato']; ?>
-<br>
 Acesso ao sistema até: 
 <?php echo date('d/m/Y', strtotime($holding['Holding']['validade'])); ?>
 <br>
@@ -22,5 +16,15 @@ Acesso ao sistema até:
 <br>
 Criação: 
 <?php echo date('d/m/Y', strtotime($holding['Holding']['created'])); ?>
+<br>
+Menus: 
+<br>
+<?php $i = 0;?>
+<?php foreach ($holding['Menu'] as $menu): ?>
+
+    &nbsp;&nbsp;&nbsp;&nbsp; <?php echo $menu['nome']; ?> <br>
+
+    <?php $i++; ?>
+<?php endforeach; ?>
 </p>
 

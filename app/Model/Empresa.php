@@ -56,6 +56,10 @@ class Empresa extends AppModel {
                 'rule' => array('numeric'),
             ),
         ),
+        'logo_empresa' => array(
+            'rule'    => array('extension', array('gif', 'jpeg', 'png', 'jpg')),
+            'message' => 'Informe uma imagem válida (gif, jpeg, jpg, png).'
+        )
     );
 
     /**

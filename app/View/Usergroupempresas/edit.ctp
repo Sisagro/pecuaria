@@ -1,28 +1,15 @@
-<div class="usergroupempresas form">
+<?php
+echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => "Retornar", "title" => "Retornar")), array('action' => 'index'), array('escape' => false));
+?>
+<br>
+<br>
 <?php echo $this->Form->create('Usergroupempresa'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Usergroupempresa'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('user_id');
-		echo $this->Form->input('empresa_id');
-		echo $this->Form->input('group_id');
-		echo $this->Form->input('empresaboot');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Usergroupempresa.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Usergroupempresa.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Usergroupempresas'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Empresas'), array('controller' => 'empresas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Empresa'), array('controller' => 'empresas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Groups'), array('controller' => 'groups', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Group'), array('controller' => 'groups', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<fieldset>
+    <?php
+    echo $this->Form->input('user_id', array ('id' => 'userID', 'type' => 'select','options' => $usuarios, 'label' => 'Usuário', 'empty' => ''));
+    echo $this->Form->input('empresa_id', array ('id' => 'empresaID', 'type' => 'select','options' => $empresas, 'label' => 'Empresa', 'empty' => ''));
+    echo $this->Form->input('group_id', array ('id' => 'groupID', 'type' => 'select', 'options' => $grupos, 'label' => 'Grupo', 'empty' => ''));
+    echo $this->Form->input('empresaboot', array ('id' => 'empresaBoot', 'type' => 'select', 'options' => $opcoes, 'label' => 'Empresa Boot', 'empty' => ''));
+    ?>
+</fieldset>
+<?php echo $this->Form->end(__('Editar')); ?>

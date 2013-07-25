@@ -48,6 +48,15 @@ class EmpresasController extends AppController {
      * @return void
      */
     public function add() {
+        
+        $holding_id = 7;
+        
+        $opcoes = array(1 => 'MATRIZ', 2 => 'FILIAL');
+        $this->set('opcoes', $opcoes);
+        
+        $empresas = $this->Empresa->find('list', array('fields' => array('id', 'nomefantasia'), 'conditions' => array('holding_id'=>$holding_id, "cdempmatriz" => null)));
+        $this->set(compact('empresas'));
+        
         if ($this->request->is('post')) {
             $this->Empresa->create();
             $separadores = array(".", "-", "/");
@@ -56,22 +65,22 @@ class EmpresasController extends AppController {
             $this->request->data['Empresa']['inscmunicipal'] = str_replace($separadores, '', $this->request->data['Empresa']['inscMunicipalEmpresa']);
             if ($this->Empresa->save($this->request->data)) {
                 
-                $id = $this->Empresa->getLastInsertID();
-                $this->Empresa->id = $id;
-                
-                if ($this->request->data['Empresa']['logoempresa']['error'] == 0) {
-                    $nome_arquivo = "empresa_" . $id . "." . substr($this->request->data['Empresa']['logoempresa']['type'],6,3);
-                    $arquivo = new File($this->request->data['Empresa']['logoempresa']['tmp_name'],false);
-                    $imagem = $arquivo->read();
-                    $arquivo->close();
-                    $arquivo = new File(WWW_ROOT.'img/empresas/' . $nome_arquivo, false ,0777);
-                    if($arquivo->create()) {
-                        $arquivo->write($imagem);
-                        $arquivo->close();
-                    }
-                    $this->request->data['Empresa']['img_foto'] = $nome_arquivo;
-                    $this->Empresa->save($this->request->data);
-                }
+//                $id = $this->Empresa->getLastInsertID();
+//                $this->Empresa->id = $id;
+//                
+//                if ($this->request->data['Empresa']['logoempresa']['error'] == 0) {
+//                    $nome_arquivo = "empresa_" . $id . "." . substr($this->request->data['Empresa']['logoempresa']['type'],6,3);
+//                    $arquivo = new File($this->request->data['Empresa']['logoempresa']['tmp_name'],false);
+//                    $imagem = $arquivo->read();
+//                    $arquivo->close();
+//                    $arquivo = new File(WWW_ROOT.'img/empresas/' . $nome_arquivo, false ,0777);
+//                    if($arquivo->create()) {
+//                        $arquivo->write($imagem);
+//                        $arquivo->close();
+//                    }
+//                    $this->request->data['Empresa']['img_foto'] = $nome_arquivo;
+//                    $this->Empresa->save($this->request->data);
+//                }
                 $this->Session->setFlash('Empresa adicionada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -92,6 +101,7 @@ class EmpresasController extends AppController {
         if (!$this->Empresa->exists($id)) {
             throw new NotFoundException(__('Invalid empresa'));
         }
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->request->data['Empresa']['logoempresa']['error'] == 0) {
                 // Apaga a imagem antiga

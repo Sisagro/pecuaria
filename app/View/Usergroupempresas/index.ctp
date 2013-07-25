@@ -21,10 +21,10 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
             <td>
                 <div id="botoes">
                     <?php
-                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $usergroupempresa['User']['id']), array('escape' => false));
-                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $usergroupempresa['User']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $usergroupempresa['Usergroupempresa']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $usergroupempresa['Usergroupempresa']['id']), array('escape' => false));
                     echo $this->Form->postLink($this->Html->image('botoes/excluir.gif', array('alt' => 'Exluir', 'title' => 'Exluir')),
-                                               array('action' => 'delete', $usergroupempresa['User']['id']), array('escape' => false),
+                                               array('action' => 'delete', $usergroupempresa['Usergroupempresa']['id']), array('escape' => false),
                                                __('Você realmete deseja apagar esse item?')
                                               );
                     

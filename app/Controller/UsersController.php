@@ -32,6 +32,9 @@ class UsersController extends AppController {
         ));
         $this->set(compact('holdings'));
         
+        $opcoes = array(1 => 'SIM', 2 => 'NÃO');
+        $this->set('opcoes', $opcoes);
+        
         if ($this->request->is('post')) {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
@@ -52,6 +55,9 @@ class UsersController extends AppController {
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Registro inválido.'));
         }
+        
+        $opcoes = array(1 => 'SIM', 2 => 'NÃO');
+        $this->set('opcoes', $opcoes);
         
         $holdings = $this->User->Holding->find('list', array(
             'fields' => array('id', 'nome'),

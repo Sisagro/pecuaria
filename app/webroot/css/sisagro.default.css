@@ -120,7 +120,7 @@ body {
 #titulopagina {
     margin: 0 0 0 0;
     background: #5F7846;
-    font: 24px tahoma, arial;
+    font: 24px arial, tahoma;
     color: #FFFFFF;
     padding: 10px 35px;
     width: 19%;

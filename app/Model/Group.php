@@ -4,17 +4,11 @@ App::uses('AppModel', 'Model');
 
 /**
  * Group Model
- *
- * @property Holding $Holding
- * @property Groupmenu $Groupmenu
- * @property Usergroupempresa $Usergroupempresa
  */
 class Group extends AppModel {
 
     /**
      * Validation rules
-     *
-     * @var array
      */
     public $validate = array(
         'name' => array(
@@ -31,8 +25,6 @@ class Group extends AppModel {
 
     /**
      * belongsTo associations
-     *
-     * @var array
      */
     public $belongsTo = array(
         'Holding' => array(
