@@ -7,8 +7,30 @@ App::uses('AppController', 'Controller');
  */
 class GroupsController extends AppController {
     
-    function beforeFilter() {
+    public function beforeFilter() {
         $this->set('title_for_layout', 'Grupos');
+    }
+    
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if ($this->action === 'index') {
+            return true;
+        } else {
+            return false;
+        }
+
+        // The owner of a post can edit and delete it
+//        if (in_array($this->action, array('edit', 'delete'))) {
+//            debug($user);
+//            die();
+//            
+//            $postId = $this->request->params['pass'][0];
+//            if ($this->Post->isOwnedBy($postId, $user['id'])) {
+//                return true;
+//            }
+//        }
+
+        return parent::isAuthorized($user);
     }
     
     public $paginate = array(

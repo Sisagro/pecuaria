@@ -61,6 +61,21 @@ body {
     min-height: 25px;
 }
 
+#naologado {
+    width: 100%;
+    height: auto;
+    min-height: 30px;
+    background: #FFFFFF;
+    -moz-border-radius: 10px 10px 0 0; 
+    -webkit-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+}
+
+#naologado img {
+    margin-top: 35px;
+    margin-left: 40px;
+}
+
 #topo {
     width: 100%;
     height: auto;

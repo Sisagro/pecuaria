@@ -6,15 +6,14 @@ App::uses('AppController', 'Controller');
  * Usergroupempresas Controller
  */
 class UsergroupempresasController extends AppController {
-
-    function beforeFilter() {
-        $this->set('title_for_layout', 'Víncular perfil');
+        
+    public function beforeFilter() {
+        $this->set('title_for_layout', 'Perfil');
     }
     
     public $paginate = array(
         'order' => array('User.nome' => 'asc')
     );
-    
     
     /**
      * index method
@@ -25,7 +24,7 @@ class UsergroupempresasController extends AppController {
         $this->Usergroupempresa->recursive = 0;
         $this->set('usergroupempresas', $this->paginate());
     }
-
+    
     /**
      * view method
      *

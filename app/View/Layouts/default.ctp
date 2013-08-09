@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php echo $this->Html->charset(); ?>
+        <?php 
+        echo $this->Html->charset();
+        //Pegando dados da sessão do usuário
+        $dadosUser = $this->Session->read();
+        
+//        debug($dadosUser);
+        ?>
         <title>
-            .:: Sisagro <?php echo " - " . $title_for_layout . " "; ?> ::.
+            .:: Sisagro <?php echo " - " . $title_for_layout . " - " . $dadosUser['nomeEmpresa'] . " "; ?> ::.
 
         </title>
         <?php
-        //echo $this->Html->meta('icon');
-
         echo $this->Html->css('sisagro.default');
         echo $this->Html->css('jquery-ui-1.10.3.custom.min');
 
@@ -47,7 +51,7 @@
 
                         <?php
                         echo $this->Html->link($this->Html->image("botoes/user_02.png", array("alt" => "Trocar empresa", "title" => "Trocar empresa")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
-                        echo $this->Html->link($this->Html->image("botoes/logout_01.png", array("alt" => "Sair", "title" => "Sair")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
+                        echo $this->Html->link($this->Html->image("botoes/logout_01.png", array("alt" => "Sair", "title" => "Sair")), array('controller' => 'users', 'action' => 'logout'), array('escape' => false));
                         ?>
                     </div>
                 </div>

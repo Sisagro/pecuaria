@@ -7,6 +7,19 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
     
+    public function isAuthorized($user) {
+        
+        return true;
+        
+    }
+    
+    
+    public function beforeFilter() {
+//        $this->Auth->allow('*');
+//        parent::beforeFilter();
+        $this->set('title_for_layout', 'Usuários');
+    }
+    
     public $paginate = array(
         'order' => array('nome' => 'asc')
     );
@@ -15,7 +28,25 @@ class UsersController extends AppController {
         $this->User->recursive = 0;
         $this->set('users', $this->paginate());
     }
-
+    
+    public function login() {
+        if ($this->request->is('post')) {
+            if ($this->Auth->login()) {
+                // testa se existe um perfil pra ele em uma empresa
+                
+                CakeSession::write('nomeEmpresa', $this->Session->read('Auth.User.nome'));
+                CakeSession::write('empresa_id', '10');
+                $this->redirect($this->Auth->redirect());
+            } else {
+                $this->Session->setFlash('Usuário ou senha incorretos.', 'default', array('class' => 'mensagem_erro'));
+            }
+        }
+    }
+    
+    public function logout() {
+        $this->redirect($this->Auth->logout());
+    }
+    
     public function view($id = null) {
         $this->User->id = $id;
         if (!$this->User->exists()) {
@@ -37,6 +68,7 @@ class UsersController extends AppController {
         
         if ($this->request->is('post')) {
             $this->User->create();
+            $this->request->data['User']['username'] = $this->request->data['User']['email'];
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash('Usuário salvo com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));

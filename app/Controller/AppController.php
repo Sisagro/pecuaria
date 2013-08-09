@@ -32,4 +32,34 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'homes', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+            'authorize' => array('Controller')
+        )
+    );
+    
+    public function isAuthorized($user) {
+        
+        return true;
+        
+        
+//        if($user['username'] == 'fulano@gmail.com') {
+//            return true;
+//        }
+//        if (isset($user['role']) && $user['role'] === 'admin') {
+//            return true;
+//        }
+//        return true;
+    }
+    
+    public function beforeFilter() {
+//        $teste = CakeSession::read('Teste');
+//        debug($teste);
+    }
+
+    
 }

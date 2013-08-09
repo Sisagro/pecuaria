@@ -21,7 +21,6 @@ class User extends AppModel {
         return true;
     }
     
-    
     /**
      * Validation rules
      */
@@ -29,6 +28,11 @@ class User extends AppModel {
         'email' => array(
             'email' => array(
                 'rule' => array('email'),
+            ),
+        ),
+        'username' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
             ),
         ),
         'password' => array(
