@@ -9,7 +9,7 @@
 //        debug($dadosUser);
         ?>
         <title>
-            .:: Sisagro <?php echo " - " . $title_for_layout . " - " . $dadosUser['nomeEmpresa'] . " "; ?> ::.
+            .:: Sisagro <?php echo " - " . $title_for_layout . " - " . $dadosUser['Auth']['User']['Holding']['nome'] . " "; ?> ::.
 
         </title>
         <?php
@@ -40,7 +40,7 @@
                 <div id="toporight">
                     <div id="internadomenu">
                         <br></br>
-                        Bem vindo, <span class="fontNomeUsuario"><b>Daniel</b></span>.
+                        Bem vindo, <span class="fontNomeUsuario"><b><?php echo $dadosUser['Auth']['User']['nome']; ?></b></span>.
                         <br> <span class="fontUltimoAcesso">Seu último acesso foi: 15/01/2013 | 21:10</span> 
                         <br></br>
 
