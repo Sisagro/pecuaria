@@ -14,7 +14,7 @@
  * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @since         CakePHP(tm) v 2.0
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -65,7 +65,7 @@ class ShellDispatcher {
  */
 	public static function run($argv) {
 		$dispatcher = new ShellDispatcher($argv);
-		$dispatcher->_stop($dispatcher->dispatch() === false ? 1 : 0);
+		return $dispatcher->_stop($dispatcher->dispatch() === false ? 1 : 0);
 	}
 
 /**

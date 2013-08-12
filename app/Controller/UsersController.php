@@ -7,16 +7,11 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
     
-    public function isAuthorized($user) {
-        
-        return true;
-        
-    }
-    
+//    public function isAuthorized($user) {
+//        return true;
+//    }
     
     public function beforeFilter() {
-//        $this->Auth->allow('*');
-//        parent::beforeFilter();
         $this->set('title_for_layout', 'Usuários');
     }
     
@@ -32,6 +27,9 @@ class UsersController extends AppController {
     public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
+                //Grava último acesso do usuário
+                $this->User->read(null, $this->Auth->user('id'));
+                $this->User->saveField('ultimoacesso', date('Y-m-d H:i:s'));
                 // testa se existe um perfil pra ele em uma empresa
                 
                 CakeSession::write('nomeEmpresa', $this->Session->read('Auth.User.nome'));

@@ -18,7 +18,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       app.Controller
  * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
 
@@ -43,23 +43,7 @@ class AppController extends Controller {
     );
     
     public function isAuthorized($user) {
-        
         return true;
-        
-        
-//        if($user['username'] == 'fulano@gmail.com') {
-//            return true;
-//        }
-//        if (isset($user['role']) && $user['role'] === 'admin') {
-//            return true;
-//        }
-//        return true;
     }
-    
-    public function beforeFilter() {
-//        $teste = CakeSession::read('Teste');
-//        debug($teste);
-    }
-
     
 }

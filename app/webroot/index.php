@@ -17,8 +17,9 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       app.webroot
  * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 /**
  * Use the DS to separate the directories in other defines
  */
@@ -78,7 +79,8 @@ if (!defined('WWW_ROOT')) {
 
 // for built-in server
 if (php_sapi_name() == 'cli-server') {
-	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $_SERVER['REQUEST_URI'])) {
+	$uri = str_replace($_SERVER['SCRIPT_FILENAME'], WWW_ROOT, '');
+	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $uri)) {
 		return false;
 	}
 	$_SERVER['PHP_SELF'] = '/' . basename(__FILE__);

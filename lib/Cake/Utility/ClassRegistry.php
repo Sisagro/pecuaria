@@ -11,7 +11,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       Cake.Utility
  * @since         CakePHP(tm) v 0.9.2
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -203,8 +203,8 @@ class ClassRegistry {
 /**
  * Add $object to the registry, associating it with the name $key.
  *
- * @param string $key		Key for the object in registry
- * @param object $object	Object to store
+ * @param string $key Key for the object in registry
+ * @param object $object Object to store
  * @return boolean True if the object was written, false if $key already exists
  */
 	public static function addObject($key, $object) {
@@ -220,7 +220,7 @@ class ClassRegistry {
 /**
  * Remove object which corresponds to given key.
  *
- * @param string $key	Key of object to remove from registry
+ * @param string $key Key of object to remove from registry
  * @return void
  */
 	public static function removeObject($key) {

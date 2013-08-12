@@ -11,7 +11,7 @@
  * @link          http://book.cakephp.org/2.0/en/development/testing.html CakePHP(tm) Tests
  * @package       Cake.TestSuite.Fixture
  * @since         CakePHP(tm) v 1.2.0.4667
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 App::uses('Model', 'Model');
@@ -47,10 +47,9 @@ class CakeTestModel extends Model {
 			case
 				(is_string($queryData['fields']) && !($queryData['fields'] == $pk || $queryData['fields'] == $aliasedPk)) ||
 				(is_array($queryData['fields']) && !(array_key_exists($pk, $queryData['fields']) || array_key_exists($aliasedPk, $queryData['fields']))):
-			break;
+				break;
 			default:
 				$queryData['order'] = array($this->alias . '.' . $this->primaryKey => 'ASC');
-			break;
 		}
 		return $queryData;
 	}

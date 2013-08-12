@@ -11,13 +11,13 @@ class GroupsController extends AppController {
         $this->set('title_for_layout', 'Grupos');
     }
     
-    public function isAuthorized($user) {
-        // All registered users can add posts
-        if ($this->action === 'index') {
-            return true;
-        } else {
-            return false;
-        }
+//    public function isAuthorized($user) {
+//        // All registered users can add posts
+//        if ($this->action === 'index') {
+//            return true;
+//        } else {
+//            return false;
+//        }
 
         // The owner of a post can edit and delete it
 //        if (in_array($this->action, array('edit', 'delete'))) {
@@ -29,9 +29,9 @@ class GroupsController extends AppController {
 //                return true;
 //            }
 //        }
-
-        return parent::isAuthorized($user);
-    }
+//
+//        return parent::isAuthorized($user);
+//    }
     
     public $paginate = array(
         'order' => array('name' => 'asc')

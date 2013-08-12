@@ -41,7 +41,7 @@
                     <div id="internadomenu">
                         <br></br>
                         Bem vindo, <span class="fontNomeUsuario"><b><?php echo $dadosUser['Auth']['User']['nome']; ?></b></span>.
-                        <br> <span class="fontUltimoAcesso">Seu último acesso foi: 15/01/2013 | 21:10</span> 
+                        <br> <span class="fontUltimoAcesso">Seu último acesso foi: <?php echo date('d/m/Y', strtotime($dadosUser['Auth']['User']['ultimoacesso'])) . " | " . date('H:i', strtotime($dadosUser['Auth']['User']['ultimoacesso'])); ?></span> 
                         <br></br>
 
                         <select name="minutos" id="minutos" class="trocaEmpresa" title="Informe os minutos">

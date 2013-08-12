@@ -17,7 +17,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       Cake.Utility
  * @since         CakePHP(tm) v 0.10.0.1076
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -371,7 +371,7 @@ class CakeNumber {
 /**
  * Getter/setter for default currency
  *
- * @param string $currency Default currency string  used by currency() if $currency argument is not provided
+ * @param string $currency Default currency string used by currency() if $currency argument is not provided
  * @return string Currency
  */
 	public static function defaultCurrency($currency = null) {

@@ -11,7 +11,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       Cake.View
  * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 App::uses('Router', 'Routing');
@@ -241,13 +241,13 @@ class Helper extends Object {
 /**
  * Finds URL for specified action.
  *
- * Returns a URL pointing at the provided parameters.
+ * Returns an URL pointing at the provided parameters.
  *
  * @param string|array $url Either a relative string url like `/products/view/23` or
- *    an array of url parameters. Using an array for urls will allow you to leverage
+ *    an array of url parameters. Using an array for URLs will allow you to leverage
  *    the reverse routing features of CakePHP.
  * @param boolean $full If true, the full base URL will be prepended to the result
- * @return string  Full translated URL with base path.
+ * @return string Full translated URL with base path.
  * @link http://book.cakephp.org/2.0/en/views/helpers.html
  */
 	public function url($url = null, $full = false) {
@@ -297,7 +297,7 @@ class Helper extends Object {
  * @param string|array Path string or url array
  * @param array $options Options array. Possible keys:
  *   `fullBase` Return full url with domain name
- *   `pathPrefix` Path prefix for relative urls
+ *   `pathPrefix` Path prefix for relative URLs
  *   `ext` Asset extension to append
  *   `plugin` False value will prevent parsing path as a plugin
  * @return string Generated url
@@ -334,17 +334,16 @@ class Helper extends Object {
 	}
 
 /**
- * Encodes a URL for use in HTML attributes.
+ * Encodes an URL for use in HTML attributes.
  *
  * @param string $url The url to encode.
  * @return string The url encoded for both URL & HTML contexts.
  */
 	protected function _encodeUrl($url) {
 		$path = parse_url($url, PHP_URL_PATH);
-		$encoded = implode('/', array_map(
-			'rawurlencode',
-			explode('/', $path)
-		));
+		$parts = array_map('urldecode', explode('/', $path));
+		$parts = array_map('rawurlencode', $parts);
+		$encoded = implode('/', $parts);
 		return h(str_replace($path, $encoded, $url));
 	}
 
@@ -360,7 +359,11 @@ class Helper extends Object {
 		$stamp = Configure::read('Asset.timestamp');
 		$timestampEnabled = $stamp === 'force' || ($stamp === true && Configure::read('debug') > 0);
 		if ($timestampEnabled && strpos($path, '?') === false) {
-			$filepath = preg_replace('/^' . preg_quote($this->request->webroot, '/') . '/', '', $path);
+			$filepath = preg_replace(
+				'/^' . preg_quote($this->request->webroot, '/') . '/',
+				'',
+				urldecode($path)
+			);
 			$webrootPath = WWW_ROOT . str_replace('/', DS, $filepath);
 			if (file_exists($webrootPath)) {
 				//@codingStandardsIgnoreStart
@@ -659,18 +662,16 @@ class Helper extends Object {
 		switch ($field) {
 			case '_method':
 				$name = $field;
-			break;
+				break;
 			default:
 				$name = 'data[' . implode('][', $this->entity()) . ']';
-			break;
 		}
 
 		if (is_array($options)) {
 			$options[$key] = $name;
 			return $options;
-		} else {
-			return $name;
 		}
+		return $name;
 	}
 
 /**
@@ -726,9 +727,8 @@ class Helper extends Object {
 		if (is_array($options)) {
 			$options[$key] = $result;
 			return $options;
-		} else {
-			return $result;
 		}
+		return $result;
 	}
 
 /**
@@ -917,7 +917,7 @@ class Helper extends Object {
 		do {
 			$oldstring = $this->_cleaned;
 			$this->_cleaned = preg_replace('#</*(applet|meta|xml|blink|link|style|script|embed|object|iframe|frame|frameset|ilayer|layer|bgsound|title|base)[^>]*>#i', "", $this->_cleaned);
-		} while ($oldstring != $this->_cleaned);
+		} while ($oldstring !== $this->_cleaned);
 		$this->_cleaned = str_replace(array("&amp;", "&lt;", "&gt;"), array("&amp;amp;", "&amp;lt;", "&amp;gt;"), $this->_cleaned);
 	}
 
