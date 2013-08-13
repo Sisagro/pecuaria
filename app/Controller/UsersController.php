@@ -7,9 +7,18 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
     
-//    public function isAuthorized($user) {
-//        return true;
-//    }
+    public $name = 'Users';
+    
+    public function isAuthorized($user) {
+//        if ($this->request->params['controller'] == "users" || $this->request->params['controller'] == "groups") {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return parent::isAuthorized($user);
+    }
+    
+    
     
     public function beforeFilter() {
         $this->set('title_for_layout', 'Usuários');
@@ -34,6 +43,11 @@ class UsersController extends AppController {
                 
                 CakeSession::write('nomeEmpresa', $this->Session->read('Auth.User.nome'));
                 CakeSession::write('empresa_id', '10');
+                
+//                $teste = "ggg";
+//                debug($teste);
+//                die();
+                
                 $this->redirect($this->Auth->redirect());
             } else {
                 $this->Session->setFlash('Usuário ou senha incorretos.', 'default', array('class' => 'mensagem_erro'));

@@ -43,7 +43,17 @@ class AppController extends Controller {
     );
     
     public function isAuthorized($user) {
+        
         return true;
+//        $this->loadModel('User');
+//        $teste = $this->User->find('all');
+////        debug($teste);
+////        die();
+//        if ($this->request->params['controller'] == "users" || $this->request->params['controller'] == "homes") {
+//            return true;
+//        } else {
+//            return false;
+//        }
     }
     
 }
