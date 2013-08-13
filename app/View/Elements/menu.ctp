@@ -1,41 +1,83 @@
-<ul id="jsddm">
-    <li><a href="#">Administrativo</a>
-        <ul>
-            <li><?php echo $this->Html->link('Holdings', array('controller' => 'holdings', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Usuários', array('controller' => 'users', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Perfil', array('controller' => 'usergroupempresas', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Grupos', array('controller' => 'groups', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link('Menus', array('controller' => 'menus', 'action' => 'index')); ?></li>
-        </ul>
-    </li>
-    <li><a href="#">Cadastros</a>
-        <ul>
-            <li><?php echo $this->Html->link('Cidades', array('controller' => 'cidades', 'action' => 'index')); ?></li>
-        </ul>
-    </li>
-    <li><a href="#">Produção</a>
-        <ul>
-            <li><a href="#">Slide Effect</a></li>
-            <li><a href="#">Fade Effect</a></li>
-        </ul>
-    </li>
-    <li><a href="#">Reprodução</a>
-        <ul>
-            <li><a href="#">Slide Effect</a></li>
-            <li><a href="#">Fade Effect</a></li>
-        </ul>
-    </li>
-    <li><a href="#">Financeiro</a>
-        <ul>
-            <li><a href="#">Slide Effect</a></li>
-            <li><a href="#">Fade Effect</a></li>
-        </ul>
-    </li>
-    <li><a href="#">Rastreabilidade</a>
-        <ul>
-            <li><a href="#">Slide Effect</a></li>
-            <li><a href="#">Fade Effect</a></li>
-        </ul>
-    </li>
-</ul>
+<div id="menu">
+    <ul id="jsddm">
+
+        <?php
+        
+        $menu_1 = 0;
+        $menu_2 = 0;
+        $menu_3 = 0;
+        $menu_4 = 0;
+        $menu_5 = 0;
+        $menu_6 = 0;
+        
+        //debug($menuCarregado);
+        
+        foreach ($menuCarregado as $itemMenu):
+            
+            if ($itemMenu['mostramenu'] == 1) {
+            
+                if ($itemMenu['menu'] === 1 && $menu_1 == 0) {
+                    ?>
+                    <li><a href="#">Administrativo</a>
+                        <ul>
+                    <?php
+                    $menu_1++;
+                } elseif ($itemMenu['menu'] === 2 && $menu_2 == 0) {
+                    ?>
+                        </ul>
+                    </li>
+                    <li><a href="#">Cadastros</a>
+                        <ul>
+                    <?php
+                    $menu_2++;
+                } elseif ($itemMenu['menu'] === 3 && $menu_3 == 0) {
+                    ?>
+                        </ul>
+                    </li>
+                    <li><a href="#">Produção</a>
+                        <ul>
+                    <?php
+                    $menu_3++;
+                } elseif ($itemMenu['menu'] === 4 && $menu_4 == 0) {
+                    ?>
+                        </ul>
+                    </li>
+                    <li><a href="#">Reprodução</a>
+                        <ul>
+                    <?php
+                    $menu_4++;
+                } elseif ($itemMenu['menu'] === 5 && $menu_5 == 0) {
+                    ?>
+                        </ul>
+                    </li>
+                    <li><a href="#">Financeiro</a>
+                        <ul>
+                    <?php
+                    $menu_5++;
+                } elseif ($itemMenu['menu'] === 6 && $menu_6 == 0) {
+                    ?>
+                        </ul>
+                    </li>
+                    <li><a href="#">Rastreabilidade</a>
+                        <ul>
+                    <?php
+                    $menu_6++;
+                }
+            
+                ?>
+                <li><?php echo $this->Html->link($itemMenu['nome'], array('controller' => $itemMenu['controller'], 'action' => 'index')); ?></li>
+                <?php
+                
+            }
+            
+            
+            
+        endforeach;
+        
+        ?>
+                        
+            </ul>
+        </li>
+
+    </ul>
+</div>

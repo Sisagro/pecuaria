@@ -9,7 +9,7 @@
 //        debug($dadosUser);
         ?>
         <title>
-            .:: Sisagro <?php echo " - " . $title_for_layout . " - " . $dadosUser['Auth']['User']['Holding']['nome'] . " "; ?> ::.
+            .:: Sisagro <?php echo " - " . $title_for_layout . " - " . $dadosUser['nomeEmpresa'] . " "; ?> ::.
 
         </title>
         <?php
@@ -42,15 +42,20 @@
                         <br></br>
                         Bem vindo, <span class="fontNomeUsuario"><b><?php echo $dadosUser['Auth']['User']['nome']; ?></b></span>.
                         <br> <span class="fontUltimoAcesso">Seu último acesso foi: <?php echo date('d/m/Y', strtotime($dadosUser['Auth']['User']['ultimoacesso'])) . " | " . date('H:i', strtotime($dadosUser['Auth']['User']['ultimoacesso'])); ?></span> 
+                        <br> <span class="fontUltimoAcesso">Você está logado em: <b><?php echo $dadosUser['nomeEmpresa']; ?></b></span> 
                         <br></br>
-
-                        <select name="minutos" id="minutos" class="trocaEmpresa" title="Informe os minutos">
-                            <option value="1">Fazenda Santa Helena</option>
-                            <option value="2">Fazenda Santa Silvana</option>
+                        
+                        <?php if (count($dadosUser['empresasCombo']) > 1) { ?>
+                        <select name="trocaEmpresa" id="trocaEmpresa" class="trocaEmpresa" title="Trocar a empresa" onChange="location.href='http://localhost/pecuaria/users/trocaEmpresa/' + this.value;">
+                            <option value="">-- Trocar empresa -- </option>
+                            <?php for($i=0; $i < count($dadosUser['empresasCombo']); $i++) { ?>
+                            <option value="<?php echo $dadosUser['empresasCombo'][$i]['Empresa']['id']; ?>"><?php echo $dadosUser['empresasCombo'][$i]['Empresa']['nomefantasia']; ?></option>
+                            <?php } ?>
                         </select>
-
+                        <?php } ?>
+                        
                         <?php
-                        echo $this->Html->link($this->Html->image("botoes/user_02.png", array("alt" => "Trocar empresa", "title" => "Trocar empresa")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
+                        //echo $this->Html->link($this->Html->image("botoes/user_02.png", array("alt" => "Trocar empresa", "title" => "Trocar empresa")), array('controller' => 'users', 'action' => 'trocaEmpresa'), array('escape' => false));
                         echo $this->Html->link($this->Html->image("botoes/logout_01.png", array("alt" => "Sair", "title" => "Sair")), array('controller' => 'users', 'action' => 'logout'), array('escape' => false));
                         ?>
                     </div>

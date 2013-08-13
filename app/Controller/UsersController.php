@@ -39,15 +39,22 @@ class UsersController extends AppController {
                 //Grava último acesso do usuário
                 $this->User->read(null, $this->Auth->user('id'));
                 $this->User->saveField('ultimoacesso', date('Y-m-d H:i:s'));
+                
                 // testa se existe um perfil pra ele em uma empresa
-                
-                CakeSession::write('nomeEmpresa', $this->Session->read('Auth.User.nome'));
-                CakeSession::write('empresa_id', '10');
-                
-//                $teste = "ggg";
-//                debug($teste);
+                $this->loadModel('Usergroupempresa');
+                $empresas = $this->Usergroupempresa->find('all', array(
+                    'fields' => array('Empresa.id', 'Empresa.nomefantasia'),
+                    'conditions' => array('user_id' => $this->User->id,
+                )));
+//                debug($empresas);
 //                die();
-                
+                $perfil = $this->Usergroupempresa->find('all', array(
+                    'conditions' => array('user_id' => $this->User->id, 
+                                          'empresaboot' => 1,
+                )));
+                CakeSession::write('nomeEmpresa', $perfil[0]['Empresa']['nomefantasia']);
+                CakeSession::write('empresa_id', $perfil[0]['Empresa']['id']);
+                CakeSession::write('empresasCombo', $empresas);
                 $this->redirect($this->Auth->redirect());
             } else {
                 $this->Session->setFlash('Usuário ou senha incorretos.', 'default', array('class' => 'mensagem_erro'));
@@ -57,6 +64,20 @@ class UsersController extends AppController {
     
     public function logout() {
         $this->redirect($this->Auth->logout());
+    }
+    
+    public function trocaEmpresa($empresa) {
+        if ($this->request->is('get')) {
+            // testa se existe um perfil pra ele em uma empresa
+            $this->loadModel('Usergroupempresa');
+            $perfil = $this->Usergroupempresa->find('all', array(
+                'conditions' => array('user_id' => $this->Auth->user('id'), 
+                                      'empresa_id' => $empresa,
+            )));
+            CakeSession::write('nomeEmpresa', $perfil[0]['Empresa']['nomefantasia']);
+            CakeSession::write('empresa_id', $perfil[0]['Empresa']['id']);
+            $this->redirect(array('controller' => 'homes', 'action' => 'index'));
+        }
     }
     
     public function view($id = null) {

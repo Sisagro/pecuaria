@@ -49,11 +49,27 @@ class AppController extends Controller {
 //        $teste = $this->User->find('all');
 ////        debug($teste);
 ////        die();
-//        if ($this->request->params['controller'] == "users" || $this->request->params['controller'] == "homes") {
+//        if ($this->request->params['controller'] == "users") {
 //            return true;
 //        } else {
 //            return false;
 //        }
+    }
+    
+    function beforeRender(){
+        $dadosUser = $this->Session->read();
+        if (!empty($dadosUser['Auth']['User'])) {
+            $this->loadModel('Usergroupempresa');
+            $grupos = $this->Usergroupempresa->find('all', array(
+                'fields' => array('Group.id', 'Group.name'),
+                'conditions' => array('user_id' => $dadosUser['Auth']['User']['id'],
+                                      'empresa_id' => $dadosUser['empresa_id'],
+            )));
+            $this->loadModel('Group');
+            $this->Group->recursive = 1;
+            $menuCarregado = $this->Group->findById($grupos[0]['Group']['id']);
+            $this->set('menuCarregado' , $menuCarregado['Menu']);
+        }
     }
     
 }
