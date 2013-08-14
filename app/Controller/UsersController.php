@@ -33,6 +33,11 @@ class UsersController extends AppController {
         $this->set('users', $this->paginate());
     }
     
+    public function validaAcesso() {
+        
+        return false;
+    }
+    
     public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {

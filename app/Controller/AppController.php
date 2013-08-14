@@ -49,7 +49,7 @@ class AppController extends Controller {
 //        $teste = $this->User->find('all');
 ////        debug($teste);
 ////        die();
-//        if ($this->request->params['controller'] == "users") {
+//        if ($this->request->params['controller'] == "Homes" || $this->request->params['controller'] == "Users") {
 //            return true;
 //        } else {
 //            return false;
