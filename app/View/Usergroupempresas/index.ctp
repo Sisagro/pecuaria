@@ -7,9 +7,9 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
-        <th><?php echo $this->Paginator->sort('User.nome'); ?></th>
-        <th><?php echo $this->Paginator->sort('Group.name'); ?></th>
-        <th><?php echo $this->Paginator->sort('Empresa.nomefantasia'); ?></th>
+        <th><?php echo $this->Paginator->sort('Nome'); ?></th>
+        <th><?php echo $this->Paginator->sort('Grupo'); ?></th>
+        <th><?php echo $this->Paginator->sort('Empresa'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($usergroupempresas as $usergroupempresa): ?>

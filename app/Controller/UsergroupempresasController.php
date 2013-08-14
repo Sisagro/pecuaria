@@ -12,7 +12,7 @@ class UsergroupempresasController extends AppController {
     }
     
     public $paginate = array(
-        'order' => array('User.nome' => 'asc')
+        'order' => array('User.nome' => 'asc', 'Empresa.nomefantasia' => 'asc', 'Group.name' => 'asc')
     );
     
     /**

@@ -35,7 +35,7 @@ class UsersController extends AppController {
     
     public function validaAcesso() {
         
-        return false;
+        return true;
     }
     
     public function login() {
@@ -49,16 +49,15 @@ class UsersController extends AppController {
                 $this->loadModel('Usergroupempresa');
                 $empresas = $this->Usergroupempresa->find('all', array(
                     'fields' => array('Empresa.id', 'Empresa.nomefantasia'),
-                    'conditions' => array('user_id' => $this->User->id,
-                )));
-//                debug($empresas);
-//                die();
-                $perfil = $this->Usergroupempresa->find('all', array(
+                    'conditions' => array('user_id' => $this->User->id),
+                    'group' => array('Empresa.id', 'Empresa.nomefantasia')
+                ));
+                $empresaBoot = $this->Usergroupempresa->find('all', array(
                     'conditions' => array('user_id' => $this->User->id, 
                                           'empresaboot' => 1,
                 )));
-                CakeSession::write('nomeEmpresa', $perfil[0]['Empresa']['nomefantasia']);
-                CakeSession::write('empresa_id', $perfil[0]['Empresa']['id']);
+                CakeSession::write('nomeEmpresa', $empresaBoot[0]['Empresa']['nomefantasia']);
+                CakeSession::write('empresa_id', $empresaBoot[0]['Empresa']['id']);
                 CakeSession::write('empresasCombo', $empresas);
                 $this->redirect($this->Auth->redirect());
             } else {

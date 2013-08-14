@@ -43,32 +43,37 @@ class AppController extends Controller {
     );
     
     public function isAuthorized($user) {
-        
         return true;
-//        $this->loadModel('User');
-//        $teste = $this->User->find('all');
-////        debug($teste);
-////        die();
-//        if ($this->request->params['controller'] == "Homes" || $this->request->params['controller'] == "Users") {
-//            return true;
-//        } else {
-//            return false;
-//        }
     }
     
     function beforeRender(){
         $dadosUser = $this->Session->read();
         if (!empty($dadosUser['Auth']['User'])) {
             $this->loadModel('Usergroupempresa');
-            $grupos = $this->Usergroupempresa->find('all', array(
-                'fields' => array('Group.id', 'Group.name'),
-                'conditions' => array('user_id' => $dadosUser['Auth']['User']['id'],
+            $perfil = $this->Usergroupempresa->find('all', array(
+                'conditions' => array('user_id' => $dadosUser['Auth']['User']['id'], 
                                       'empresa_id' => $dadosUser['empresa_id'],
             )));
-            $this->loadModel('Group');
-            $this->Group->recursive = 1;
-            $menuCarregado = $this->Group->findById($grupos[0]['Group']['id']);
-            $this->set('menuCarregado' , $menuCarregado['Menu']);
+            $perfis = "";
+            for ($i=0; $i < count($perfil); $i++){
+                if ($i > 0) {
+                    $perfis = $perfis . ",";
+                }
+                $perfis = $perfis . $perfil[$i]['Group']['id'];
+            }
+            $this->loadModel('Groupmenu');
+            $this->Groupmenu->recursive = 1;
+            $menuCarregado = $this->Groupmenu->find('all', array('conditions' => array('Group.id IN (' . $perfis . ')',
+                                                                                    'Menu.mostramenu' => 1),
+                                                              'fields' => array('Menu.id', 
+                                                                                'Menu.nome', 
+                                                                                'Menu.ordem', 
+                                                                                'Menu.menu', 
+                                                                                'Menu.controller'),
+                                                              'order' => array('Menu.menu' => 'asc',
+                                                                               'Menu.ordem' => 'asc'),
+                          ));
+            $this->set('menuCarregado' , $menuCarregado);
         }
     }
     
