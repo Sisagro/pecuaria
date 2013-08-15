@@ -15,7 +15,7 @@ class GroupsController extends AppController {
     
     public function isAuthorized($user) {
         $Users = new UsersController;
-        return $Users->validaAcesso();
+        return $Users->validaAcesso($this->Session->read(), $this->request->controller);
         return parent::isAuthorized($user);
     }
     

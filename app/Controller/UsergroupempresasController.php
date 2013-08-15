@@ -2,6 +2,8 @@
 
 App::uses('AppController', 'Controller');
 
+App::import('Controller', 'Users');
+
 /**
  * Usergroupempresas Controller
  */
@@ -9,6 +11,12 @@ class UsergroupempresasController extends AppController {
         
     public function beforeFilter() {
         $this->set('title_for_layout', 'Perfil');
+    }
+    
+    public function isAuthorized($user) {
+        $Users = new UsersController;
+        return $Users->validaAcesso($this->Session->read(), $this->request->controller);
+        return parent::isAuthorized($user);
     }
     
     public $paginate = array(

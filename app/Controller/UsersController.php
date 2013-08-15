@@ -10,15 +10,13 @@ class UsersController extends AppController {
     public $name = 'Users';
     
     public function isAuthorized($user) {
-//        if ($this->request->params['controller'] == "users" || $this->request->params['controller'] == "groups") {
-//            return true;
-//        } else {
-//            return false;
-//        }
+        if ($this->action == 'login' || $this->action == 'logout' || $this->action == 'validaAcesso' || $this->action == 'trocaEmpresa') {
+            return true;
+        } else {
+            return $this->validaAcesso($this->Session->read(), $this->request->controller);
+        }
         return parent::isAuthorized($user);
     }
-    
-    
     
     public function beforeFilter() {
         $this->set('title_for_layout', 'Usuários');
@@ -33,9 +31,41 @@ class UsersController extends AppController {
         $this->set('users', $this->paginate());
     }
     
-    public function validaAcesso() {
-        
-        return true;
+    public function validaAcesso($user, $controller) {
+        if (!empty($user['Auth']['User'])) {
+            $this->loadModel('Usergroupempresa');
+            $perfil = $this->Usergroupempresa->find('all', array(
+                'conditions' => array('user_id' => $user['Auth']['User']['id'], 
+                                      'empresa_id' => $user['empresa_id'],
+            )));
+            $perfis = "";
+            for ($i=0; $i < count($perfil); $i++){
+                if ($i > 0) {
+                    $perfis = $perfis . ",";
+                }
+                $perfis = $perfis . $perfil[$i]['Group']['id'];
+            }
+            $this->loadModel('Groupmenu');
+            $this->Groupmenu->recursive = 1;
+            $menuCarregado = $this->Groupmenu->find('all', array('conditions' => array('Group.id IN (' . $perfis . ')',
+                                                                                       'Menu.controller' => $controller),
+                                                              'fields' => array('Menu.id', 
+                                                                                'Menu.nome', 
+                                                                                'Menu.ordem', 
+                                                                                'Menu.menu', 
+                                                                                'Menu.controller'),
+                                                              'order' => array('Menu.menu' => 'asc',
+                                                                               'Menu.ordem' => 'asc'),
+                          ));
+            if (count($menuCarregado) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return false;
     }
     
     public function login() {
@@ -50,7 +80,8 @@ class UsersController extends AppController {
                 $empresas = $this->Usergroupempresa->find('all', array(
                     'fields' => array('Empresa.id', 'Empresa.nomefantasia'),
                     'conditions' => array('user_id' => $this->User->id),
-                    'group' => array('Empresa.id', 'Empresa.nomefantasia')
+                    'order' => array('Empresa.nomefantasia'),
+                    'group' => array('Empresa.id', 'Empresa.nomefantasia'),
                 ));
                 $empresaBoot = $this->Usergroupempresa->find('all', array(
                     'conditions' => array('user_id' => $this->User->id, 

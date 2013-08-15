@@ -1,6 +1,8 @@
 <?php
 App::uses('AppController', 'Controller');
 
+App::import('Controller', 'Users');
+
 /**
  * Menus Controller
  */
@@ -10,6 +12,11 @@ class MenusController extends AppController {
         $this->set('title_for_layout', 'Menus');
     }
     
+    public function isAuthorized($user) {
+        $Users = new UsersController;
+        return $Users->validaAcesso($this->Session->read(), $this->request->controller);
+        return parent::isAuthorized($user);
+    }
     
     public $paginate = array(
         'order' => array('menu' => 'asc', 'ordem' => 'asc')
