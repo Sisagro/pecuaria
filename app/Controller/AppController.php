@@ -65,12 +65,12 @@ class AppController extends Controller {
             $this->Groupmenu->recursive = 1;
             $menuCarregado = $this->Groupmenu->find('all', array('conditions' => array('Group.id IN (' . $perfis . ')',
                                                                                     'Menu.mostramenu' => 1),
-                                                              'fields' => array('Menu.id', 
+                                                                 'fields' => array('Menu.id', 
                                                                                 'Menu.nome', 
                                                                                 'Menu.ordem', 
                                                                                 'Menu.menu', 
                                                                                 'Menu.controller'),
-                                                              'order' => array('Menu.menu' => 'asc',
+                                                                 'order' => array('Menu.menu' => 'asc',
                                                                                'Menu.ordem' => 'asc'),
                           ));
             $this->set('menuCarregado' , $menuCarregado);
