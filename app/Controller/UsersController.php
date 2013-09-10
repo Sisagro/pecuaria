@@ -89,6 +89,8 @@ class UsersController extends AppController {
                 )));
                 CakeSession::write('nomeEmpresa', $empresaBoot[0]['Empresa']['nomefantasia']);
                 CakeSession::write('empresa_id', $empresaBoot[0]['Empresa']['id']);
+                CakeSession::write('empresa_logo', $empresaBoot[0]['Empresa']['img_foto']);
+                CakeSession::write('empresa_tipologo', $empresaBoot[0]['Empresa']['tipoimagem']);
                 CakeSession::write('empresasCombo', $empresas);
                 $this->redirect($this->Auth->redirect());
             } else {
@@ -111,6 +113,8 @@ class UsersController extends AppController {
             )));
             CakeSession::write('nomeEmpresa', $perfil[0]['Empresa']['nomefantasia']);
             CakeSession::write('empresa_id', $perfil[0]['Empresa']['id']);
+            CakeSession::write('empresa_logo', $perfil[0]['Empresa']['img_foto']);
+            CakeSession::write('empresa_tipologo', $perfil[0]['Empresa']['tipoimagem']);
             $this->redirect(array('controller' => 'homes', 'action' => 'index'));
         }
     }

@@ -4,7 +4,20 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 ?>
 <br>
 <br>
+<?php 
+    if ($empresa['Empresa']['tipoimagem'] == "R") {
+        echo "<div id='imagemEmpresaRetrato'>";
+        echo $this->Html->image("empresas/" . $empresa['Empresa']['img_foto'], array("alt" => $empresa['Empresa']['nomefantasia'], "title" => $empresa['Empresa']['nomefantasia']));
+        echo "</div>";
+    } elseif ($empresa['Empresa']['tipoimagem'] == "P") { 
+        echo "<div id='imagemEmpresaPaisagem'>";
+        echo $this->Html->image("empresas/" . $empresa['Empresa']['img_foto'], array("alt" => $empresa['Empresa']['nomefantasia'], "title" => $empresa['Empresa']['nomefantasia']));
+        echo "</div>";
+    }
+    ?>
+    <br>
 <p>
+    
     Razão social: 
     <?php echo $empresa['Empresa']['razaosocial']; ?>
     <br>

@@ -32,11 +32,34 @@
             </div>
 
             <div id="topo">
-                <div id="topoleft">
-                    <?php
-                    echo $this->Html->link($this->Html->image("marca.png", array("alt" => "Marca Cliente", "title" => "Marca Cliente")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
+                <?php
+                if ($dadosUser['empresa_tipologo'] == "R") {
                     ?>
-                </div>
+                    <div id="topoleftr">
+                        <?php
+                        echo $this->Html->link($this->Html->image("empresas/" . $dadosUser['empresa_logo'], array("alt" => $dadosUser['nomeEmpresa'], "title" => $dadosUser['nomeEmpresa'])), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
+                        ?>
+                    </div>
+                    <?php
+                } elseif ($dadosUser['empresa_tipologo'] == "P") {
+                    ?>
+                    <div id="topoleftp">
+                        <?php
+                        echo $this->Html->link($this->Html->image("empresas/" . $dadosUser['empresa_logo'], array("alt" => $dadosUser['nomeEmpresa'], "title" => $dadosUser['nomeEmpresa'])), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
+                        ?>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div id="topoleftr">
+                        <?php
+                        echo $this->Html->link($this->Html->image("marca.png", array("alt" => "Marca Cliente", "title" => "Marca Cliente")), array('controller' => 'homes', 'action' => 'index'), array('escape' => false));
+                        ?>
+                    </div>
+                    <?php
+                }
+                ?>
+                
                 <div id="toporight">
                     <div id="internadomenu">
                         <br></br>
