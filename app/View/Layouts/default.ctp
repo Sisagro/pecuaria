@@ -24,7 +24,7 @@
         ?>
     </head>
     <body>
-
+        
         <div id="global">
 
             <div id="diferenca">
@@ -32,6 +32,7 @@
             </div>
 
             <div id="topo">
+                
                 <?php
                 if ($dadosUser['empresa_tipologo'] == "R") {
                     ?>
@@ -85,10 +86,10 @@
                 </div>
                 <br>
                 <?php echo $this->element('menu'); ?>
+                
             </div>
-
-
-        <div id="conteudo">
+            
+            <div id="conteudo">
             <div id="titulopagina">
                 <?php echo $title_for_layout; ?>
             </div>
