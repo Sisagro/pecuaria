@@ -55,9 +55,9 @@ class UsergroupempresasController extends AppController {
      */
     public function add() {
         
-        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => '8'),'order'=>array('nome' => 'asc')));
-        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => '8'),'order'=>array('name' => 'asc')));
-        $empresas = $this->Usergroupempresa->Empresa->find('list', array('fields'=>array('id','nomefantasia'),'conditions'=>array('holding_id' => '8'),'order'=>array('nomefantasia' => 'asc')));
+        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => '7'),'order'=>array('nome' => 'asc')));
+        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => '7'),'order'=>array('name' => 'asc')));
+        $empresas = $this->Usergroupempresa->Empresa->find('list', array('fields'=>array('id','nomefantasia'),'conditions'=>array('holding_id' => '7'),'order'=>array('nomefantasia' => 'asc')));
         $opcoes = array(1 => 'SIM', 2 => 'NAO');
         $this->set(compact('usuarios', 'grupos', 'empresas', 'opcoes'));
         
