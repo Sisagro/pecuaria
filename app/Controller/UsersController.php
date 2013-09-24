@@ -129,6 +129,9 @@ class UsersController extends AppController {
 
     public function add() {
         
+        $this->set('adminmaster', $this->Auth->user('adminmaster'));
+        $this->set('holding_id', $this->Auth->user('holding_id'));
+        
         $holdings = $this->User->Holding->find('list', array(
             'fields' => array('id', 'nome'),
             'order' => 'nome ASC'

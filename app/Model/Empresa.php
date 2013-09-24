@@ -83,11 +83,6 @@ class Empresa extends AppModel {
      * @var array
      */
     public $hasMany = array(
-        'Contato' => array(
-            'className' => 'Contato',
-            'foreignKey' => 'empresa_id',
-            'dependent' => false,
-        ),
         'Endereco' => array(
             'className' => 'Endereco',
             'foreignKey' => 'empresa_id',

@@ -61,10 +61,17 @@ class AppController extends Controller {
                 }
                 $perfis = $perfis . $perfil[$i]['Group']['id'];
             }
+            if ($dadosUser['Auth']['User']['adminmaster'] == 1) {
+                $arrayConditions = array('Group.id IN (' . $perfis . ')',
+                                         'Menu.mostramenu' => 1);
+            } else {
+                $arrayConditions = array('Group.id IN (' . $perfis . ')',
+                                         'Menu.mostramenu' => 1,
+                                         array('NOT'=> array('Menu.id'=>array(1,6))));
+            }
             $this->loadModel('Groupmenu');
             $this->Groupmenu->recursive = 1;
-            $menuCarregado = $this->Groupmenu->find('all', array('conditions' => array('Group.id IN (' . $perfis . ')',
-                                                                                    'Menu.mostramenu' => 1),
+            $menuCarregado = $this->Groupmenu->find('all', array('conditions' => $arrayConditions,
                                                                  'fields' => array('Menu.id', 
                                                                                 'Menu.nome', 
                                                                                 'Menu.ordem', 

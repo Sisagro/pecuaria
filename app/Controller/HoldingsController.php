@@ -36,7 +36,7 @@ class HoldingsController extends AppController {
 
     public function add() {
         
-        $menus = $this->Holding->Menu->find('list',array('fields'=>array('id','nome'),'order'=>array('Menu.menu' => 'asc','Menu.ordem' => 'asc')));
+        $menus = $this->Holding->Menu->find('list',array('fields'=>array('id','nome'), 'conditions' => array('NOT'=> array('id'=>array(1,6))),'order'=>array('Menu.menu' => 'asc','Menu.ordem' => 'asc')));
         $this->set(compact('menus'));
         
         if ($this->request->is('post')) {
