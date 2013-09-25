@@ -20,15 +20,23 @@ class UsersController extends AppController {
     
     public function beforeFilter() {
         $this->set('title_for_layout', 'Usuários');
+        
     }
+    
+    public $components = array('Paginator');
     
     public $paginate = array(
         'order' => array('nome' => 'asc')
     );
     
     public function index() {
+        $dadosUser = $this->Session->read();
         $this->User->recursive = 0;
-        $this->set('users', $this->paginate());
+        $this->Paginator->settings = array(
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('nome' => 'asc')
+        );
+        $this->set('users', $this->Paginator->paginate('User'));
     }
     
     public function validaAcesso($user, $controller) {
