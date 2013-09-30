@@ -26,7 +26,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('inscestadual', array('type' => 'hidden'));
     echo $this->Form->input('inscmunicipal', array('type' => 'hidden'));
     echo $this->Form->input('img_foto', array('type' => 'hidden'));
-    echo $this->Form->input('holding_id', array('type' => 'hidden', 'value' => '7'));
+    echo $this->Form->input('holding_id', array('type' => 'hidden', 'value' => $holding_id));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Adcionar')); ?>

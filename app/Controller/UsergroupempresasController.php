@@ -19,6 +19,8 @@ class UsergroupempresasController extends AppController {
         return parent::isAuthorized($user);
     }
     
+    public $components = array('Paginator');
+    
     public $paginate = array(
         'order' => array('User.nome' => 'asc', 'Empresa.nomefantasia' => 'asc', 'Group.name' => 'asc')
     );
@@ -29,8 +31,15 @@ class UsergroupempresasController extends AppController {
      * @return void
      */
     public function index() {
+        $dadosUser = $this->Session->read();
         $this->Usergroupempresa->recursive = 0;
-        $this->set('usergroupempresas', $this->paginate());
+        $this->Paginator->settings = array(
+            'conditions' => array('User.holding_id' => $dadosUser['Auth']['User']['holding_id'],
+                                  'Empresa.holding_id' => $dadosUser['Auth']['User']['holding_id'],
+                                  'Group.holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('User.nome' => 'asc', 'Empresa.nomefantasia' => 'asc', 'Group.name' => 'asc')
+        );
+        $this->set('usergroupempresas', $this->Paginator->paginate('Usergroupempresa'));
     }
     
     /**
@@ -44,8 +53,13 @@ class UsergroupempresasController extends AppController {
         if (!$this->Usergroupempresa->exists($id)) {
             throw new NotFoundException(__('Perfil inválido.'));
         }
-        $options = array('conditions' => array('Usergroupempresa.' . $this->Usergroupempresa->primaryKey => $id));
-        $this->set('usergroupempresa', $this->Usergroupempresa->find('first', $options));
+        $dadosUser = $this->Session->read();
+        $usergroupempresa = $this->Usergroupempresa->findById($id);
+        if ($usergroupempresa['User']['holding_id'] == $dadosUser['Auth']['User']['holding_id'] && $usergroupempresa['Empresa']['holding_id'] == $dadosUser['Auth']['User']['holding_id'] && $usergroupempresa['Group']['holding_id'] == $dadosUser['Auth']['User']['holding_id']) {
+            $this->set('usergroupempresa', $usergroupempresa);
+        } else {
+            throw new NotFoundException(__('Invalid group'));
+        }
     }
 
     /**
@@ -54,10 +68,10 @@ class UsergroupempresasController extends AppController {
      * @return void
      */
     public function add() {
-        
-        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => '7'),'order'=>array('nome' => 'asc')));
-        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => '7'),'order'=>array('name' => 'asc')));
-        $empresas = $this->Usergroupempresa->Empresa->find('list', array('fields'=>array('id','nomefantasia'),'conditions'=>array('holding_id' => '7'),'order'=>array('nomefantasia' => 'asc')));
+        $dadosUser = $this->Session->read();
+        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => $dadosUser['Auth']['User']['holding_id']),'order'=>array('nome' => 'asc')));
+        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => $dadosUser['Auth']['User']['holding_id']),'order'=>array('name' => 'asc')));
+        $empresas = $this->Usergroupempresa->Empresa->find('list', array('fields'=>array('id','nomefantasia'),'conditions'=>array('holding_id' => $dadosUser['Auth']['User']['holding_id']),'order'=>array('nomefantasia' => 'asc')));
         $opcoes = array(1 => 'SIM', 2 => 'NAO');
         $this->set(compact('usuarios', 'grupos', 'empresas', 'opcoes'));
         
@@ -84,11 +98,19 @@ class UsergroupempresasController extends AppController {
         if (!$this->Usergroupempresa->exists($id)) {
             throw new NotFoundException(__('Perfil inválido.'));
         }
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        
+        $usergroupempresa = $this->Usergroupempresa->read(null, $id);
+        if ($usergroupempresa['User']['holding_id'] != $holding_id || $usergroupempresa['Empresa']['holding_id'] != $holding_id && $usergroupempresa['Group']['holding_id'] != $holding_id) {
+            throw new NotFoundException(__('Perfil inválido.sss'));
+        }
+        
         $this->Usergroupempresa->id = $id;
         
-        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => '7'),'order'=>array('nome' => 'asc')));
-        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => '7'),'order'=>array('name' => 'asc')));
-        $empresas = $this->Usergroupempresa->Empresa->find('list', array('fields'=>array('id','nomefantasia'),'conditions'=>array('holding_id' => '7'),'order'=>array('nomefantasia' => 'asc')));
+        $usuarios = $this->Usergroupempresa->User->find('list', array('fields'=>array('id','nome'),'conditions'=>array('holding_id' => $holding_id),'order'=>array('nome' => 'asc')));
+        $grupos = $this->Usergroupempresa->Group->find('list', array('fields'=>array('id','name'),'conditions'=>array('holding_id' => $holding_id),'order'=>array('name' => 'asc')));
+        $empresas = $this->Usergroupempresa->Empresa->find('list', array('fields'=>array('id','nomefantasia'),'conditions'=>array('holding_id' => $holding_id),'order'=>array('nomefantasia' => 'asc')));
         $opcoes = array(1 => 'SIM', 2 => 'NAO');
         $this->set(compact('usuarios', 'grupos', 'empresas', 'opcoes'));
         
@@ -100,8 +122,7 @@ class UsergroupempresasController extends AppController {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $options = array('conditions' => array('Usergroupempresa.' . $this->Usergroupempresa->primaryKey => $id));
-            $this->request->data = $this->Usergroupempresa->find('first', $options);
+            $this->request->data = $usergroupempresa;
         }
     }
 

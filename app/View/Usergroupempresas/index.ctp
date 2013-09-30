@@ -8,16 +8,16 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
         <th><?php echo $this->Paginator->sort('Nome'); ?></th>
-        <th><?php echo $this->Paginator->sort('Grupo'); ?></th>
         <th><?php echo $this->Paginator->sort('Empresa'); ?></th>
+        <th><?php echo $this->Paginator->sort('Grupo'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($usergroupempresas as $usergroupempresa): ?>
         <tr>
             <td><?php echo h($usergroupempresa['Usergroupempresa']['id']); ?>&nbsp;</td>
             <td><?php echo h($usergroupempresa['User']['nome']); ?>&nbsp;</td>
-            <td><?php echo h($usergroupempresa['Group']['name']); ?>&nbsp;</td>
             <td><?php echo h($usergroupempresa['Empresa']['nomefantasia']); ?>&nbsp;</td>
+            <td><?php echo h($usergroupempresa['Group']['name']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php

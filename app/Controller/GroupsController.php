@@ -19,6 +19,8 @@ class GroupsController extends AppController {
         return parent::isAuthorized($user);
     }
     
+    public $components = array('Paginator');
+    
     public $paginate = array(
         'order' => array('name' => 'asc')
     );
@@ -29,8 +31,13 @@ class GroupsController extends AppController {
      * @return void
      */
     public function index() {
+        $dadosUser = $this->Session->read();
         $this->Group->recursive = 0;
-        $this->set('groups', $this->paginate());
+        $this->Paginator->settings = array(
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('name' => 'asc')
+        );
+        $this->set('groups', $this->Paginator->paginate('Group'));
     }
 
     /**
@@ -42,10 +49,15 @@ class GroupsController extends AppController {
      */
     public function view($id = null) {
         if (!$this->Group->exists($id)) {
-            throw new NotFoundException(__('Invalid group'));
+            throw new NotFoundException(__('Grupo inválido.'));
         }
-        $options = array('conditions' => array('Group.' . $this->Group->primaryKey => $id));
-        $this->set('group', $this->Group->find('first', $options));
+        $dadosUser = $this->Session->read();
+        $group = $this->Group->findById($id);
+        if ($group['Holding']['id'] == $dadosUser['Auth']['User']['holding_id']) {
+            $this->set('group', $group);
+        } else {
+            throw new NotFoundException(__('Grupo inválido.'));
+        }
     }
 
     /**
@@ -54,7 +66,8 @@ class GroupsController extends AppController {
      * @return void
      */
     public function add() {
-        $holding_id = 7;
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         $this->set(compact('holding_id'));
         
         $this->loadModel('Holdingmenu');
@@ -88,10 +101,16 @@ class GroupsController extends AppController {
     public function edit($id = null) {
         $this->Group->id = $id;
         if (!$this->Group->exists($id)) {
-            throw new NotFoundException(__('Invalid group'));
+            throw new NotFoundException(__('Grupo inválido.'));
         }
-        $holding_id = 7;
-        $this->set(compact('holding_id'));
+        
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        
+        $group = $this->Group->read(null, $id);
+        if ($group['Holding']['id'] != $dadosUser['Auth']['User']['holding_id']) {
+            throw new NotFoundException(__('Grupo inválido.'));
+        }
         
         $this->loadModel('Holdingmenu');
         $this->Holdingmenu->recursive = 1;
@@ -110,7 +129,7 @@ class GroupsController extends AppController {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $this->Group->read(null, $id);
+            $this->request->data = $group;
         }
     }
 
@@ -124,7 +143,7 @@ class GroupsController extends AppController {
     public function delete($id = null) {
         $this->Group->id = $id;
         if (!$this->Group->exists()) {
-            throw new NotFoundException(__('Invalid group'));
+            throw new NotFoundException(__('Grupo inválido.'));
         }
         $this->request->onlyAllow('post', 'delete');
         if ($this->Group->delete()) {

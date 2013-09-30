@@ -20,6 +20,8 @@ class EmpresasController extends AppController {
         return $Users->validaAcesso($this->Session->read(), $this->request->controller);
         return parent::isAuthorized($user);
     }
+    
+    public $components = array('Paginator');
 
     public $paginate = array(
         'order' => array('razaosocial' => 'asc')
@@ -31,8 +33,13 @@ class EmpresasController extends AppController {
      * @return void
      */
     public function index() {
+        $dadosUser = $this->Session->read();
         $this->Empresa->recursive = 0;
-        $this->set('empresas', $this->paginate());
+        $this->Paginator->settings = array(
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('razaosocial' => 'asc')
+        );
+        $this->set('empresas', $this->Paginator->paginate('Empresa'));
     }
 
     /**
@@ -44,10 +51,15 @@ class EmpresasController extends AppController {
      */
     public function view($id = null) {
         if (!$this->Empresa->exists($id)) {
-            throw new NotFoundException(__('Invalid empresa'));
+            throw new NotFoundException(__('Empresa inválida.'));
         }
-        $options = array('conditions' => array('Empresa.' . $this->Empresa->primaryKey => $id));
-        $this->set('empresa', $this->Empresa->find('first', $options));
+        $dadosUser = $this->Session->read();
+        $empresa = $this->Empresa->findById($id);
+        if ($empresa['Holding']['id'] == $dadosUser['Auth']['User']['holding_id']) {
+            $this->set('empresa', $empresa);
+        } else {
+            throw new NotFoundException(__('Empresa inválida.'));
+        }
     }
 
     /**
@@ -57,7 +69,9 @@ class EmpresasController extends AppController {
      */
     public function add() {
         
-        $holding_id = 7;
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        $this->set(compact('holding_id'));
         
         $opcoes = array(1 => 'MATRIZ', 2 => 'FILIAL');
         $this->set('opcoes', $opcoes);
@@ -115,7 +129,15 @@ class EmpresasController extends AppController {
     public function edit($id = null) {
         $this->Empresa->id = $id;
         if (!$this->Empresa->exists($id)) {
-            throw new NotFoundException(__('Invalid empresa'));
+            throw new NotFoundException(__('Empresa inválida.'));
+        }
+        
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        
+        $empresa = $this->Empresa->read(null, $id);
+        if ($empresa['Holding']['id'] != $dadosUser['Auth']['User']['holding_id']) {
+            throw new NotFoundException(__('Empresa inválida.'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -151,7 +173,7 @@ class EmpresasController extends AppController {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $this->Empresa->read(null, $id);
+            $this->request->data = $empresa;
         }
     }
 
