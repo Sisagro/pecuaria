@@ -20,7 +20,6 @@ class UsersController extends AppController {
     
     public function beforeFilter() {
         $this->set('title_for_layout', 'Usuários');
-        
     }
     
     public $components = array('Paginator');
@@ -32,10 +31,19 @@ class UsersController extends AppController {
     public function index() {
         $dadosUser = $this->Session->read();
         $this->User->recursive = 0;
-        $this->Paginator->settings = array(
-            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
-            'order' => array('nome' => 'asc')
-        );
+        if ($dadosUser['Auth']['User']['adminmaster'] == 1) {
+            $this->Paginator->settings = array(
+                'conditions' => array('OR' => array('adminmaster' => 1,
+                                                    'adminholding' => 1)),
+                'order' => array('Holding.nome' => 'asc',
+                                 'nome' => 'asc',)
+            );
+        } else {
+            $this->Paginator->settings = array(
+                'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+                'order' => array('nome' => 'asc')
+            );
+        }
         $this->set('users', $this->Paginator->paginate('User'));
     }
     
@@ -174,6 +182,9 @@ class UsersController extends AppController {
         $opcoes = array(1 => 'SIM', 2 => 'NÃO');
         $this->set('opcoes', $opcoes);
         
+        $this->set('adminmaster', $this->Auth->user('adminmaster'));
+        $this->set('holding_id', $this->Auth->user('holding_id'));
+        
         $holdings = $this->User->Holding->find('list', array(
             'fields' => array('id', 'nome'),
             'order' => 'nome ASC'
@@ -181,6 +192,7 @@ class UsersController extends AppController {
         $this->set(compact('holdings'));
         
         if ($this->request->is('post') || $this->request->is('put')) {
+            $this->request->data['User']['username'] = $this->request->data['User']['email'];
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash('Usuário alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
