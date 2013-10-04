@@ -21,17 +21,25 @@
                 <?php
                 $menu_1++;
             } elseif ($itemMenu['Menu']['menu'] === 2 && $menu_2 == 0) {
+                if ($menu_1 != 0) {
+                    ?>
+                        </ul>
+                    </li>
+                    <?php
+                }
                 ?>
-                    </ul>
-                </li>
                 <li><a href="#">Cadastros</a>
                     <ul>
                 <?php
                 $menu_2++;
             } elseif ($itemMenu['Menu']['menu'] === 3 && $menu_3 == 0) {
+                if ($menu_1 != 0 || $menu_2 != 0) {
+                    ?>
+                        </ul>
+                    </li>
+                    <?php
+                }
                 ?>
-                    </ul>
-                </li>
                 <li><a href="#">Produção</a>
                     <ul>
                 <?php

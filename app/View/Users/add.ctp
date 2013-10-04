@@ -12,13 +12,15 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('password');
     if ($adminmaster == 1) {
         echo $this->Form->input('holding_id', array ('type' => 'select','options' => $holdings, 'label' => 'Holding', 'empty' => ''));
-        echo $this->Form->input('adminmaster', array ('type' => 'select','options' => $opcoes, 'label' => 'Administrador master?', 'empty' => ''));
+        //echo $this->Form->input('adminmaster', array ('type' => 'select','options' => $opcoes, 'label' => 'Administrador master?', 'empty' => ''));
+        echo $this->Form->input('adminmaster', array('value' => 2, 'type' => 'hidden'));
         echo $this->Form->input('adminholding', array ('type' => 'select','options' => $opcoes, 'label' => 'Administrador da holding?', 'empty' => ''));
     } else {
         echo $this->Form->input('holding_id', array('value' => $holding_id, 'type' => 'hidden'));
         echo $this->Form->input('adminmaster', array('value' => 2, 'type' => 'hidden'));
         echo $this->Form->input('adminholding', array('value' => 2, 'type' => 'hidden'));
     }
+    
     echo $this->Form->input('username', array('type' => 'hidden'));
     ?>
 </fieldset>
