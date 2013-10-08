@@ -84,4 +84,15 @@ class AppController extends Controller {
         }
     }
     
+    public function appError($error) {
+        if ($error instanceof BadRequestException) {
+            $this->redirect(array('controller' => 'homes', 'action' => 'index'));
+        } elseif ($error instanceof NotFoundException) {
+            $this->Session->setFlash('Esse registro não existe ou você não tem permissões para acessá-lo.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('controller' => 'homes', 'action' => 'index'));
+        } else {
+            $this->redirect(array('controller' => 'homes', 'action' => 'index'));
+        }
+    }
+    
 }
