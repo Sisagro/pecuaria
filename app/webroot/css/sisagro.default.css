@@ -29,7 +29,7 @@ a:hover {
 p {
     font-size: 12px;
     color: #171F26;
-    line-height:200%;
+    line-height:180%;
 }
 
 
@@ -190,7 +190,7 @@ body {
 }
 
 #corpo img {
-    margin-top: 0px;
+    margin-top: 10px;
     margin-right: 6px;
 }
 
@@ -657,8 +657,7 @@ form .error-message {
 .mensagem_erro {
 	clear: both;
 	color: #fff;
-        width: 85%;
-        font-size: 120%;
+        font-size: 140%;
 	font-weight: none;
         font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	border: 1px solid rgba(0, 0, 0, 0.5);
@@ -744,7 +743,7 @@ p.error,
 }
 p.error {
 	font-family: Monaco, Consolas, Courier, monospace;
-	font-size: 120%;
+	font-size: 140%;
 	padding: 0.8em;
 	margin: 1em 0;
 }
@@ -755,7 +754,7 @@ p.error em {
 .notice {
 	color: #000;
 	display: block;
-	font-size: 120%;
+	font-size: 140%;
 	padding: 0.8em;
 	margin: 1em 0;
 }
