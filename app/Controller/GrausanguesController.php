@@ -18,16 +18,19 @@ class GrausanguesController extends AppController {
         return parent::isAuthorized($user);
     }
     
-    public $paginate = array(
-        'order' => array('descricao' => 'asc')
-    );
+    public $components = array('Paginator');
     
     /**
      * index method
      */
     public function index() {
+        $dadosUser = $this->Session->read();
         $this->Grausangue->recursive = 0;
-        $this->set('grausangues', $this->paginate());
+        $this->Paginator->settings = array(
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('descricao' => 'asc')
+        );
+        $this->set('grausangues', $this->Paginator->paginate('Grausangue'));
     }
 
     /**

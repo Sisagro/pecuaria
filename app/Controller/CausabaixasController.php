@@ -18,16 +18,19 @@ class CausabaixasController extends AppController {
         return parent::isAuthorized($user);
     }
     
-    public $paginate = array(
-        'order' => array('nome' => 'asc')
-    );
+    public $components = array('Paginator');
     
     /**
      * index method
      */
     public function index() {
+        $dadosUser = $this->Session->read();
         $this->Causabaixa->recursive = 0;
-        $this->set('causabaixas', $this->paginate());
+        $this->Paginator->settings = array(
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('descricao' => 'asc')
+        );
+        $this->set('causabaixas', $this->Paginator->paginate('Causabaixa'));
     }
 
     /**

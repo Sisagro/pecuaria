@@ -23,10 +23,6 @@ class EmpresasController extends AppController {
     
     public $components = array('Paginator');
 
-    public $paginate = array(
-        'order' => array('razaosocial' => 'asc')
-    );
-
     /**
      * index method
      *
