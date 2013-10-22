@@ -7,8 +7,8 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
-        <th><?php echo $this->Paginator->sort('descricao'); ?></th>
-        <th>abreviatura</th>
+        <th><?php echo $this->Paginator->sort('descricao', 'Descrição'); ?></th>
+        <th><?php echo $this->Paginator->sort('abreviatura'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($grausangues as $item): ?>
