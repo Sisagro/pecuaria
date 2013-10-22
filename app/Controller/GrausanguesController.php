@@ -49,8 +49,8 @@ class GrausanguesController extends AppController {
     public function add() {
         
         $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
-        $this->set(compact('empresa_id'));
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        $this->set(compact('holding_id'));
         
         if ($this->request->is('post')) {
             $this->Grausangue->create();
@@ -75,10 +75,10 @@ class GrausanguesController extends AppController {
         }
         
         $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         
         $grausangue = $this->Grausangue->read(null, $id);
-        if ($grausangue['Grausangue']['empresa_id'] != $empresa_id) {
+        if ($grausangue['Grausangue']['holding_id'] != $holding_id) {
             throw new NotFoundException(__('Grau de sangue inválida'));
         }
         

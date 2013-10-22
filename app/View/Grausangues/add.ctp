@@ -8,7 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('descricao', array('label' => 'Descrição', 'type' => 'text'));
     echo $this->Form->input('abreviatura', array('maxlength' => '5', 'type' => 'text'));
-    echo $this->Form->input('empresa_id', array('type' => 'hidden', 'value' => $empresa_id));
+    echo $this->Form->input('holding_id', array('type' => 'hidden', 'value' => $holding_id));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Adicionar')); ?>

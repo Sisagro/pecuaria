@@ -42,7 +42,17 @@ class Holding extends AppModel {
             'className' => 'Holdingmenu',
             'foreignKey' => 'holding_id',
             'dependent' => false,
-        )
+        ),
+        'Causabaixa' => array(
+            'className' => 'Caixabaixa',
+            'foreignKey' => 'holding_id',
+            'dependent' => false,
+        ),
+        'Grausangue' => array(
+            'className' => 'Grausangue',
+            'foreignKey' => 'holding_id',
+            'dependent' => false,
+        ),
     );
     
     /**

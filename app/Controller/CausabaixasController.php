@@ -49,8 +49,8 @@ class CausabaixasController extends AppController {
     public function add() {
         
         $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
-        $this->set(compact('empresa_id'));
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        $this->set(compact('holding_id'));
         
         if ($this->request->is('post')) {
             $this->Causabaixa->create();
@@ -75,10 +75,10 @@ class CausabaixasController extends AppController {
         }
         
         $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         
         $causabaixa = $this->Causabaixa->read(null, $id);
-        if ($causabaixa['Causabaixa']['empresa_id'] != $empresa_id) {
+        if ($causabaixa['Causabaixa']['holding_id'] != $holding_id) {
             throw new NotFoundException(__('Causa de baixa inválida'));
         }
         
