@@ -7,7 +7,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
-        <th><?php echo $this->Paginator->sort('nome'); ?></th>
+        <th><?php echo $this->Paginator->sort('descricao', 'Descrição'); ?></th>
         <th>Área potreiro</th>
         <th>Área lavoura</th>
         <th class="actions"><?php echo __('Ações'); ?></th>
@@ -15,7 +15,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     <?php foreach ($potreiros as $item): ?>
         <tr>
             <td><?php echo h($item['Potreiro']['id']); ?>&nbsp;</td>
-            <td><?php echo h($item['Potreiro']['nome']); ?>&nbsp;</td>
+            <td><?php echo h($item['Potreiro']['descricao']); ?>&nbsp;</td>
             <td><?php echo h($item['Potreiro']['area_potreiro']); ?>&nbsp;</td>
             <td><?php echo h($item['Potreiro']['area_lavoura']); ?>&nbsp;</td>
             <td>
