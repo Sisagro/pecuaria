@@ -18,16 +18,19 @@ class CausabaixasController extends AppController {
         return parent::isAuthorized($user);
     }
     
-    public $paginate = array(
-        'order' => array('nome' => 'asc')
-    );
+    public $components = array('Paginator');
     
     /**
      * index method
      */
     public function index() {
+        $dadosUser = $this->Session->read();
         $this->Causabaixa->recursive = 0;
-        $this->set('causabaixas', $this->paginate());
+        $this->Paginator->settings = array(
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('descricao' => 'asc')
+        );
+        $this->set('causabaixas', $this->Paginator->paginate('Causabaixa'));
     }
 
     /**
@@ -49,8 +52,8 @@ class CausabaixasController extends AppController {
     public function add() {
         
         $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
-        $this->set(compact('empresa_id'));
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        $this->set(compact('holding_id'));
         
         if ($this->request->is('post')) {
             $this->Causabaixa->create();
@@ -75,10 +78,10 @@ class CausabaixasController extends AppController {
         }
         
         $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         
         $causabaixa = $this->Causabaixa->read(null, $id);
-        if ($causabaixa['Causabaixa']['empresa_id'] != $empresa_id) {
+        if ($causabaixa['Causabaixa']['holding_id'] != $holding_id) {
             throw new NotFoundException(__('Causa de baixa inválida'));
         }
         

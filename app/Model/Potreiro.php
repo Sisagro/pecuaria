@@ -30,8 +30,8 @@ class Potreiro extends AppModel {
                 'rule' => array('notempty'),
             ),
             'maximo' => array(
-                'rule'    => array('maxLength', '10'),
-                'message' => 'Máximo 9.999.999.999',
+                'rule'    => array('maxLength', '14'),
+                'message' => 'Máximo 9.999.999.999,0000',
             )
         ),
         'area_lavoura' => array(
@@ -40,8 +40,8 @@ class Potreiro extends AppModel {
                 'rule' => array('notempty'),
             ),
             'maximo' => array(
-                'rule'    => array('maxLength', '10'),
-                'message' => 'Máximo 9.999.999.999',
+                'rule'    => array('maxLength', '14'),
+                'message' => 'Máximo 9.999.999.999,0000',
             )
             
         )

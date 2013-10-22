@@ -19,7 +19,7 @@ class Causabaixa extends AppModel {
                 'rule' => array('notempty'),
             ),
         ),
-        'empresa_id' => array(
+        'holding_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
             ),
@@ -32,9 +32,9 @@ class Causabaixa extends AppModel {
      * @var array
      */
     public $belongsTo = array(
-        'Empresa' => array(
-            'className' => 'Empresa',
-            'foreignKey' => 'empresa_id',
+        'Holding' => array(
+            'className' => 'Holding',
+            'foreignKey' => 'holding_id',
             'conditions' => '',
             'fields' => '',
             'order' => ''

@@ -7,13 +7,13 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
-        <th><?php echo $this->Paginator->sort('nome'); ?></th>
+        <th><?php echo $this->Paginator->sort('descricao', 'Descrição'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($causabaixas as $item): ?>
         <tr>
             <td><?php echo h($item['Causabaixa']['id']); ?>&nbsp;</td>
-            <td><?php echo h($item['Causabaixa']['nome']); ?>&nbsp;</td>
+            <td><?php echo h($item['Causabaixa']['descricao']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php

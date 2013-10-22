@@ -6,6 +6,6 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <p>
 Nome: 
-<?php echo $causabaixa['Causabaixa']['nome']; ?>
+<?php echo $causabaixa['Causabaixa']['descricao']; ?>
 <br>
 </p>

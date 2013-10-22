@@ -93,18 +93,8 @@ class Empresa extends AppModel {
             'foreignKey' => 'empresa_id',
             'dependent' => false,
         ),
-        'Causabaixa' => array(
-            'className' => 'Caixabaixa',
-            'foreignKey' => 'empresa_id',
-            'dependent' => false,
-        ),
         'Potreiro' => array(
             'className' => 'Potreiro',
-            'foreignKey' => 'empresa_id',
-            'dependent' => false,
-        ),
-        'Grausangue' => array(
-            'className' => 'Grausangue',
             'foreignKey' => 'empresa_id',
             'dependent' => false,
         ),

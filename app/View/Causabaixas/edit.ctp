@@ -6,7 +6,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <?php echo $this->Form->create('Causabaixa'); ?>
 <fieldset>
     <?php
-    echo $this->Form->input('nome');
+    echo $this->Form->input('descricao');
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Editar')); ?>
