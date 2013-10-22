@@ -19,7 +19,7 @@ class PotreirosController extends AppController {
     }
     
     public $paginate = array(
-        'order' => array('nome' => 'asc')
+        'order' => array('descricao' => 'asc')
     );
     
     /**

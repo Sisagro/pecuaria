@@ -6,7 +6,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <p>
 Nome: 
-<?php echo $potreiro['Potreiro']['nome']; ?>
+<?php echo $potreiro['Potreiro']['descricao']; ?>
 <br>
 Área potreiro: 
 <?php echo $potreiro['Potreiro']['area_potreiro']; ?>

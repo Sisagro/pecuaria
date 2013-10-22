@@ -14,7 +14,7 @@ class Potreiro extends AppModel {
      * @var array
      */
     public $validate = array(
-        'nome' => array(
+        'descricao' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
             ),

@@ -6,7 +6,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <?php echo $this->Form->create('Potreiro'); ?>
 <fieldset>
     <?php
-    echo $this->Form->input('nome');
+    echo $this->Form->input('descricao');
     echo $this->Form->input('area_potreiro', array('label' => 'Área potreiro'));
     echo $this->Form->input('area_lavoura', array('label' => 'Área lavoura'));
     ?>
