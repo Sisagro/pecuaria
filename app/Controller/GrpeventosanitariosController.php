@@ -9,7 +9,7 @@ App::import('Controller', 'Users');
 class GrpeventosanitariosController extends AppController {
     
     function beforeFilter() {
-        $this->set('title_for_layout', 'Grupo de evento sanitário');
+        $this->set('title_for_layout', 'Evento sanitário');
     }
     
     public function isAuthorized($user) {

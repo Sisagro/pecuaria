@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 App::import('Controller', 'Users');
 
 /**
- * Menus Controller
+ * Especie Controller
  */
 class EspeciesController extends AppController {
     
@@ -24,6 +24,7 @@ class EspeciesController extends AppController {
      * index method
      */
     public function index() {
+        $this->loadModel('Especie');
         $dadosUser = $this->Session->read();
         $this->Especie->recursive = 0;
         $this->Paginator->settings = array(
