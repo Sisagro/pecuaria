@@ -8,6 +8,7 @@ App::import('Controller', 'Users');
  */
 class CausabaixasController extends AppController {
     
+    
     function beforeFilter() {
         $this->set('title_for_layout', 'Causas de baixa');
     }
