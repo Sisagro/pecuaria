@@ -14,13 +14,13 @@
         
         foreach ($menuCarregado as $itemMenu):
             
-            if ($itemMenu['Menu']['menu'] === 1 && $menu_1 == 0) {
+            if ($itemMenu['Menu']['menu'] == 1 && $menu_1 == 0) {
                 ?>
                 <li><a href="#">Administrativo</a>
                     <ul>
                 <?php
                 $menu_1++;
-            } elseif ($itemMenu['Menu']['menu'] === 2 && $menu_2 == 0) {
+            } elseif ($itemMenu['Menu']['menu'] == 2 && $menu_2 == 0) {
                 if ($menu_1 != 0) {
                     ?>
                         </ul>
@@ -32,7 +32,7 @@
                     <ul>
                 <?php
                 $menu_2++;
-            } elseif ($itemMenu['Menu']['menu'] === 3 && $menu_3 == 0) {
+            } elseif ($itemMenu['Menu']['menu'] == 3 && $menu_3 == 0) {
                 if ($menu_1 != 0 || $menu_2 != 0) {
                     ?>
                         </ul>
@@ -44,7 +44,7 @@
                     <ul>
                 <?php
                 $menu_3++;
-            } elseif ($itemMenu['Menu']['menu'] === 4 && $menu_4 == 0) {
+            } elseif ($itemMenu['Menu']['menu'] == 4 && $menu_4 == 0) {
                 ?>
                     </ul>
                 </li>
@@ -52,7 +52,7 @@
                     <ul>
                 <?php
                 $menu_4++;
-            } elseif ($itemMenu['Menu']['menu'] === 5 && $menu_5 == 0) {
+            } elseif ($itemMenu['Menu']['menu'] == 5 && $menu_5 == 0) {
                 ?>
                     </ul>
                 </li>
@@ -60,7 +60,7 @@
                     <ul>
                 <?php
                 $menu_5++;
-            } elseif ($itemMenu['Menu']['menu'] === 6 && $menu_6 == 0) {
+            } elseif ($itemMenu['Menu']['menu'] == 6 && $menu_6 == 0) {
                 ?>
                     </ul>
                 </li>
