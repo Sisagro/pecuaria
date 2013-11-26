@@ -18,16 +18,22 @@ class PotreirosController extends AppController {
         return parent::isAuthorized($user);
     }
     
-    public $paginate = array(
-        'order' => array('descricao' => 'asc')
-    );
-    
     /**
      * index method
      */
     public function index() {
+        
+        $dadosUser = $this->Session->read();
         $this->Potreiro->recursive = 0;
-        $this->set('potreiros', $this->paginate());
+        $this->Paginator->settings = array(
+            'conditions' => array('empresa_id' => $dadosUser['empresa_id']),
+            'order' => array('descricao' => 'asc')
+        );
+        $this->set('potreiros', $this->Paginator->paginate('Potreiro'));
+        
+        
+//        $this->Potreiro->recursive = 0;
+//        $this->set('potreiros', $this->paginate());
     }
 
     /**
@@ -79,7 +85,7 @@ class PotreirosController extends AppController {
         
         $potreiro = $this->Potreiro->read(null, $id);
         if ($potreiro['Potreiro']['empresa_id'] != $empresa_id) {
-            throw new NotFoundException(__('Causa de baixa inválida'));
+            throw new NotFoundException(__('Potreiro inválido'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -104,6 +110,15 @@ class PotreirosController extends AppController {
         if (!$this->Potreiro->exists()) {
             throw new NotFoundException(__('Potreiro inválido'));
         }
+        
+        $dadosUser = $this->Session->read();
+        $empresa_id = $dadosUser['empresa_id'];
+        
+        $potreiro = $this->Potreiro->read(null, $id);
+        if ($potreiro['Potreiro']['empresa_id'] != $empresa_id) {
+            throw new NotFoundException(__('Potreiro inválido'));
+        }
+        
         $this->request->onlyAllow('post', 'delete');
         if ($this->Potreiro->delete()) {
             $this->Session->setFlash('Potreiro deletado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));

@@ -16,7 +16,7 @@
         echo $this->Html->css('sisagro.default');
         echo $this->Html->css('jquery-ui-1.10.3.custom.min');
 
-        echo $this->Html->script(array('jquery.js', 'gerais.js', 'jquery-ui.js', 'jquery.maskedinput.min.js'));
+        echo $this->Html->script(array('jquery.js', 'gerais.js', 'jquery-ui.js', 'jquery.maskedinput.min.js', 'jquery.maskMoney.js'));
 
         echo $this->fetch('meta');
         echo $this->fetch('css');

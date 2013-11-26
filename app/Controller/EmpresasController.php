@@ -20,8 +20,6 @@ class EmpresasController extends AppController {
         return $Users->validaAcesso($this->Session->read(), $this->request->controller);
         return parent::isAuthorized($user);
     }
-    
-    public $components = array('Paginator');
 
     /**
      * index method
