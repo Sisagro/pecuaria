@@ -108,7 +108,7 @@ class UsersController extends AppController {
                 CakeSession::write('empresa_logo', $empresaBoot[0]['Empresa']['img_foto']);
                 CakeSession::write('empresa_tipologo', $empresaBoot[0]['Empresa']['tipoimagem']);
                 CakeSession::write('empresasCombo', $empresas);
-                $this->redirect($this->Auth->redirect());
+                $this->redirect(array('controller'=>'homes','action'=>'index'));
             } else {
                 $this->Session->setFlash('Usuário ou senha incorretos.', 'default', array('class' => 'mensagem_erro'));
             }
