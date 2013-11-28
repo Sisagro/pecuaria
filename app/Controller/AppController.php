@@ -38,7 +38,7 @@ class AppController extends Controller {
         'Paginator',
         'Auth' => array(
             'loginRedirect' => array('controller' => 'homes', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+            'logoutRedirect' => 'http://www.sisagro.com',
             'authorize' => array('Controller')
         )
     );

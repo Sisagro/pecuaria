@@ -116,6 +116,7 @@ class UsersController extends AppController {
     }
     
     public function logout() {
+        //$this->redirect("http://www.sisagro.com");
         $this->redirect($this->Auth->logout());
     }
     
