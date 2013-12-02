@@ -59,7 +59,7 @@ class Potreiro extends AppModel {
         return true;
     }
     
-    public function afterFind($dados) {
+    public function afterFind($dados, $primary = false) {
         foreach ($dados as $key => $value) {
             if (!empty($value["Potreiro"]["area_potreiro"])) {
                 $dados[$key]["Potreiro"]["area_potreiro"] = str_replace(".", ",", $value["Potreiro"]["area_potreiro"]);
