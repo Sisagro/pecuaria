@@ -38,6 +38,7 @@ class Potreiro extends AppModel {
             'numeric' => array(
                 'rule' => array('numeric'),
                 'rule' => array('notempty'),
+                'message' => 'É necessário informar um valor numérico.',
             ),
             'maximo' => array(
                 'rule'    => array('maxLength', '14'),

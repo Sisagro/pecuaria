@@ -8,7 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('descricao');
     echo $this->Form->input('area_potreiro', array('id' => 'potreiro',  'type' => 'text', 'label' => 'Área potreiro', 'maxlength' => '10'));
-    echo $this->Form->input('area_lavoura', array('id' => 'lavoura',  'type' => 'text', 'label' => 'Área lavoura', 'maxlength' => '10'));
+    echo $this->Form->input('area_lavoura', array('id' => 'lavoura',  'type' => 'text', 'label' => 'Área lavoura', 'maxlength' => '10', 'required' => 'false'));
     echo $this->Form->input('empresa_id', array('type' => 'hidden', 'value' => $empresa_id));
     ?>
 </fieldset>
