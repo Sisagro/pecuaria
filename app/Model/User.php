@@ -36,8 +36,27 @@ class User extends AppModel {
             ),
         ),
         'password' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
+            'vazio' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Este campo não pode ser vazio.'
+            ),
+        ),
+        'new_password' => array(
+            'vazio' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Este campo não pode ser vazio.'
+            ),
+        ),
+        'old_password' => array(
+            'vazio' => array(
+                'rule' => array('validaSenhaAtual'),
+                'message' => 'Senha diferente da senha atual.'
+            ),
+        ),
+        'confirm_password' => array(
+            'vazio' => array(
+                'rule' => array('validaCofirmacao'),
+                'message' => 'Confirmação da senha não confere com a senha digitada.'
             ),
         ),
         'nome' => array(
@@ -66,6 +85,35 @@ class User extends AppModel {
             ),
         ),
     );
+    
+    /**
+     * Regras de validação
+     *
+     */
+    public function validaSenhaAtual($check) {
+        
+        $this->recursive = -1;
+        $user = $this->find('first', array(
+            'conditions' => array(
+                'User.id' => AuthComponent::user('id'),
+            ),
+            'fields' => array('password')
+        ));
+        
+        $storedHash = $user['User']['password'];
+        $novaSenha = AuthComponent::password($this->data['User']['old_password']);
+        $correct = $storedHash == $novaSenha;
+        return $correct;
+    }
+    
+    public function validaCofirmacao($check) {
+        if ($this->data['User']['new_password'] == $this->data['User']['confirm_password']) {
+            return true;
+        }
+        return false;
+    }
+    
+    
 
     /**
      * belongsTo associations

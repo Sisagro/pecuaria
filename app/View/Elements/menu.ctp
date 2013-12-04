@@ -40,7 +40,7 @@
                     <?php
                 }
                 ?>
-                <li><a href="#">Produção</a>
+                <li><a href="#">Manejo</a>
                     <ul>
                 <?php
                 $menu_3++;
@@ -48,7 +48,7 @@
                 ?>
                     </ul>
                 </li>
-                <li><a href="#">Reprodução</a>
+                <li><a href="#">Produção</a>
                     <ul>
                 <?php
                 $menu_4++;

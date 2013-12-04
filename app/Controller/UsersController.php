@@ -22,12 +22,6 @@ class UsersController extends AppController {
         $this->set('title_for_layout', 'Usuários');
     }
     
-    public $components = array('Paginator');
-    
-    public $paginate = array(
-        'order' => array('nome' => 'asc')
-    );
-    
     public function index() {
         $dadosUser = $this->Session->read();
         $this->User->recursive = 0;
@@ -218,5 +212,45 @@ class UsersController extends AppController {
         $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
         $this->redirect(array('action' => 'index'));
     }
+    
+    public function alteraSenha() {
+        
+        $this->set('title_for_layout', 'Altera senha');
+        
+        $dadosUser = $this->Session->read();
+        $id = $dadosUser['Auth']['User']['id'];
+        
+        $user = $this->User->findById($id);
+        if (!$this->request->data) {
+            $this->request->data = $user;
+            unset($this->request->data['User']['password']);
+        }
+        
+        
+        if ($this->request->is('post') || $this->request->is('put')) {
+            
+            $this->User->validator()->remove('nome');
+            $this->User->validator()->remove('sobrenome');
+            $this->User->validator()->remove('holding_id');
+            $this->User->validator()->remove('adminmaster');
+            $this->User->validator()->remove('adminholding');
+            $this->User->validator()->remove('email');
+            $this->User->validator()->remove('username');
+            $this->User->validator()->remove('password');
+            
+            if ($this->User->saveAll($this->request->data, array('validate' => 'only'))) {
+                $this->User->id = $id;
+                if ($this->User->saveField('password', $this->request->data['User']['new_password'])) {
+                    $this->Session->setFlash('Senha alterada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
+                    $this->redirect(array('action' => 'alteraSenha'));
+                } else {
+                    $this->Session->setFlash('Não foi possível editar o registro. Por favor, tente novamente..', 'default', array('class' => 'mensagem_erro'));
+                }
+            }
+            
+        }
+        
+    }
+    
 
 }

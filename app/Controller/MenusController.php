@@ -19,7 +19,7 @@ class MenusController extends AppController {
     }
     
     public $paginate = array(
-        'order' => array('menu' => 'asc', 'ordem' => 'asc')
+        'order' => array('Menu.menu' => 'asc', 'Menu.ordem' => 'asc')
     );
     
     /**
@@ -27,7 +27,10 @@ class MenusController extends AppController {
      */
     public function index() {
         $this->Menu->recursive = 0;
-        $this->set('menus', $this->paginate());
+        $this->Paginator->settings = array(
+            'order' => array('menu' => 'asc', 'ordem' => 'asc')
+        );
+        $this->set('menus', $this->Paginator->paginate('Menu'));
     }
 
     /**

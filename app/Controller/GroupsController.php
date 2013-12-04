@@ -72,7 +72,7 @@ class GroupsController extends AppController {
         
         $this->loadModel('Holdingmenu');
         $this->Holdingmenu->recursive = 1;
-        $holdingmenu = $this->Holdingmenu->find('all', array('fields'=>array('Menu.id','Menu.nome'),'conditions'=>array('holding_id'=>$holding_id)));
+        $holdingmenu = $this->Holdingmenu->find('all', array('fields'=>array('Menu.id','Menu.nome'),'conditions'=>array('holding_id'=>$holding_id), 'order' => array('Menu.menu' => 'asc', 'Menu.ordem' => 'asc')));
         $menus = array();
         foreach($holdingmenu as $key => $subcat){
             $menus = $menus + array($subcat['Menu']['id'] => $subcat['Menu']['nome']);
@@ -114,7 +114,7 @@ class GroupsController extends AppController {
         
         $this->loadModel('Holdingmenu');
         $this->Holdingmenu->recursive = 1;
-        $holdingmenu = $this->Holdingmenu->find('all', array('fields'=>array('Menu.id','Menu.nome'),'conditions'=>array('holding_id'=>$holding_id)));
+        $holdingmenu = $this->Holdingmenu->find('all', array('fields'=>array('Menu.id','Menu.nome'),'conditions'=>array('holding_id'=>$holding_id), 'order' => array('Menu.menu' => 'asc', 'Menu.ordem' => 'asc')));
         $menus = array();
         foreach($holdingmenu as $key => $subcat){
             $menus = $menus + array($subcat['Menu']['id'] => $subcat['Menu']['nome']);
