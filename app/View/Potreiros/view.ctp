@@ -5,13 +5,13 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-Nome: 
+<strong> Descrição: </strong>
 <?php echo $potreiro['Potreiro']['descricao']; ?>
 <br>
-Área potreiro: 
+<strong> Área potreiro: </strong>
 <?php echo $potreiro['Potreiro']['area_potreiro']; ?>
 <br>
-Área lavoura: 
+<strong> Área lavoura: </strong>
 <?php echo $potreiro['Potreiro']['area_lavoura']; ?>
 <br>
 </p>

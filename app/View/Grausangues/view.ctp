@@ -5,10 +5,10 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-Descrição: 
+<strong> Descrição: </strong>
 <?php echo $grausangue['Grausangue']['descricao']; ?>
 <br>
-Abreviatura: 
+<strong> Abreviatura: </strong>
 <?php echo $grausangue['Grausangue']['abreviatura']; ?>
 <br>
 </p>

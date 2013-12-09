@@ -5,16 +5,16 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-Usuário: 
+<strong> Usuário: </strong>
 <?php echo $usergroupempresa['User']['nome']; ?>
 <br>
-Empresa: 
+<strong> Empresa: </strong>
 <?php echo $usergroupempresa['Empresa']['nomefantasia']; ?>
 <br>
-Grupo:
+<strong> Grupo: </strong>
 <?php echo $usergroupempresa['Group']['name']; ?>
 <br>
-Empresa boot:
+<strong> Empresa boot: </strong>
 <?php if ($usergroupempresa['Usergroupempresa']['empresaboot'] == "1") { echo "SIM"; } else { echo "NAO"; }; ?>
 <br>
 

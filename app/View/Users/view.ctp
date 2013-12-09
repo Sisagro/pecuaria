@@ -5,21 +5,21 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-Nome: 
+<strong> Nome: </strong>
 <?php echo $user['User']['nome'] . " " . $user['User']['sobrenome']; ?>
 <br>
-E-mail: 
+<strong> E-mail: </strong>
 <?php echo $user['User']['email']; ?>
 <br>
-Holding:
+<strong> Holding: </strong>
 <?php echo $this->Html->link($user['Holding']['nome'], array('controller' => 'holdings', 'action' => 'view', $user['Holding']['id'])); ?>
 <br>
-Último acesso:
+<strong> Último acesso: </strong>
 <?php echo date('d/m/Y', strtotime($user['User']['ultimoacesso'])); ?>
 <br>
-Última modifiação: 
+<strong> Última modifiação: </strong>
 <?php echo date('d/m/Y', strtotime($user['User']['modified'])); ?>
 <br>
-Criação: 
+<strong> Criação: </strong>
 <?php echo date('d/m/Y', strtotime($user['User']['created'])); ?>
 </p>
