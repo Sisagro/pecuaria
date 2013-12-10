@@ -40,6 +40,18 @@ class Grpeventosanitario extends AppModel {
             'order' => ''
         )
     );
+    
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Medicamento' => array(
+            'className' => 'Medicamento',
+            'foreignKey' => 'grpeventosanitario_id',
+            'dependent' => false,
+        ),
+    );
 
 
 }

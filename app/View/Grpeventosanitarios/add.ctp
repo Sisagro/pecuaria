@@ -6,7 +6,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <?php echo $this->Form->create('Grpeventosanitario'); ?>
 <fieldset>
     <?php
-    echo $this->Form->input('descricao');
+    echo $this->Form->input('descricao', array('label' => 'Descrição'));
     echo $this->Form->input('holding_id', array('type' => 'hidden', 'value' => $holding_id));
     ?>
 </fieldset>

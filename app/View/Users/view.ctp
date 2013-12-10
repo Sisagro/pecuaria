@@ -12,7 +12,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <?php echo $user['User']['email']; ?>
 <br>
 <strong> Holding: </strong>
-<?php echo $this->Html->link($user['Holding']['nome'], array('controller' => 'holdings', 'action' => 'view', $user['Holding']['id'])); ?>
+<?php echo $user['Holding']['nome']; ?>
 <br>
 <strong> Último acesso: </strong>
 <?php echo date('d/m/Y', strtotime($user['User']['ultimoacesso'])); ?>

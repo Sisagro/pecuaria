@@ -9,7 +9,7 @@ App::import('Controller', 'Users');
 class GrpeventosanitariosController extends AppController {
     
     function beforeFilter() {
-        $this->set('title_for_layout', 'Evento sanitário');
+        $this->set('title_for_layout', 'Eventos sanitários');
     }
     
     public function isAuthorized($user) {
@@ -38,11 +38,15 @@ class GrpeventosanitariosController extends AppController {
      */
     public function view($id = null) {
         
-        if (!$this->Grpeventosanitario->exists($id)) {
-            throw new NotFoundException(__('Grupo de evento sanitário inválido'));
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        
+        $grpeventosanitario = $this->Grpeventosanitario->read(null, $id);
+        if ($grpeventosanitario['Grpeventosanitario']['holding_id'] != $holding_id) {
+            throw new NotFoundException(__('Causa de baixa inválida'));
         }
-        $options = array('conditions' => array('Grpeventosanitario.' . $this->Grpeventosanitario->primaryKey => $id));
-        $this->set('grpeventosanitario', $this->Grpeventosanitario->find('first', $options));
+        
+        $this->set('grpeventosanitario', $grpeventosanitario);
         
     }
 
@@ -71,11 +75,6 @@ class GrpeventosanitariosController extends AppController {
      * edit method
      */
     public function edit($id = null) {
-        
-        $this->Grpeventosanitario->id = $id;
-        if (!$this->Grpeventosanitario->exists($id)) {
-            throw new NotFoundException(__('Grupo de evento sanitário inválido'));
-        }
         
         $dadosUser = $this->Session->read();
         $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
