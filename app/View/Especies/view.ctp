@@ -5,7 +5,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-Nome: 
+<strong> Descrição: </strong>
 <?php echo $especie['Especie']['descricao']; ?>
 <br>
 </p>

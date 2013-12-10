@@ -5,18 +5,18 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-    Grupo: 
+    <strong> Grupo: </strong>
     <?php echo $group['Group']['name']; ?>
     <br>
-    Última modifiação: 
+    <strong> Última modifiação: </strong>
     <?php echo date('d/m/Y', strtotime($group['Group']['modified'])); ?>
     <br>
-    Criação: 
+    <strong> Criação: </strong>
     <?php echo date('d/m/Y', strtotime($group['Group']['created'])); ?>
     <br>
     <?php $i = 0; ?>
 
-    Menus: <br>
+    <strong> Menus: </strong> <br>
 
     <?php foreach ($group['Menu'] as $menu): ?>
 

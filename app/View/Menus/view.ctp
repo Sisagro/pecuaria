@@ -5,24 +5,24 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-Menu: 
+<strong> Menu: </strong>
 <?php echo $menu['Menu']['nome']; ?>
 <br>
-Controller: 
+<strong> Controller: </strong>
 <?php echo $menu['Menu']['controller']; ?>
 <br>
 <?php
 if ($menu['Menu']['mostramenu'] == 1) {
     ?>
-    Mostra no menu: SIM
+    <strong> Mostra no menu: </strong> SIM
     <br>
-    Número do menu: <?php echo $menu['Menu']['menu']; ?>
+    <strong> Número do menu: </strong> <?php echo $menu['Menu']['menu']; ?>
     <br>
-    Ordem do menu: <?php echo $menu['Menu']['ordem']; ?>
+    <strong> Ordem do menu: </strong> <?php echo $menu['Menu']['ordem']; ?>
     <?php
 } else {
     ?>
-    Mostra no menu: NÃO
+    <strong> Mostra no menu: </strong> NÃO
     <?php
 }
 ?>

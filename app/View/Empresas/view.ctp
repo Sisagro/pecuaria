@@ -18,37 +18,37 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
     <br>
 <p>
     
-    Razão social: 
+    <strong> Razão social: </strong>
     <?php echo $empresa['Empresa']['razaosocial']; ?>
     <br>
-    Nome fantasia: 
+    <strong> Nome fantasia: </strong>
     <?php echo $empresa['Empresa']['nomefantasia']; ?>
     <br>
-    CNPJ: 
+    <strong> CNPJ: </strong>
     <?php echo substr($empresa['Empresa']['cnpj'],0,3) . "." . 
                substr($empresa['Empresa']['cnpj'],3,3) . "." . 
                substr($empresa['Empresa']['cnpj'],6,3) . "/" . 
                substr($empresa['Empresa']['cnpj'],9,4) . "-" . 
                substr($empresa['Empresa']['cnpj'],13,2); ?>
     <br>
-    Inscrição estadual:
+    <strong> Inscrição estadual: </strong>
     <?php echo substr($empresa['Empresa']['inscestadual'],0,3) . "/" . 
                substr($empresa['Empresa']['inscestadual'],3,7); ?>
     <br>
-    Inscrição municipal:
+    <strong> Inscrição municipal: </strong>
     <?php echo substr($empresa['Empresa']['inscmunicipal'],0,3) . "/" . 
                substr($empresa['Empresa']['inscmunicipal'],3,7); ?>
     <br>
-    E-mail: 
+    <strong> E-mail: </strong>
     <?php echo $empresa['Empresa']['email']; ?>
     <br>
-    Homepage: 
+    <strong> Homepage: </strong>
     <?php echo $empresa['Empresa']['homepage']; ?>
     <br>
-    Última modifiação: 
+    <strong> Última modifiação: </strong>
     <?php echo date('d/m/Y', strtotime($empresa['Empresa']['modified'])); ?>
     <br>
-    Criação: 
+    <strong> Criação: </strong>
     <?php echo date('d/m/Y', strtotime($empresa['Empresa']['created'])); ?>
     <br>
 </p>

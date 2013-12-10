@@ -5,19 +5,19 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-Holding: 
+<strong> Holding: </strong>
 <?php echo $holding['Holding']['nome']; ?>
 <br>
-Acesso ao sistema até: 
+<strong> Validade da holding: </strong>
 <?php echo date('d/m/Y', strtotime($holding['Holding']['validade'])); ?>
 <br>
-Última modifiação: 
+<strong> Última modifiação: </strong>
 <?php echo date('d/m/Y', strtotime($holding['Holding']['modified'])); ?>
 <br>
-Criação: 
+<strong> Criação: </strong>
 <?php echo date('d/m/Y', strtotime($holding['Holding']['created'])); ?>
 <br>
-Menus: 
+<strong> Menus: </strong>
 <br>
 <?php $i = 0;?>
 <?php foreach ($holding['Menu'] as $menu): ?>
