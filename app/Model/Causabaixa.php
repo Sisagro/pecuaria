@@ -18,6 +18,10 @@ class Causabaixa extends AppModel {
             'notempty' => array(
                 'rule' => array('notempty'),
             ),
+            'maximo' => array(
+                'rule'    => array('maxLength', '100'),
+                'message' => 'Máximo 100 caracteres',
+            )
         ),
         'holding_id' => array(
             'numeric' => array(

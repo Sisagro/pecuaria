@@ -8,7 +8,6 @@ App::import('Controller', 'Users');
  */
 class CausabaixasController extends AppController {
     
-    
     function beforeFilter() {
         $this->set('title_for_layout', 'Causas de baixa');
     }
@@ -39,11 +38,22 @@ class CausabaixasController extends AppController {
      */
     public function view($id = null) {
         
-        if (!$this->Causabaixa->exists($id)) {
-            throw new NotFoundException(__('Causa de baixa inválida'));
+        $this->Causabaixa->id = $id;
+        if (!$this->Causabaixa->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
-        $options = array('conditions' => array('Causabaixa.' . $this->Causabaixa->primaryKey => $id));
-        $this->set('causabaixa', $this->Causabaixa->find('first', $options));
+        
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        
+        $causabaixa = $this->Causabaixa->read(null, $id);
+        if ($causabaixa['Causabaixa']['holding_id'] != $holding_id) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $this->set('causabaixa', $causabaixa);
         
     }
 
@@ -75,7 +85,8 @@ class CausabaixasController extends AppController {
         
         $this->Causabaixa->id = $id;
         if (!$this->Causabaixa->exists($id)) {
-            throw new NotFoundException(__('Causa de baixa inválida'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
@@ -83,7 +94,8 @@ class CausabaixasController extends AppController {
         
         $causabaixa = $this->Causabaixa->read(null, $id);
         if ($causabaixa['Causabaixa']['holding_id'] != $holding_id) {
-            throw new NotFoundException(__('Causa de baixa inválida'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -106,7 +118,8 @@ class CausabaixasController extends AppController {
         
         $this->Causabaixa->id = $id;
         if (!$this->Causabaixa->exists()) {
-            throw new NotFoundException(__('Causa de baixa inválida'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         $this->request->onlyAllow('post', 'delete');
         if ($this->Causabaixa->delete()) {
