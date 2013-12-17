@@ -28,24 +28,7 @@ class Medicamento extends AppModel {
                 'rule' => array('notempty'),
             ),
         ),
-        'palavrachave' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-            ),
-            'maximo' => array(
-                'rule'    => array('maxLength', '30'),
-                'message' => 'Máximo 30 caracteres',
-            )
-        ),
-        'principioativo' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-            ),
-            'maximo' => array(
-                'rule'    => array('maxLength', '300'),
-                'message' => 'Máximo 300 caracteres',
-            )
-        ),
+        
     );
     
     /**
