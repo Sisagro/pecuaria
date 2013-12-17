@@ -38,12 +38,18 @@ class GrpeventosanitariosController extends AppController {
      */
     public function view($id = null) {
         
+        $this->Grpeventosanitario->id = $id;
+        if (!$this->Grpeventosanitario->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
         $dadosUser = $this->Session->read();
         $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         
         $grpeventosanitario = $this->Grpeventosanitario->read(null, $id);
         if ($grpeventosanitario['Grpeventosanitario']['holding_id'] != $holding_id) {
-            throw new NotFoundException(__('Causa de baixa inválida'));
+            throw new NotFoundException(__('Grupo de evento sanitário inválido'));
         }
         
         $this->set('grpeventosanitario', $grpeventosanitario);
@@ -76,12 +82,18 @@ class GrpeventosanitariosController extends AppController {
      */
     public function edit($id = null) {
         
+        $this->Grpeventosanitario->id = $id;
+        if (!$this->Grpeventosanitario->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
         $dadosUser = $this->Session->read();
         $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         
         $grpeventosanitario = $this->Grpeventosanitario->read(null, $id);
         if ($grpeventosanitario['Grpeventosanitario']['holding_id'] != $holding_id) {
-            throw new NotFoundException(__('Causa de baixa inválida'));
+            throw new NotFoundException(__('Grupo de evento sanitário inválido'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -104,7 +116,8 @@ class GrpeventosanitariosController extends AppController {
         
         $this->Grpeventosanitario->id = $id;
         if (!$this->Grpeventosanitario->exists()) {
-            throw new NotFoundException(__('Grupo de evento sanitário inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         $this->request->onlyAllow('post', 'delete');
         if ($this->Grpeventosanitario->delete()) {

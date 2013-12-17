@@ -3,10 +3,10 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Causabaixa Model
+ * Pais Model
  * 
  */
-class Causabaixa extends AppModel {
+class Paise extends AppModel {
 
     /**
      * Validation rules
@@ -14,20 +14,16 @@ class Causabaixa extends AppModel {
      * @var array
      */
     public $validate = array(
-        'descricao' => array(
+        'nome' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
             ),
-            'maximo' => array(
-                'rule'    => array('maxLength', '100'),
-                'message' => 'Máximo 100 caracteres',
-            )
         ),
         'holding_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
             ),
-        )
+        ),
     );
 
     /**
@@ -44,6 +40,5 @@ class Causabaixa extends AppModel {
             'order' => ''
         )
     );
-
-
+    
 }
