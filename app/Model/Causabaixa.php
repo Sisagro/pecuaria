@@ -47,3 +47,5 @@ class Causabaixa extends AppModel {
 
 
 }
+
+?>
