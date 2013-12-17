@@ -40,7 +40,7 @@
                     <?php
                 }
                 ?>
-                <li><a href="#">Manejo</a>
+                <li><a href="#">Pecuária</a>
                     <ul>
                 <?php
                 $menu_3++;
@@ -48,7 +48,7 @@
                 ?>
                     </ul>
                 </li>
-                <li><a href="#">Produção</a>
+                <li><a href="#">Manejo</a>
                     <ul>
                 <?php
                 $menu_4++;

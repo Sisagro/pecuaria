@@ -25,12 +25,10 @@ class Grausangue extends AppModel {
             ),
         ),
         'abreviatura' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-            ),
             'maximo' => array(
                 'rule'    => array('maxLength', '5'),
                 'message' => 'Máximo 5 caracteres',
+                'allowEmpty' => true
             )
         ),
     );

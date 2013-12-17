@@ -18,17 +18,13 @@ class MenusController extends AppController {
         return parent::isAuthorized($user);
     }
     
-    public $paginate = array(
-        'order' => array('Menu.menu' => 'asc', 'Menu.ordem' => 'asc')
-    );
-    
     /**
      * index method
      */
     public function index() {
         $this->Menu->recursive = 0;
         $this->Paginator->settings = array(
-            'order' => array('menu' => 'asc', 'ordem' => 'asc')
+            'order' => array('menu' => 'asc')
         );
         $this->set('menus', $this->Paginator->paginate('Menu'));
     }

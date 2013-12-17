@@ -30,10 +30,7 @@ class PotreirosController extends AppController {
             'order' => array('descricao' => 'asc')
         );
         $this->set('potreiros', $this->Paginator->paginate('Potreiro'));
-        
-        
-//        $this->Potreiro->recursive = 0;
-//        $this->set('potreiros', $this->paginate());
+
     }
 
     /**
@@ -41,11 +38,22 @@ class PotreirosController extends AppController {
      */
     public function view($id = null) {
         
+        $this->Potreiro->id = $id;
         if (!$this->Potreiro->exists($id)) {
-            throw new NotFoundException(__('Potreiro inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
-        $options = array('conditions' => array('Potreiro.' . $this->Potreiro->primaryKey => $id));
-        $this->set('potreiro', $this->Potreiro->find('first', $options));
+        
+        $dadosUser = $this->Session->read();
+        $empresa_id = $dadosUser['empresa_id'];
+        
+        $potreiro = $this->Potreiro->read(null, $id);
+        if ($potreiro['Potreiro']['empresa_id'] != $empresa_id) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $this->set('potreiro', $potreiro);
         
     }
 
@@ -80,7 +88,8 @@ class PotreirosController extends AppController {
         
         $this->Potreiro->id = $id;
         if (!$this->Potreiro->exists($id)) {
-            throw new NotFoundException(__('Potreiro inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
@@ -88,7 +97,8 @@ class PotreirosController extends AppController {
         
         $potreiro = $this->Potreiro->read(null, $id);
         if ($potreiro['Potreiro']['empresa_id'] != $empresa_id) {
-            throw new NotFoundException(__('Potreiro inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -114,15 +124,8 @@ class PotreirosController extends AppController {
         
         $this->Potreiro->id = $id;
         if (!$this->Potreiro->exists()) {
-            throw new NotFoundException(__('Potreiro inválido'));
-        }
-        
-        $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
-        
-        $potreiro = $this->Potreiro->read(null, $id);
-        if ($potreiro['Potreiro']['empresa_id'] != $empresa_id) {
-            throw new NotFoundException(__('Potreiro inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         $this->request->onlyAllow('post', 'delete');

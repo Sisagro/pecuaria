@@ -49,7 +49,8 @@ class GrpeventosanitariosController extends AppController {
         
         $grpeventosanitario = $this->Grpeventosanitario->read(null, $id);
         if ($grpeventosanitario['Grpeventosanitario']['holding_id'] != $holding_id) {
-            throw new NotFoundException(__('Grupo de evento sanitário inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         $this->set('grpeventosanitario', $grpeventosanitario);
@@ -104,7 +105,7 @@ class GrpeventosanitariosController extends AppController {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $this->Grpeventosanitario->read(null, $id);
+            $this->request->data = $grpeventosanitario;
         }
         
     }

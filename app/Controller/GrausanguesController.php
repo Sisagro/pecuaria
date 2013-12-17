@@ -38,11 +38,22 @@ class GrausanguesController extends AppController {
      */
     public function view($id = null) {
         
-        if (!$this->Grausangue->exists($id)) {
-            throw new NotFoundException(__('Grau de sangue inválido'));
+        $this->Grausangue->id = $id;
+        if (!$this->Grausangue->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
-        $options = array('conditions' => array('Grausangue.' . $this->Grausangue->primaryKey => $id));
-        $this->set('grausangue', $this->Grausangue->find('first', $options));
+        
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        
+        $grausangue = $this->Grausangue->read(null, $id);
+        if ($grausangue['Grausangue']['holding_id'] != $holding_id) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $this->set('grausangue', $grausangue);
         
     }
 
@@ -73,8 +84,9 @@ class GrausanguesController extends AppController {
     public function edit($id = null) {
         
         $this->Grausangue->id = $id;
-        if (!$this->Grausangue->exists($id)) {
-            throw new NotFoundException(__('Grau de sangue inválido'));
+        if (!$this->Grausangue->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
@@ -82,7 +94,8 @@ class GrausanguesController extends AppController {
         
         $grausangue = $this->Grausangue->read(null, $id);
         if ($grausangue['Grausangue']['holding_id'] != $holding_id) {
-            throw new NotFoundException(__('Grau de sangue inválida'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -93,7 +106,7 @@ class GrausanguesController extends AppController {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $this->Grausangue->read(null, $id);
+            $this->request->data = $grausangue;
         }
         
     }
@@ -105,8 +118,10 @@ class GrausanguesController extends AppController {
         
         $this->Grausangue->id = $id;
         if (!$this->Grausangue->exists()) {
-            throw new NotFoundException(__('Grau de sangue inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
+        
         $this->request->onlyAllow('post', 'delete');
         if ($this->Grausangue->delete()) {
             $this->Session->setFlash('Grau de sangue deletado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
