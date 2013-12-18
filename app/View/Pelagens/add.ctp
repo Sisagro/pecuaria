@@ -3,11 +3,11 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 ?>
 <br>
 <br>
-<?php echo $this->Form->create('Pelagem'); ?>
+<?php echo $this->Form->create('Pelagen'); ?>
 <fieldset>
     <?php
     echo $this->Form->input('descricao');
-    echo $this->Form->input('holding_id', array('type' => 'hidden', 'value' => $holding_id));
+    echo $this->Form->input('raca_id', array ('id' => 'raca', 'type' => 'select','options' => $racas, 'label' => 'Raças', 'empty' => ''));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Adicionar')); ?>

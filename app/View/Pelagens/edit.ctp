@@ -3,7 +3,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 ?>
 <br>
 <br>
-<?php echo $this->Form->create('Pelagem'); ?>
+<?php echo $this->Form->create('Pelagen'); ?>
 <fieldset>
     <?php
     echo $this->Form->input('descricao');

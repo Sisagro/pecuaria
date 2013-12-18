@@ -3,11 +3,11 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Especie Model
+ * Potreiro Model
  * 
  */
-class Especy extends AppModel {
-    
+class Raca extends AppModel {
+
     /**
      * Validation rules
      *
@@ -23,13 +23,20 @@ class Especy extends AppModel {
                 'message' => 'Máximo 100 caracteres',
             )
         ),
-        'holding_id' => array(
-            'numeric' => array(
-                'rule' => array('numeric'),
+        'abreviatura' => array(
+            'maximo' => array(
+                'rule'    => array('maxLength', '300'),
+                'message' => 'Máximo 300 caracteres',
+                'allowEmpty' => true
+            )
+        ),
+        'especie_id' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
             ),
-        )
+        ),
+        
     );
-    
     
     /**
      * belongsTo associations
@@ -37,26 +44,27 @@ class Especy extends AppModel {
      * @var array
      */
     public $belongsTo = array(
-        'Holding' => array(
-            'className' => 'Holding',
-            'foreignKey' => 'holding_id',
+        'Especy' => array(
+            'className' => 'Especy',
+            'foreignKey' => 'especie_id',
             'conditions' => '',
             'fields' => '',
             'order' => ''
         )
     );
     
-    
     /**
      * hasMany associations
      */
     public $hasMany = array(
-        'Raca' => array(
-            'className' => 'Raca',
-            'foreignKey' => 'especie_id',
+        'Pelagen' => array(
+            'className' => 'Pelagen',
+            'foreignKey' => 'raca_id',
             'dependent' => false,
         ),
     );
-    
+
+
 }
+
 ?>

@@ -25,12 +25,17 @@ class PelagensController extends AppController {
      */
     public function index() {
         $dadosUser = $this->Session->read();
-        $this->Pelagem->recursive = 0;
-        $this->Paginator->settings = array(
+        $this->Pelagen->Raca->Especy->recursive = -1;
+        $especies = $this->Pelagen->Raca->Especy->find('list', array(
             'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
             'order' => array('descricao' => 'asc')
+        ));
+        $this->Pelagen->recursive = 0;
+        $this->Paginator->settings = array(
+            'conditions' => array('Raca.especie_id' => $especies),
+            'order' => array('descricao' => 'asc')
         );
-        $this->set('pelagens', $this->Paginator->paginate('Pelagem'));
+        $this->set('pelagens', $this->Paginator->paginate('Pelagen'));
     }
 
     /**
@@ -38,11 +43,22 @@ class PelagensController extends AppController {
      */
     public function view($id = null) {
         
-        if (!$this->Pelagem->exists($id)) {
-            throw new NotFoundException(__('Pelagem de baixa inválida'));
+        $this->Pelagen->id = $id;
+        if (!$this->Pelagen->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
-        $options = array('conditions' => array('Pelagem.' . $this->Pelagem->primaryKey => $id));
-        $this->set('pelagem', $this->Pelagem->find('first', $options));
+        
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        $this->Pelagen->recursive = 2;
+        $pelagem = $this->Pelagen->read(null, $id);
+        if ($pelagem['Raca']['Especy']['holding_id'] != $holding_id) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $this->set('pelagem', $pelagem);
         
     }
 
@@ -52,12 +68,22 @@ class PelagensController extends AppController {
     public function add() {
         
         $dadosUser = $this->Session->read();
-        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
-        $this->set(compact('holding_id'));
+        $this->Pelagen->Raca->Especy->recursive = -1;
+        $especies = $this->Pelagen->Raca->Especy->find('list', array(
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('descricao' => 'asc')
+        ));
+        
+        $racas = $this->Pelagen->Raca->find('list', array(
+            'fields' => array('id', 'descricao'), 
+            'conditions' => array('especie_id' => $especies),
+            'order' => array('descricao' => 'asc')
+        ));
+        $this->set(compact('racas'));
         
         if ($this->request->is('post')) {
-            $this->Pelagem->create();
-            if ($this->Pelagem->save($this->request->data)) {
+            $this->Pelagen->create();
+            if ($this->Pelagen->save($this->request->data)) {
                 $this->Session->setFlash('Pelagem adicionada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -72,28 +98,43 @@ class PelagensController extends AppController {
      */
     public function edit($id = null) {
         
-        $this->Pelagem->id = $id;
-        if (!$this->Pelagem->exists($id)) {
-            throw new NotFoundException(__('Pelagem inválida'));
+        $this->Pelagen->id = $id;
+        if (!$this->Pelagen->exists($id)) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
         $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
-        
-        $pelagem = $this->Pelagem->read(null, $id);
-        if ($pelagem['Pelagem']['holding_id'] != $holding_id) {
-            throw new NotFoundException(__('Pelagem inválida'));
+        $this->Pelagen->recursive = 2;
+        $pelagem = $this->Pelagen->read(null, $id);
+        if ($pelagem['Raca']['Especy']['holding_id'] != $holding_id) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
+        $this->Pelagen->Raca->Especy->recursive = -1;
+        $especies = $this->Pelagen->Raca->Especy->find('list', array(
+            'conditions' => array('holding_id' => $holding_id),
+            'order' => array('descricao' => 'asc')
+        ));
+        
+        $racas = $this->Pelagen->Raca->find('list', array(
+            'fields' => array('id', 'descricao'), 
+            'conditions' => array('especie_id' => $especies),
+            'order' => array('descricao' => 'asc')
+        ));
+        $this->set(compact('racas'));
+                
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Pelagem->save($this->request->data)) {
+            if ($this->Pelagen->save($this->request->data)) {
                 $this->Session->setFlash('Pelagem alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $this->Pelagem->read(null, $id);
+            $this->request->data = $pelagem;
         }
         
     }
@@ -103,12 +144,13 @@ class PelagensController extends AppController {
      */
     public function delete($id = null) {
         
-        $this->Pelagem->id = $id;
-        if (!$this->Pelagem->exists()) {
-            throw new NotFoundException(__('Pelagem inválida'));
+        $this->Pelagen->id = $id;
+        if (!$this->Pelagen->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         $this->request->onlyAllow('post', 'delete');
-        if ($this->Pelagem->delete()) {
+        if ($this->Pelagen->delete()) {
             $this->Session->setFlash('Pelagem deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }

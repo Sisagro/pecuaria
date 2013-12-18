@@ -8,19 +8,23 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
         <th><?php echo $this->Paginator->sort('descricao', 'Descrição'); ?></th>
+        <th><?php echo $this->Paginator->sort('caracteristica', 'Característica'); ?></th>
+        <th><?php echo $this->Paginator->sort('Especy.descricao', 'Espécie'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
-    <?php foreach ($pelagens as $item): ?>
+    <?php foreach ($racas as $item): ?>
         <tr>
-            <td><?php echo h($item['Pelagen']['id']); ?>&nbsp;</td>
-            <td><?php echo h($item['Pelagen']['descricao']); ?>&nbsp;</td>
+            <td><?php echo h($item['Raca']['id']); ?>&nbsp;</td>
+            <td><?php echo h($item['Raca']['descricao']); ?>&nbsp;</td>
+            <td><?php echo h($item['Raca']['caracteristica']); ?>&nbsp;</td>
+            <td><?php echo h($item['Especy']['descricao']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php
-                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $item['Pelagen']['id']), array('escape' => false));
-                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $item['Pelagen']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $item['Raca']['id']), array('escape' => false));
+                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $item['Raca']['id']), array('escape' => false));
                     echo $this->Form->postLink($this->Html->image('botoes/excluir.gif', array('alt' => 'Exluir', 'title' => 'Exluir')),
-                                               array('action' => 'delete', $item['Pelagen']['id']), array('escape' => false),
+                                               array('action' => 'delete', $item['Raca']['id']), array('escape' => false),
                                                __('Você realmete deseja apagar esse item?')
                                               );
                     

@@ -6,7 +6,7 @@ App::uses('AppModel', 'Model');
  * Pelagem Model
  * 
  */
-class Pelagem extends AppModel {
+class Pelagen extends AppModel {
 
     /**
      * Validation rules
@@ -32,8 +32,8 @@ class Pelagem extends AppModel {
      * @var array
      */
     public $belongsTo = array(
-        'Holding' => array(
-            'className' => 'Holding',
+        'Raca' => array(
+            'className' => 'Raca',
             'foreignKey' => 'raca_id',
             'conditions' => '',
             'fields' => '',
