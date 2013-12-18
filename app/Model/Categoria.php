@@ -3,10 +3,10 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Raça Model
+ * Categoria Model
  * 
  */
-class Raca extends AppModel {
+class Categoria extends AppModel {
 
     /**
      * Validation rules
@@ -25,10 +25,27 @@ class Raca extends AppModel {
         ),
         'abreviatura' => array(
             'maximo' => array(
-                'rule'    => array('maxLength', '300'),
+                'rule'    => array('maxLength', '20'),
                 'message' => 'Máximo 300 caracteres',
                 'allowEmpty' => true
             )
+        ),
+        'idade_min' => array(
+            'numeric' => array(
+                'rule' => array('numeric'),
+                'allowEmpty' => true
+            ),
+        ),
+        'idade_max' => array(
+            'numeric' => array(
+                'rule' => array('numeric'),
+                'allowEmpty' => true
+            ),
+        ),
+        'sexo' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            ),
         ),
         'especie_id' => array(
             'notempty' => array(
@@ -52,18 +69,6 @@ class Raca extends AppModel {
             'order' => ''
         )
     );
-    
-    /**
-     * hasMany associations
-     */
-    public $hasMany = array(
-        'Pelagen' => array(
-            'className' => 'Pelagen',
-            'foreignKey' => 'raca_id',
-            'dependent' => false,
-        ),
-    );
-
 
 }
 

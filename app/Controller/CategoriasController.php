@@ -4,12 +4,12 @@ App::uses('AppController', 'Controller');
 App::import('Controller', 'Users');
 
 /**
- * Raças Controller
+ * Categorias Controller
  */
-class RacasController extends AppController {
+class CategoriasController extends AppController {
     
     function beforeFilter() {
-        $this->set('title_for_layout', 'Raças');
+        $this->set('title_for_layout', 'Categorias');
     }
     
     public function isAuthorized($user) {
@@ -25,12 +25,12 @@ class RacasController extends AppController {
      */
     public function index() {
         $dadosUser = $this->Session->read();
-        $this->Raca->recursive = 0;
+        $this->Categoria->recursive = 0;
         $this->Paginator->settings = array(
             'conditions' => array('Especy.holding_id' => $dadosUser['Auth']['User']['holding_id']),
             'order' => array('descricao' => 'asc')
         );
-        $this->set('racas', $this->Paginator->paginate('Raca'));
+        $this->set('categorias', $this->Paginator->paginate('Categoria'));
     }
     
     /**
@@ -38,21 +38,21 @@ class RacasController extends AppController {
      */
     public function view($id = null) {
         
-        $this->Raca->id = $id;
-        if (!$this->Raca->exists()) {
+        $this->Categoria->id = $id;
+        if (!$this->Categoria->exists()) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
         $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
-        $raca = $this->Raca->read(null, $id);
-        if ($raca['Especy']['holding_id'] != $holding_id) {
+        $categoria = $this->Categoria->read(null, $id);
+        if ($categoria['Especy']['holding_id'] != $holding_id) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
-        $this->set('raca', $raca);
+        $this->set('categoria', $categoria);
         
     }
 
@@ -62,17 +62,20 @@ class RacasController extends AppController {
     public function add() {
         
         $dadosUser = $this->Session->read();
-        $especies = $this->Raca->Especy->find('list', array(
+        $especies = $this->Categoria->Especy->find('list', array(
             'fields' => array('id', 'descricao'), 
             'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
             'order' => array('descricao' => 'asc')
         ));
         $this->set(compact('especies'));
         
+        $opcoes = array('M' => 'Macho', 'F' => 'Fêmea');
+        $this->set('opcoes', $opcoes);
+        
         if ($this->request->is('post')) {
-            $this->Raca->create();
-            if ($this->Raca->save($this->request->data)) {
-                $this->Session->setFlash('Raça adicionada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
+            $this->Categoria->create();
+            if ($this->Categoria->save($this->request->data)) {
+                $this->Session->setFlash('Categoria adicionada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Registro não foi salvo. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
@@ -87,36 +90,39 @@ class RacasController extends AppController {
      */
     public function edit($id = null) {
         
-        $this->Raca->id = $id;
-        if (!$this->Raca->exists()) {
+        $this->Categoria->id = $id;
+        if (!$this->Categoria->exists()) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
         $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
-        $raca = $this->Raca->read(null, $id);
-        if ($raca['Especy']['holding_id'] != $holding_id) {
+        $categoria = $this->Categoria->read(null, $id);
+        if ($categoria['Especy']['holding_id'] != $holding_id) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
-        $especies = $this->Raca->Especy->find('list', array(
+        $especies = $this->Categoria->Especy->find('list', array(
             'fields' => array('id', 'descricao'), 
             'conditions' => array('holding_id' => $holding_id),
             'order' => array('descricao' => 'asc')
         ));
         $this->set(compact('especies'));
         
+        $opcoes = array('M' => 'Macho', 'F' => 'Fêmea');
+        $this->set('opcoes', $opcoes);
+        
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Raca->save($this->request->data)) {
-                $this->Session->setFlash('Raça alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
+            if ($this->Categoria->save($this->request->data)) {
+                $this->Session->setFlash('Categoria alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $raca;
+            $this->request->data = $categoria;
         }
         
     }
@@ -126,15 +132,15 @@ class RacasController extends AppController {
      */
     public function delete($id = null) {
         
-        $this->Raca->id = $id;
-        if (!$this->Raca->exists()) {
+        $this->Categoria->id = $id;
+        if (!$this->Categoria->exists()) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
         $this->request->onlyAllow('post', 'delete');
-        if ($this->Raca->delete()) {
-            $this->Session->setFlash('Raça deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
+        if ($this->Categoria->delete()) {
+            $this->Session->setFlash('Categoria deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
         $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
@@ -143,4 +149,5 @@ class RacasController extends AppController {
     }
     
 }
+
 ?>
