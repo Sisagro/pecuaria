@@ -58,13 +58,13 @@ class Holding extends AppModel {
             'foreignKey' => 'holding_id',
             'dependent' => false,
         ),
-        'Especie' => array(
-            'className' => 'Especie',
+        'Paise' => array(
+            'className' => 'Paise',
             'foreignKey' => 'holding_id',
             'dependent' => false,
         ),
-        'Paise' => array(
-            'className' => 'Paise',
+        'Especy' => array(
+            'className' => 'Especy',
             'foreignKey' => 'holding_id',
             'dependent' => false,
         ),
