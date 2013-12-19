@@ -218,7 +218,7 @@ body {
     height: 135px;
     margin-top: 65px;
     margin-left: 30.5%;
-    opacity:0.5;
+    /*opacity:0.5;*/
     -moz-opacity: 0.5;
     filter: alpha(opacity=5);
 }
