@@ -13,7 +13,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('inscMunicipalEmpresa', array('id' => 'inscMunicipalEmpresa', 'label' => 'Inscrição municipal', 'type' => 'text', 'value' => $this->request->data['Empresa']['inscmunicipal']));
     echo $this->Form->input('email', array('label' => 'E-mail'));
     echo $this->Form->input('homepage');
-    echo $this->Form->input('logoempresa', array('type' => 'file','class' => 'file','label' => 'Logo da empresa (776x93)'));
+    echo $this->Form->input('logoempresa', array('type' => 'file','class' => 'file','label' => 'Logo da empresa (retrato 110x120) ou (paisagem 200x80)'));
     echo $this->Form->input('cnpj', array('type' => 'hidden'));
     echo $this->Form->input('inscestadual', array('type' => 'hidden'));
     echo $this->Form->input('inscmunicipal', array('type' => 'hidden'));
