@@ -10,8 +10,8 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('especie_id', array ('id' => 'especie', 'type' => 'select','options' => $especies, 'label' => 'Espécies', 'empty' => ''));
     echo $this->Form->input('sexo', array ('id' => 'sexo', 'type' => 'select','options' => $opcoes, 'label' => 'Sexo', 'empty' => ''));
     echo $this->Form->input('abreveatura', array('label' => 'Abreveatura'));
-    echo $this->Form->input('idade_min', array('label' => 'Idade mínima'));
-    echo $this->Form->input('idade_max', array('label' => 'Idade máxima'));
+    echo $this->Form->input('idade_min', array('label' => 'Idade mínima (Meses)'));
+    echo $this->Form->input('idade_max', array('label' => 'Idade máxima (Meses)'));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Adicionar')); ?>
