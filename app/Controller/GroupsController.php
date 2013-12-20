@@ -19,12 +19,6 @@ class GroupsController extends AppController {
         return parent::isAuthorized($user);
     }
     
-    public $components = array('Paginator');
-    
-    public $paginate = array(
-        'order' => array('name' => 'asc')
-    );
-    
     /**
      * index method
      *

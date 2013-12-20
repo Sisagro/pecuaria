@@ -19,12 +19,6 @@ class UsergroupempresasController extends AppController {
         return parent::isAuthorized($user);
     }
     
-    public $components = array('Paginator');
-    
-    public $paginate = array(
-        'order' => array('User.nome' => 'asc', 'Empresa.nomefantasia' => 'asc', 'Group.name' => 'asc')
-    );
-    
     /**
      * index method
      *

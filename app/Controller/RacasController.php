@@ -18,8 +18,6 @@ class RacasController extends AppController {
         return parent::isAuthorized($user);
     }
     
-    public $components = array('Paginator');
-    
     /**
      * index method
      */
