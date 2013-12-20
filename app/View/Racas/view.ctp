@@ -8,7 +8,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Descrição: </strong>
 <?php echo $raca['Raca']['descricao']; ?>
 <br>
-<strong> Palavra-chave: </strong>
+<strong> Característica: </strong>
 <?php echo $raca['Raca']['caracteristica']; ?>
 <br>
 <strong> Espécie: </strong>
