@@ -10,6 +10,9 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
         <th><?php echo $this->Paginator->sort('descricao', 'Descrição'); ?></th>
         <th><?php echo $this->Paginator->sort('abreveatura', 'Abreveatura'); ?></th>
         <th><?php echo $this->Paginator->sort('Especy.descricao', 'Espécie'); ?></th>
+        <th><?php echo $this->Paginator->sort('idade_min', 'Idade min'); ?></th>
+        <th><?php echo $this->Paginator->sort('idade_max', 'Idade max'); ?></th>
+        <th><?php echo $this->Paginator->sort('sexo', 'Sexo'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($categorias as $item): ?>
@@ -18,6 +21,9 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
             <td><?php echo h($item['Categoria']['descricao']); ?>&nbsp;</td>
             <td><?php echo h($item['Categoria']['abreveatura']); ?>&nbsp;</td>
             <td><?php echo h($item['Especy']['descricao']); ?>&nbsp;</td>
+            <td><?php echo h($item['Categoria']['idade_min']); ?>&nbsp;</td>
+            <td><?php echo h($item['Categoria']['idade_max']); ?>&nbsp;</td>
+            <td><?php echo h($item['Categoria']['sexo']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php
