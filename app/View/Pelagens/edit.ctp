@@ -7,6 +7,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <fieldset>
     <?php
     echo $this->Form->input('descricao');
+    echo $this->Form->input('raca_id', array ('id' => 'raca', 'type' => 'select','options' => $racas, 'label' => 'Raças', 'empty' => ''));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Editar')); ?>
