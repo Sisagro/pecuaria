@@ -36,11 +36,22 @@ class PaisesController extends AppController {
      */
     public function view($id = null) {
         
-        if (!$this->Paise->exists($id)) {
-            throw new NotFoundException(__('País inválido'));
+        $this->Paise->id = $id;
+        if (!$this->Paise->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
-        $options = array('conditions' => array('Paise.' . $this->Paise->primaryKey => $id));
-        $this->set('paise', $this->Paise->find('first', $options));
+        
+        $dadosUser = $this->Session->read();
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        
+        $pais = $this->Paise->read(null, $id);
+        if ($pais['Paise']['holding_id'] != $holding_id) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $this->set('pais', $pais);
         
     }
 
@@ -72,7 +83,8 @@ class PaisesController extends AppController {
         
         $this->Paise->id = $id;
         if (!$this->Paise->exists($id)) {
-            throw new NotFoundException(__('País inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
@@ -80,7 +92,8 @@ class PaisesController extends AppController {
         
         $pais = $this->Paise->read(null, $id);
         if ($pais['Paise']['holding_id'] != $holding_id) {
-            throw new NotFoundException(__('País inválida'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -91,7 +104,7 @@ class PaisesController extends AppController {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $this->Paise->read(null, $id);
+            $this->request->data = $pais;
         }
         
     }
@@ -103,7 +116,8 @@ class PaisesController extends AppController {
         
         $this->Paise->id = $id;
         if (!$this->Paise->exists()) {
-            throw new NotFoundException(__('País inválido'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
         }
         $this->request->onlyAllow('post', 'delete');
         if ($this->Paise->delete()) {

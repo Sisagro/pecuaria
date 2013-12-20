@@ -119,6 +119,7 @@ class EspeciesController extends AppController {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
+        
         $this->request->onlyAllow('post', 'delete');
         if ($this->Especy->delete()) {
             $this->Session->setFlash('Espécie deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));

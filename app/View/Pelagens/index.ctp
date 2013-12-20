@@ -8,12 +8,14 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
         <th><?php echo $this->Paginator->sort('descricao', 'Descrição'); ?></th>
+        <th><?php echo $this->Paginator->sort('Raca.descricao', 'Raça'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($pelagens as $item): ?>
         <tr>
             <td><?php echo h($item['Pelagen']['id']); ?>&nbsp;</td>
             <td><?php echo h($item['Pelagen']['descricao']); ?>&nbsp;</td>
+            <td><?php echo h($item['Raca']['descricao']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php
