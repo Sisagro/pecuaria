@@ -41,4 +41,15 @@ class Paise extends AppModel {
         )
     );
     
+    /**
+     * hasMany associations
+     */
+    
+    public $hasMany = array(
+        'Estado' => array(
+            'className' => 'Estado',
+            'foreignKey' => 'pais_id',
+            'dependent' => false,
+        ),
+    );    
 }
