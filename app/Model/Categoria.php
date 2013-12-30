@@ -35,6 +35,10 @@ class Categoria extends AppModel {
                 'rule' => array('numeric'),
                 'allowEmpty' => true
             ),
+            'validaIdadeMinima' => array (
+                'rule' => array('validaIdadeMinima'),
+                'message' => 'Idade mínima deve ser menor que a idade máxima.'
+            ),
         ),
         'idade_max' => array(
             'numeric' => array(
@@ -54,6 +58,23 @@ class Categoria extends AppModel {
         ),
         
     );
+    
+    /**
+     * Regras de validação
+     *
+     */
+    public function validaIdadeMinima($check) {
+        
+        if(empty($this->data['Categoria']['idade_min']) || empty($this->data['Categoria']['idade_max'])) {
+            return false;
+        }
+        
+        if($this->data['Categoria']['idade_min'] >= $this->data['Categoria']['idade_max']) {
+            return false;
+        }
+        
+        return true;
+    }
     
     /**
      * belongsTo associations
