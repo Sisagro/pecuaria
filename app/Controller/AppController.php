@@ -34,6 +34,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
     
     public $components = array(
+        'RequestHandler',
         'Session',
         'Paginator',
         'Auth' => array(
@@ -41,6 +42,13 @@ class AppController extends Controller {
             'logoutRedirect' => 'http://www.sisagro.com',
             'authorize' => array('Controller')
         )
+    );
+    
+    public $helpers = array(
+        'Html', 
+        'Form', 
+        'Js', 
+        'Session',
     );
     
     public function isAuthorized($user) {

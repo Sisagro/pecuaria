@@ -140,5 +140,24 @@ class RacasController extends AppController {
         
     }
     
+    /**
+     * Funções ajax
+     */
+    
+    public function buscaRacas($chave) {
+        $this->layout = 'ajax';
+        echo "<option value=\"\">Loucura</option>";
+        echo "<option value=\"1\">Teste</option>";
+//        if (array_key_exists("especie_id", $this->request->data[$chave])) {
+//            $catID = $this->request->data[$chave]['especie_id'];
+//        }
+//        $racas = $this->Raca->find('list' , array('order' => 'descricao ASC','fields' => array('Raca.id', 'Raca.descricao'),'conditions' => array('Raca.especie_id' => $catID)));
+//        echo "<option value=\"\"></option>";
+//        echo "<option value=\"1\">Teste</option>";
+//        foreach($estados as $key => $subcat){ 
+//            echo "<option value=\"{$key}\">{$subcat}</option>";
+//        }
+    }
+    
 }
 ?>

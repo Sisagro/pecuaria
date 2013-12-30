@@ -68,16 +68,11 @@ class PelagensController extends AppController {
         $dadosUser = $this->Session->read();
         $this->Pelagen->Raca->Especy->recursive = -1;
         $especies = $this->Pelagen->Raca->Especy->find('list', array(
+            'fields' => array('id', 'descricao'),
             'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
             'order' => array('descricao' => 'asc')
         ));
-        
-        $racas = $this->Pelagen->Raca->find('list', array(
-            'fields' => array('id', 'descricao'), 
-            'conditions' => array('especie_id' => $especies),
-            'order' => array('descricao' => 'asc')
-        ));
-        $this->set(compact('racas'));
+        $this->set('especies', $especies);
         
         if ($this->request->is('post')) {
             $this->Pelagen->create();
