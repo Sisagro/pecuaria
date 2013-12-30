@@ -3,10 +3,10 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Pais Model
+ * Estado Model
  * 
  */
-class Paise extends AppModel {
+class Estado extends AppModel {
 
     /**
      * Validation rules
@@ -18,38 +18,39 @@ class Paise extends AppModel {
             'notempty' => array(
                 'rule' => array('notempty'),
             ),
+            'maximo' => array(
+                'rule'    => array('maxLength', '100'),
+                'message' => 'Máximo 200 caracteres',
+            )
+        ),
+        'pais_id' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            ),
         ),
         'holding_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
             ),
         ),
+        
     );
-
+    
     /**
      * belongsTo associations
      *
      * @var array
      */
     public $belongsTo = array(
-        'Holding' => array(
-            'className' => 'Holding',
-            'foreignKey' => 'holding_id',
+        'Paise' => array(
+            'className' => 'Paise',
+            'foreignKey' => 'pais_id',
             'conditions' => '',
             'fields' => '',
             'order' => ''
         )
     );
-    
-    /**
-     * hasMany associations
-     */
-    
-    public $hasMany = array(
-        'Estado' => array(
-            'className' => 'Estado',
-            'foreignKey' => 'pais_id',
-            'dependent' => false,
-        ),
-    );    
+       
 }
+
+?>
