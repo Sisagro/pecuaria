@@ -6,10 +6,10 @@ App::import('Controller', 'Users');
 /**
  * Menus Controller
  */
-class PelagensController extends AppController {
+class LotesController extends AppController {
     
     function beforeFilter() {
-        $this->set('title_for_layout', 'Pelagens');
+        $this->set('title_for_layout', 'Lotes');
     }
     
     public function isAuthorized($user) {
@@ -22,18 +22,15 @@ class PelagensController extends AppController {
      * index method
      */
     public function index() {
+        
         $dadosUser = $this->Session->read();
-        $this->Pelagen->Raca->Especy->recursive = -1;
-        $especies = $this->Pelagen->Raca->Especy->find('list', array(
-            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
-            'order' => array('descricao' => 'asc')
-        ));
-        $this->Pelagen->recursive = 0;
+        $this->Lote->recursive = 0;
         $this->Paginator->settings = array(
-            'conditions' => array('Raca.especie_id' => $especies),
+            'conditions' => array('empresa_id' => $dadosUser['empresa_id']),
             'order' => array('descricao' => 'asc')
         );
-        $this->set('pelagens', $this->Paginator->paginate('Pelagen'));
+        $this->set('lotes', $this->Paginator->paginate('Lote'));
+
     }
 
     /**
@@ -41,22 +38,22 @@ class PelagensController extends AppController {
      */
     public function view($id = null) {
         
-        $this->Pelagen->id = $id;
-        if (!$this->Pelagen->exists()) {
+        $this->Lote->id = $id;
+        if (!$this->Lote->exists($id)) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
-        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
-        $this->Pelagen->recursive = 2;
-        $pelagem = $this->Pelagen->read(null, $id);
-        if ($pelagem['Raca']['Especy']['holding_id'] != $holding_id) {
+        $empresa_id = $dadosUser['empresa_id'];
+        
+        $lote = $this->Lote->read(null, $id);
+        if ($lote['Lote']['empresa_id'] != $empresa_id) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
-        $this->set('pelagem', $pelagem);
+        $this->set('lote', $lote);
         
     }
 
@@ -66,18 +63,16 @@ class PelagensController extends AppController {
     public function add() {
         
         $dadosUser = $this->Session->read();
-        $this->Pelagen->Raca->Especy->recursive = -1;
-        $especies = $this->Pelagen->Raca->Especy->find('list', array(
-            'fields' => array('id', 'descricao'),
-            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
-            'order' => array('descricao' => 'asc')
-        ));
-        $this->set('especies', $especies);
+        $empresa_id = $dadosUser['empresa_id'];
+        $this->set(compact('empresa_id'));
+        
+        $opcoes = array('S' => 'SIM', 'N' => 'NÃO');
+        $this->set('opcoes', $opcoes);
         
         if ($this->request->is('post')) {
-            $this->Pelagen->create();
-            if ($this->Pelagen->save($this->request->data)) {
-                $this->Session->setFlash('Pelagem adicionada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
+            $this->Lote->create();
+            if ($this->Lote->save($this->request->data)) {
+                $this->Session->setFlash('Lote adicionado com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Registro não foi salvo. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
@@ -91,30 +86,34 @@ class PelagensController extends AppController {
      */
     public function edit($id = null) {
         
-        $this->Pelagen->id = $id;
-        if (!$this->Pelagen->exists($id)) {
+        $this->Lote->id = $id;
+        if (!$this->Lote->exists($id)) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
-        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
-        $this->Pelagen->recursive = 2;
-        $pelagem = $this->Pelagen->read(null, $id);
-        if ($pelagem['Raca']['Especy']['holding_id'] != $holding_id) {
+        $empresa_id = $dadosUser['empresa_id'];
+        
+        $opcoes = array('S' => 'SIM', 'N' => 'NÃO');
+        $this->set('opcoes', $opcoes);
+        
+        $lote = $this->Lote->read(null, $id);
+        if ($lote['Lote']['empresa_id'] != $empresa_id) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Pelagen->save($this->request->data)) {
-                $this->Session->setFlash('Pelagem alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
+            $this->Lote->id = $id;
+            if ($this->Lote->save($this->request->data)) {
+                $this->Session->setFlash('Lote alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $pelagem;
+            $this->request->data = $lote;
         }
         
     }
@@ -124,14 +123,15 @@ class PelagensController extends AppController {
      */
     public function delete($id = null) {
         
-        $this->Pelagen->id = $id;
-        if (!$this->Pelagen->exists()) {
+        $this->Lote->id = $id;
+        if (!$this->Lote->exists()) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
+        
         $this->request->onlyAllow('post', 'delete');
-        if ($this->Pelagen->delete()) {
-            $this->Session->setFlash('Pelagem deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
+        if ($this->Lote->delete()) {
+            $this->Session->setFlash('Lote deletado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
         $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
@@ -140,3 +140,5 @@ class PelagensController extends AppController {
     }
 
 }
+
+?>

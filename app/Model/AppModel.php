@@ -32,4 +32,23 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+    
+    public function formataDataVisualizar($datahora) {
+        $data = substr($datahora, 0, 10);
+        $data = explode("-", $data);
+        $data = $data[2] . "/" . $data[1] . "/" . $data[0];
+        $hora = substr($datahora, 11, 8);
+        $datahora = $data . " " . $hora;
+        return $datahora;
+    }
+    
+    public function formataDataSalvar($datahora) {
+        $data = substr($datahora, 0, 10);
+        $data = explode("/", $data);
+        $data = $data[2] . "/" . $data[1] . "/" . $data[0];
+        $hora = substr($datahora, 11, 8);
+        $datahora = $data . " " . $hora;
+        return $datahora;
+    }
+    
 }

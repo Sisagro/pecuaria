@@ -98,6 +98,11 @@ class Empresa extends AppModel {
             'foreignKey' => 'empresa_id',
             'dependent' => false,
         ),
+        'Lote' => array(
+            'className' => 'Lote',
+            'foreignKey' => 'empresa_id',
+            'dependent' => false,
+        ),
     );
 
 }

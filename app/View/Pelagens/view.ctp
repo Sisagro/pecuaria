@@ -11,4 +11,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Raça: </strong>
 <?php echo $pelagem['Raca']['descricao']; ?>
 <br>
+<strong> Espécie: </strong>
+<?php echo $pelagem['Raca']['Especy']['descricao']; ?>
+<br>
 </p>

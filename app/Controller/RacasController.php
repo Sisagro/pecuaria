@@ -114,7 +114,7 @@ class RacasController extends AppController {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-            $this->request->data = $raca;
+//            $this->request->data = $raca;
         }
         
     }
@@ -146,17 +146,11 @@ class RacasController extends AppController {
     
     public function buscaRacas($chave) {
         $this->layout = 'ajax';
-        echo "<option value=\"\">Loucura</option>";
-        echo "<option value=\"1\">Teste</option>";
-//        if (array_key_exists("especie_id", $this->request->data[$chave])) {
-//            $catID = $this->request->data[$chave]['especie_id'];
-//        }
-//        $racas = $this->Raca->find('list' , array('order' => 'descricao ASC','fields' => array('Raca.id', 'Raca.descricao'),'conditions' => array('Raca.especie_id' => $catID)));
-//        echo "<option value=\"\"></option>";
-//        echo "<option value=\"1\">Teste</option>";
-//        foreach($estados as $key => $subcat){ 
-//            echo "<option value=\"{$key}\">{$subcat}</option>";
-//        }
+        if (array_key_exists("especie_id", $this->request->data[$chave])) {
+            $catID = $this->request->data[$chave]['especie_id'];
+        }
+        $racas = $this->Raca->find('list' , array('order' => 'descricao ASC','fields' => array('Raca.id', 'Raca.descricao'),'conditions' => array('Raca.especie_id' => $catID)));
+        $this->set('racas', $racas);
     }
     
 }

@@ -5,8 +5,7 @@
         echo $this->Html->charset();
         //Pegando dados da sessão do usuário
         $dadosUser = $this->Session->read();
-        
-//        debug($dadosUser);
+
         ?>
         <title>
             .:: Sisagro <?php echo " - " . $title_for_layout . " - " . $dadosUser['nomeEmpresa'] . " "; ?> ::.
@@ -103,7 +102,7 @@
         </div>
 
         <div id="rodape">
-
+            <?php echo $this->Js->writeBuffer(); ?>
         </div>
 
     </div>

@@ -28,6 +28,7 @@ class Potreiro extends AppModel {
             'numeric' => array(
                 'rule' => array('numeric'),
                 'rule' => array('notempty'),
+                'allowEmpty' => true,
             ),
             'maximo' => array(
                 'rule'    => array('maxLength', '13'),
@@ -38,7 +39,9 @@ class Potreiro extends AppModel {
             'numeric' => array(
                 'rule' => array('numeric'),
                 'rule' => array('notempty'),
+                'allowEmpty' => true,
                 'message' => 'É necessário informar um valor numérico.',
+                
             ),
             'maximo' => array(
                 'rule'    => array('maxLength', '14'),
@@ -89,3 +92,5 @@ class Potreiro extends AppModel {
 
 
 }
+
+?>

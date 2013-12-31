@@ -7,16 +7,17 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <fieldset>
     <?php
     echo $this->Form->input('descricao');
-    echo $this->Form->input('especie_id', array ('id' => 'especieID', 'type' => 'select','options' => $especies, 'label' => 'Espécie', 'empty' => ''));
+    echo $this->Form->input('especie_id', array ('id' => 'especieID', 'type' => 'select','options' => $especies, 'label' => 'Espécie', 'empty' => ' -- Selecione a espécie -- '));
     echo $this->Form->input('raca_id', array('id' => 'racaID', 'type' => 'select', 'label' => 'Raças'));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Adicionar')); ?>
 <?php
+
 $this->Js->get('#especieID')->event(
     'change',
     $this->Js->request(
-        array('controller' => 'racas', 'action' => 'buscaRacas', 'Pelagen'),
+        array('controller' => 'Racas', 'action' => 'buscaRacas', 'Pelagen'),
         array(  'update' => '#racaID',
                 'async' => true,
 		'method' => 'post',
@@ -28,5 +29,5 @@ $this->Js->get('#especieID')->event(
             )
     )
 );
+
 ?>
-<?php echo $this->Js->writeBuffer(); ?>

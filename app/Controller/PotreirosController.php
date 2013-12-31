@@ -67,9 +67,6 @@ class PotreirosController extends AppController {
         $this->set(compact('empresa_id'));
         
         if ($this->request->is('post')) {
-            if (empty($this->request->data['Potreiro']['area_lavoura'])) {
-                $this->Potreiro->validator()->remove('area_lavoura');
-            }
             $this->Potreiro->create();
             if ($this->Potreiro->save($this->request->data)) {
                 $this->Session->setFlash('Potreiro adicionado com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
@@ -102,9 +99,6 @@ class PotreirosController extends AppController {
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            if (empty($this->request->data['Potreiro']['area_lavoura'])) {
-                $this->Potreiro->validator()->remove('area_lavoura');
-            }
             if ($this->Potreiro->save($this->request->data)) {
                 $this->Session->setFlash('Potreiro alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
@@ -139,3 +133,5 @@ class PotreirosController extends AppController {
     }
 
 }
+
+?>
