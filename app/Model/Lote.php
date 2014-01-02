@@ -32,12 +32,12 @@ class Lote extends AppModel {
         
     );
     
-    public function beforeSave($dados, $primary = false) {
+    public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['created'])) {
-            $this->data[$this->alias]['created'] = $this->formataDataSalvar($this->data[$this->alias]['created']);
+            $this->data[$this->alias]['created'] = $this->formataData($this->data[$this->alias]['created'], 'EN');
         }
         if (isset($this->data[$this->alias]['modified'])) {
-            $this->data[$this->alias]['modified'] = $this->formataDataSalvar($this->data[$this->alias]['modified']);
+            $this->data[$this->alias]['modified'] = $this->formataData($this->data[$this->alias]['modified'], 'EN');
         }
         return true;
     }
@@ -45,10 +45,10 @@ class Lote extends AppModel {
     public function afterFind($dados, $primary = false) {
         foreach ($dados as $key => $value) {
             if (!empty($value["Lote"]["created"])) {
-                $dados[$key]["Lote"]["created"] = $this->formataDataVisualizar($value["Lote"]["created"]);
+                $dados[$key]["Lote"]["created"] = $this->formataData($value["Lote"]["created"], 'PT');
             }
             if (!empty($value["Lote"]["modified"])) {
-                $dados[$key]["Lote"]["modified"] = $this->formataDataVisualizar($value["Lote"]["modified"]);
+                $dados[$key]["Lote"]["modified"] = $this->formataData($value["Lote"]["modified"], 'PT');
             }
         }
         return $dados;

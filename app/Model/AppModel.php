@@ -33,22 +33,34 @@ App::uses('Model', 'Model');
  */
 class AppModel extends Model {
     
-    public function formataDataVisualizar($datahora) {
+    public function formataData($datahora, $formato) {
+        
         $data = substr($datahora, 0, 10);
-        $data = explode("-", $data);
-        $data = $data[2] . "/" . $data[1] . "/" . $data[0];
-        $hora = substr($datahora, 11, 8);
-        $datahora = $data . " " . $hora;
-        return $datahora;
-    }
-    
-    public function formataDataSalvar($datahora) {
-        $data = substr($datahora, 0, 10);
-        $data = explode("/", $data);
-        $data = $data[2] . "/" . $data[1] . "/" . $data[0];
-        $hora = substr($datahora, 11, 8);
-        $datahora = $data . " " . $hora;
-        return $datahora;
+        
+        if ($formato == "PT") {
+            if (preg_match('/^\d{4}[-]\d{1,2}[-]\d{1,2}$/', $data)) {
+                $data = explode("-", $data);
+                $data = $data[2] . "/" . $data[1] . "/" . $data[0];
+                $hora = substr($datahora, 11, 8);
+                $datahora = $data . " " . $hora;
+                return $datahora;
+            } else {
+                return $datahora;
+            }
+        }
+        
+        if ($formato == 'EN') {
+            if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', substr($data, 0, 10))) {
+                $data = explode("/", $data);
+                $data = $data[2] . "-" . $data[1] . "-" . $data[0];
+                $hora = substr($datahora, 11, 8);
+                $datahora = $data . " " . $hora;
+                return $datahora;
+            } else {
+                return $datahora;
+            }
+        }
+        
     }
     
 }
