@@ -56,6 +56,11 @@ class Especy extends AppModel {
             'foreignKey' => 'especie_id',
             'dependent' => false,
         ),
+        'Animai' => array(
+            'className' => 'Animai',
+            'foreignKey' => 'especie_id',
+            'dependent' => false,
+        ),
     );
     
 }

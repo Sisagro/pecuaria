@@ -47,6 +47,17 @@ class Grausangue extends AppModel {
             'order' => ''
         )
     );
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Animai' => array(
+            'className' => 'Animai',
+            'foreignKey' => 'grausangue_id',
+            'dependent' => false,
+        ),
+    );
 
 
 }

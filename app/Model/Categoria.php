@@ -90,6 +90,18 @@ class Categoria extends AppModel {
             'order' => ''
         )
     );
+    
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Animai' => array(
+            'className' => 'Animai',
+            'foreignKey' => 'categoria_id',
+            'dependent' => false,
+        ),
+    );
 
 }
 

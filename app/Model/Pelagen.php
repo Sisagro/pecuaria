@@ -38,7 +38,18 @@ class Pelagen extends AppModel {
             'conditions' => '',
             'fields' => '',
             'order' => ''
-        )
+        ),
+    );
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Animai' => array(
+            'className' => 'Animai',
+            'foreignKey' => 'pelagen_id',
+            'dependent' => false,
+        ),
     );
 
 

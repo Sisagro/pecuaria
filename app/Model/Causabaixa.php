@@ -44,6 +44,17 @@ class Causabaixa extends AppModel {
             'order' => ''
         )
     );
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Animai' => array(
+            'className' => 'Animai',
+            'foreignKey' => 'causabaixa_id',
+            'dependent' => false,
+        ),
+    );
 
 
 }
