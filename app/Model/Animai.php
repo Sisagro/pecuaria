@@ -22,6 +22,7 @@ class Animai extends AppModel {
         'especie_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
+                'message'  => 'Este campo é obrigatório.',
             ),
         ),
         'pelagen_id' => array(
@@ -45,40 +46,33 @@ class Animai extends AppModel {
         'sexo' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-            ),
-        ),
-        'dtnasc' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-            ),
-        ),
-        'dtcomprado' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
+                'message'  => 'Este campo é obrigatório.',
             ),
         ),
         'caracteristica' => array(
             'notEmpty' => array(
                 'rule'     => 'notEmpty',
-                'required' => true,
                 'message'  => 'Este campo não pode ser vazio.',
+                'allowEmpty' => true,
                 'last' => false
             ),
             'tamanho' => array(
                 'rule'     => array('maxLength', 300),
-                'required' => true,
                 'message'  => 'Este campo não pode ter mais que 300 caracteres.',
+                'allowEmpty' => true,
                 'last' => false
             ),
         ),
         'ativo' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
+                'message'  => 'Este campo é obrigatório.',
             ),
         ),
         'brinco' => array(
             'alphanumeric' => array(
                 'rule' => array('alphanumeric'),
+                'allowEmpty' => true,
                 'last' => false
             ),
             'tamanho' => array(
@@ -90,6 +84,7 @@ class Animai extends AppModel {
         'chipeletronico' => array(
             'alphanumeric' => array(
                 'rule' => array('alphanumeric'),
+                'allowEmpty' => true,
                 'last' => false
             ),
             'tamanho' => array(
@@ -101,6 +96,7 @@ class Animai extends AppModel {
         'colareletronico' => array(
             'alphanumeric' => array(
                 'rule' => array('alphanumeric'),
+                'allowEmpty' => true,
                 'last' => false
             ),
             'tamanho' => array(
@@ -112,17 +108,19 @@ class Animai extends AppModel {
         'tatuagem' => array(
             'alphanumeric' => array(
                 'rule' => array('alphanumeric'),
+                'allowEmpty' => true,
                 'last' => false
             ),
             'tamanho' => array(
                 'rule'     => array('maxLength', 30),
                 'message'  => 'Este campo não pode ter mais que 30 caracteres.',
-                'allowEmpty' => true
+                'allowEmpty' => true,
             ),
         ),
         'hbpc' => array(
             'alphanumeric' => array(
                 'rule' => array('alphanumeric'),
+                'allowEmpty' => true,
                 'last' => false
             ),
             'tamanho' => array(
@@ -134,6 +132,7 @@ class Animai extends AppModel {
         'cor' => array(
             'alphanumeric' => array(
                 'rule' => array('alphanumeric'),
+                'allowEmpty' => true,
                 'last' => false
             ),
             'tamanho' => array(

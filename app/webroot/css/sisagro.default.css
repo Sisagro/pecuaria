@@ -458,16 +458,6 @@ table td.actions a {
         height: 40px;
 }
 
-
-.datepicker {
-	clear: both;
-	font-size: 140%;
-	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
-	padding: 1%;
-        vertical-align: text-bottom;
-	width:20%;
-}
-
 form {
 	clear: both;
 	margin-right: 20px;
@@ -528,6 +518,7 @@ input, textarea {
 	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
 	padding: 1%;
 	width:98%;
+        resize: none;
 }
 input, select {
 	clear: both;
@@ -552,9 +543,7 @@ option {
 	padding: 0 3px;
 }
 input[type=checkbox] {
-	clear: left;
-	float: left;
-	margin: 0px 6px 7px 2px;
+	margin: 0px 2px 1px 30px;
 	width: auto;
 }
 div.checkbox label {

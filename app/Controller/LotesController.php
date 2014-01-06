@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 App::import('Controller', 'Users');
 
 /**
- * Menus Controller
+ * Lotes Controller
  */
 class LotesController extends AppController {
     

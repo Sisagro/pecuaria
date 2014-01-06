@@ -138,5 +138,19 @@ class PelagensController extends AppController {
         $this->redirect(array('action' => 'index'));
         
     }
+    
+    
+    /**
+     * Funções ajax
+     */
+    
+    public function buscaPelagens($chave) {
+        $this->layout = 'ajax';
+        if (array_key_exists("raca_id", $this->request->data[$chave])) {
+            $catID = $this->request->data[$chave]['raca_id'];
+        }
+        $pelagens = $this->Pelagen->find('list' , array('order' => 'descricao ASC','fields' => array('Pelagen.id', 'Pelagen.descricao'),'conditions' => array('Pelagen.raca_id' => $catID)));
+        $this->set('pelagens', $pelagens);
+    }
 
 }

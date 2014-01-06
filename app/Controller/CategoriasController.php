@@ -146,6 +146,20 @@ class CategoriasController extends AppController {
         
     }
     
+    
+    /**
+     * Funções ajax
+     */
+    
+    public function buscaCategorias($chave) {
+        $this->layout = 'ajax';
+        if (array_key_exists("especie_id", $this->request->data[$chave])) {
+            $catID = $this->request->data[$chave]['especie_id'];
+        }
+        $categorias = $this->Categoria->find('list' , array('order' => 'descricao ASC','fields' => array('id', 'descricao'),'conditions' => array('especie_id' => $catID)));
+        $this->set('categorias', $categorias);
+    }
+    
 }
 
 ?>
