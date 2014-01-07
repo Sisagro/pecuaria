@@ -114,7 +114,7 @@ class RacasController extends AppController {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {
-//            $this->request->data = $raca;
+            $this->request->data = $raca;
         }
         
     }
