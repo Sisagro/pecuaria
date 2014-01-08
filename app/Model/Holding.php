@@ -73,6 +73,11 @@ class Holding extends AppModel {
             'foreignKey' => 'holding_id',
             'dependent' => false,
         ),
+        'Cidade' => array(
+            'className' => 'Cidade',
+            'foreignKey' => 'holding_id',
+            'dependent' => false,
+        ),
     );
     
     /**
