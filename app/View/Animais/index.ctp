@@ -9,6 +9,9 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
         <th><?php echo $this->Paginator->sort('id'); ?></th>
         <th><?php echo $this->Paginator->sort('Especy.descricao', 'Espécie'); ?></th>
         <th><?php echo $this->Paginator->sort('sexo', 'Sexo'); ?></th>
+        <th><?php echo $this->Paginator->sort('brinco', 'Brinco'); ?></th>
+        <th><?php echo $this->Paginator->sort('tatuagem', 'Tatuagem'); ?></th>
+        <th><?php echo $this->Paginator->sort('hbbsbb', 'HBB/SBB'); ?></th>
         <th><?php echo $this->Paginator->sort('ativo', 'Ativo'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
@@ -17,6 +20,9 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
             <td><?php echo h($item['Animai']['id']); ?>&nbsp;</td>
             <td><?php echo h($item['Especy']['descricao']); ?>&nbsp;</td>
             <td><?php if ($item['Animai']['sexo'] == 'M') { echo h('MACHO'); } else { echo h('FÊMEA'); } ?>&nbsp;</td>
+            <td><?php echo h($item['Animai']['brinco']); ?>&nbsp;</td>
+            <td><?php echo h($item['Animai']['tatuagem']); ?>&nbsp;</td>
+            <td><?php echo h($item['Animai']['hbbsbb']); ?>&nbsp;</td>
             <td><?php if ($item['Animai']['ativo'] == 'A') { echo h('SIM'); } else { echo h('NÃO'); } ?>&nbsp;</td>
             <td>
                 <div id="botoes">

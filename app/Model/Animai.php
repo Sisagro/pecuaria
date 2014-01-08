@@ -117,7 +117,7 @@ class Animai extends AppModel {
                 'allowEmpty' => true,
             ),
         ),
-        'hbpc' => array(
+        'hbbsbb' => array(
             'alphanumeric' => array(
                 'rule' => array('alphanumeric'),
                 'allowEmpty' => true,
@@ -125,7 +125,7 @@ class Animai extends AppModel {
             ),
             'tamanho' => array(
                 'rule'     => array('maxLength', 20),
-                'message'  => 'Este campo não pode ter mais que 30 caracteres.',
+                'message'  => 'Este campo não pode ter mais que 20 caracteres.',
                 'allowEmpty' => true
             ),
         ),
@@ -147,14 +147,28 @@ class Animai extends AppModel {
                 'allowEmpty' => true
             ),
         ),
+        'dtnasc' => array(
+            'tamanho' => array(
+                'rule'     => array('maxLength', 10),
+                'message'  => 'Este campo não pode ter mais que 10 caracteres.',
+                'allowEmpty' => true
+            ),
+        ),
+        'dtcomprado' => array(
+            'tamanho' => array(
+                'rule'     => array('maxLength', 10),
+                'message'  => 'Este campo não pode ter mais que 10 caracteres.',
+                'allowEmpty' => true
+            ),
+        ),
     );
     
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['dtnasc'])) {
-            $this->data[$this->alias]['dtnasc'] = $this->formataData($this->data[$this->alias]['dtnasc'], 'EN');
+            $this->data[$this->alias]['dtnasc'] = $this->formataData($this->data[$this->alias]['dtnasc'], 'EN', 'N');
         }
         if (isset($this->data[$this->alias]['dtcomprado'])) {
-            $this->data[$this->alias]['dtcomprado'] = $this->formataData($this->data[$this->alias]['dtcomprado'], 'EN');
+            $this->data[$this->alias]['dtcomprado'] = $this->formataData($this->data[$this->alias]['dtcomprado'], 'EN', 'N');
         }
         return true;
     }
@@ -162,10 +176,10 @@ class Animai extends AppModel {
     public function afterFind($dados, $primary = false) {
         foreach ($dados as $key => $value) {
             if (!empty($value["Animai"]["dtnasc"])) {
-                $dados[$key]["Animai"]["dtnasc"] = $this->formataData($value["Animai"]["dtnasc"], 'PT');
+                $dados[$key]["Animai"]["dtnasc"] = $this->formataData($value["Animai"]["dtnasc"], 'PT', 'N');
             }
             if (!empty($value["Animai"]["dtcomprado"])) {
-                $dados[$key]["Animai"]["dtcomprado"] = $this->formataData($value["Animai"]["dtcomprado"], 'PT');
+                $dados[$key]["Animai"]["dtcomprado"] = $this->formataData($value["Animai"]["dtcomprado"], 'PT', 'N');
             }
         }
         return $dados;

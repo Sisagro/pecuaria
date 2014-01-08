@@ -33,10 +33,10 @@ App::uses('Model', 'Model');
  */
 class AppModel extends Model {
     
-    public function formataData($datahora, $formato) {
+    public function formataDataHora($datahora, $formato) {
         
         $data = substr($datahora, 0, 10);
-        
+
         if ($formato == "PT") {
             if (preg_match('/^\d{4}[-]\d{1,2}[-]\d{1,2}$/', $data)) {
                 $data = explode("-", $data);
@@ -60,7 +60,36 @@ class AppModel extends Model {
                 return $datahora;
             }
         }
+       
+    }
+    
+    public function formataData($data, $formato) {
         
+        if (!empty($data)) {
+            
+            $data = substr($data,0,10);
+            
+            if ($formato == "PT") {
+                if (preg_match('/^\d{4}[-]\d{1,2}[-]\d{1,2}$/', $data)) {
+                    $data = explode("-", $data);
+                    $data = $data[2] . "/" . $data[1] . "/" . $data[0];
+                    return $data;
+                } else {
+                    return $data;
+                }
+            }
+
+            if ($formato == 'EN') {
+                if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', substr($data, 0, 10))) {
+                    $data = explode("/", $data);
+                    $data = $data[2] . "-" . $data[1] . "-" . $data[0];
+                    return $data;
+                } else {
+                    return $data;
+                }
+            }
+        }
+       
     }
     
 }

@@ -21,10 +21,10 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <?php if($animal['Animai']['sexo'] == "M") { echo "MACHO"; } else { echo "FÊMEA"; } ; ?>
 <br>
 <strong> Data de nascimento: </strong>
-<?php echo substr($animal['Animai']['dtnasc'],0,10); ?>
+<?php echo $animal['Animai']['dtnasc']; ?>
 <br>
 <strong> Data de compra: </strong>
-<?php echo substr($animal['Animai']['dtcomprado'],0,10); ?>
+<?php echo $animal['Animai']['dtcomprado']; ?>
 <br>
 <strong> Brinco: </strong>
 <?php echo $animal['Animai']['brinco']; ?>
@@ -41,8 +41,8 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Cor: </strong>
 <?php echo $animal['Animai']['cor']; ?>
 <br>
-<strong> HBPC: </strong>
-<?php echo $animal['Animai']['hbpc']; ?>
+<strong> HBB/SBB: </strong>
+<?php echo $animal['Animai']['hbbsbb']; ?>
 <br>
 <strong> Características: </strong>
 <?php echo $animal['Animai']['caracteristica']; ?>

@@ -100,8 +100,6 @@ class AnimaisController extends AppController {
                 $this->Session->setFlash('Animal adicionado com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-//                debug($this->Animai->invalidFields());
-//                die();
                 $this->Session->setFlash('Registro não foi salvo. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         }

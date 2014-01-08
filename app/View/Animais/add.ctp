@@ -41,7 +41,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('sexo', array ('id' => 'sexo', 'type' => 'select', 'options' => $sexos, 'label' => 'Sexo', 'empty' => '-- Selecione o sexo --'));
     echo $this->Form->input('dtnasc', array('id' => 'dtnasc', 'class' => 'data', 'type' => 'text', 'label' => 'Data de nascimento'));
     echo $this->Form->input('dtcomprado', array('id' => 'dtcomprado', 'class' => 'data', 'type' => 'text', 'label' => 'Data de compra'));
-    echo $this->Form->input('hbpc', array ('id' => 'hbpc', 'label' => 'HBPC'));
+    echo $this->Form->input('hbbsbb', array ('id' => 'hbbsbb', 'label' => 'HBB/SBB'));
     echo $this->Form->input('caracteristica', array ('id' => 'caracteristica', 'type' => 'textarea', 'label' => 'Características', 'escape' => false));
     echo $this->Form->input('causabaixa_id', array ('id' => 'causabaixaID', 'type' => 'select','options' => $causabaixas, 'label' => 'Causa de baixa', 'empty' => '-- Selecione a causa de baixa --'));
     echo $this->Form->input('ativo', array ('id' => 'ativo', 'type' => 'select','options' => $status, 'label' => 'Ativo'));
@@ -134,6 +134,8 @@ $this->Js->get('#racaID')->event(
     }
     
     jQuery(document).ready(function(){
+        $("#dtnasc").mask("99/99/9999");
+        $("#dtcomprado").mask("99/99/9999");
         document.getElementById('especieID').focus();
         $(".data").datepicker({
             dateFormat: 'dd/mm/yy',

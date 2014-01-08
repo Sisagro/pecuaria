@@ -17,9 +17,6 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Abreveatura: </strong>
 <?php echo $categoria['Categoria']['abreveatura']; ?>
 <br>
-<strong> Idade mínima (Meses): </strong>
-<?php echo $categoria['Categoria']['idade_min']; ?>
-<br>
 <strong> Idade máxima (Meses): </strong>
 <?php echo $categoria['Categoria']['idade_max']; ?>
 <br>
