@@ -52,4 +52,5 @@ class Paise extends AppModel {
             'dependent' => false,
         ),
     );    
+    
 }
