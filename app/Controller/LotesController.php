@@ -65,6 +65,8 @@ class LotesController extends AppController {
         $dadosUser = $this->Session->read();
         $empresa_id = $dadosUser['empresa_id'];
         $this->set(compact('empresa_id'));
+        $user_id = $dadosUser['Auth']['User']['id'];
+        $this->set(compact('user_id'));
         
         $opcoes = array('S' => 'SIM', 'N' => 'NÃO');
         $this->set('opcoes', $opcoes);
@@ -94,6 +96,8 @@ class LotesController extends AppController {
         
         $dadosUser = $this->Session->read();
         $empresa_id = $dadosUser['empresa_id'];
+        $user_id = $dadosUser['Auth']['User']['id'];
+        $this->set(compact('user_id'));
         
         $opcoes = array('S' => 'SIM', 'N' => 'NÃO');
         $this->set('opcoes', $opcoes);
@@ -106,6 +110,7 @@ class LotesController extends AppController {
         
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->Lote->id = $id;
+            $this->request->data['Lote']['modified'] = date("Y-m-d H:i:s");
             if ($this->Lote->save($this->request->data)) {
                 $this->Session->setFlash('Lote alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));

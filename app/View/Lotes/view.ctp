@@ -14,7 +14,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Data de criação: </strong>
 <?php echo $lote['Lote']['created']; ?>
 <br>
-<strong> Data de modificação: </strong>
-<?php echo $lote['Lote']['modified']; ?>
+<strong> Última modificação: </strong>
+<?php echo $lote['Lote']['modified'] . " - " . $lote['User']['nome'] . " " . $lote['User']['sobrenome']; ?>
 <br>
 </p>

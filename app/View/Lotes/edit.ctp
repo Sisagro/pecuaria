@@ -8,6 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('descricao');
     echo $this->Form->input('ativo', array ('id' => 'ativo', 'type' => 'select','options' => $opcoes, 'label' => 'Ativo'));
+    echo $this->Form->input('user_id', array('type' => 'hidden', 'value' => $user_id));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Editar')); ?>

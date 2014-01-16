@@ -138,7 +138,12 @@ class User extends AppModel {
             'className' => 'Usergroupempresa',
             'foreignKey' => 'user_id',
             'dependent' => false
-        )
+        ),
+        'Lote' => array(
+            'className' => 'Lote',
+            'foreignKey' => 'empresa_id',
+            'dependent' => false,
+        ),
     );
 
 }
