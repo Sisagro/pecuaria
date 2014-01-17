@@ -15,7 +15,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <?php echo $user['Holding']['nome']; ?>
 <br>
 <strong> Último acesso: </strong>
-<?php echo date('d/m/Y', strtotime($user['User']['ultimoacesso'])); ?>
+<?php echo date('d/m/Y H:i:s', strtotime($user['User']['ultimoacesso'])); ?>
 <br>
 <strong> Última modifiação: </strong>
 <?php echo date('d/m/Y', strtotime($user['User']['modified'])); ?>
