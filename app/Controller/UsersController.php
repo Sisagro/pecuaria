@@ -27,8 +27,8 @@ class UsersController extends AppController {
         $this->User->recursive = 0;
         if ($dadosUser['Auth']['User']['adminmaster'] == 1) {
             $this->Paginator->settings = array(
-                'order' => array('Holding.nome' => 'asc',
-                                 'nome' => 'asc',)
+                'order' => array('ultimoacesso' => 'desc',
+                                 'ultimoacesso' => 'desc',)
             );
         } else {
             $this->Paginator->settings = array(
