@@ -23,7 +23,7 @@ class Raca extends AppModel {
                 'message' => 'Máximo 100 caracteres',
             )
         ),
-        'abreviatura' => array(
+        'caracteristica' => array(
             'maximo' => array(
                 'rule'    => array('maxLength', '300'),
                 'message' => 'Máximo 300 caracteres',

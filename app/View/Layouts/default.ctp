@@ -12,6 +12,8 @@
 
         </title>
         <?php
+        echo $this->Html->meta('icon');
+        
         echo $this->Html->css('sisagro.default');
         echo $this->Html->css('south-street/jquery-ui-1.10.3.custom.min');
         echo $this->Html->css('colorpicker/colorpicker');

@@ -16,7 +16,15 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
         <tr>
             <td><?php echo h($item['Raca']['id']); ?>&nbsp;</td>
             <td><?php echo h($item['Raca']['descricao']); ?>&nbsp;</td>
-            <td><?php echo h($item['Raca']['caracteristica']); ?>&nbsp;</td>
+            <td>
+                <?php
+                    if (strlen($item['Raca']['caracteristica']) > 80) {
+                        echo h(substr($item['Raca']['caracteristica'],0,80). "(+)"); 
+                    } else {
+                        echo h($item['Raca']['caracteristica']); 
+                    }
+                ?>&nbsp;
+            </td>
             <td><?php echo h($item['Especy']['descricao']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
