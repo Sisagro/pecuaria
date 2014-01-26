@@ -89,7 +89,17 @@ class Potreiro extends AppModel {
             'order' => ''
         )
     );
-
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Categorialote' => array(
+            'className' => 'Categorialote',
+            'foreignKey' => 'potreiro_id',
+            'dependent' => false,
+        ),
+    );
 
 }
 

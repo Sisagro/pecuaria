@@ -91,6 +91,11 @@ class Categoria extends AppModel {
             'foreignKey' => 'categoria_id',
             'dependent' => false,
         ),
+        'Categorialote' => array(
+            'className' => 'Categorialote',
+            'foreignKey' => 'categoria_id',
+            'dependent' => false,
+        ),
     );
 
 }

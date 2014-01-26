@@ -75,7 +75,18 @@ class Lote extends AppModel {
             'order' => ''
         )
     );
-
+    
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Categorialote' => array(
+            'className' => 'Categorialote',
+            'foreignKey' => 'lote_id',
+            'dependent' => false,
+        ),
+    );
 
 }
 

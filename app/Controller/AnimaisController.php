@@ -27,7 +27,7 @@ class AnimaisController extends AppController {
         $this->Animai->recursive = 0;
         $this->Paginator->settings = array(
             'conditions' => array('empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('descricao' => 'asc')
+            'order' => array('Especy.descricao' => 'asc')
         );
         $this->set('animais', $this->Paginator->paginate('Animai'));
 
