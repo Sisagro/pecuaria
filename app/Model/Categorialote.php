@@ -26,7 +26,7 @@ class Categorialote extends AppModel {
         ),
         'categoria_id' => array(
             'Numerico' => array(
-                'rule' => array('notempty'),
+                'rule' => array('numeric'),
                 'message' => 'Este campo deve ser informado.',
             ),
         ),
@@ -34,6 +34,14 @@ class Categorialote extends AppModel {
             'Numerico' => array(
                 'rule' => array('notempty'),
                 'message' => 'Este campo deve ser informado.',
+            ),
+        ),
+        'Animai.animai_id' => array(
+            'Selecione' => array(
+                'rule' => array('multiple', array(
+                                'min' => 1
+                            )),
+                'message' => 'Seleciona ao menos um animal.',
             ),
         ),
     );

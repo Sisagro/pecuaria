@@ -189,6 +189,46 @@ class AnimaisController extends AppController {
         
     }
     
+    /**
+     * Funções ajax
+     */
+    
+    public function buscaAnimais($chave) {
+        $this->layout = 'ajax';
+        if (array_key_exists("categoria_id", $this->request->data[$chave])) {
+            $catID = $this->request->data[$chave]['categoria_id'];
+        }
+        
+        $this->loadModel('Animallote');
+        $db = $this->Animallote->getDataSource();
+        $subQuery = $db->buildStatement(
+            array(
+                'fields'     => array('Animallote.animai_id'),
+                'table'      => $db->fullTableName($this->Animallote),
+                'alias'      => 'Animallote',
+                'limit'      => null,
+                'offset'     => null,
+                'joins'      => array(),
+                'conditions' => null,
+                'order'      => null,
+                'group'      => null
+            ),
+            $this->Animallote
+        );
+        $subQuery = ' Animai.id NOT IN (' . $subQuery . ') ';
+        $subQueryExpression = $db->expression($subQuery);
+
+        $conditions[] = $subQueryExpression;
+        $this->Animai->recursive = -1;
+        $animais = $this->Animai->find('list', array(
+            'fields' => array('id', 'descricao'),
+            'conditions' => $conditions,
+            ));
+        
+        $this->set('animais', $animais);
+
+    }
+    
 }
 
 ?>

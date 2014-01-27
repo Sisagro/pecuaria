@@ -9,6 +9,13 @@ App::uses('AppModel', 'Model');
 class Animai extends AppModel {
 
     /**
+     * Virtual fields
+     */
+    public $virtualFields = array(
+        'descricao' => 'CONCAT(Animai.brinco, " ", Animai.tatuagem)'
+    );
+
+    /**
      * Validation rules
      *
      * @var array
@@ -22,7 +29,7 @@ class Animai extends AppModel {
         'especie_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
-                'message'  => 'Este campo é obrigatório.',
+                'message' => 'Este campo é obrigatório.',
             ),
         ),
         'pelagen_id' => array(
@@ -46,19 +53,19 @@ class Animai extends AppModel {
         'sexo' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-                'message'  => 'Este campo é obrigatório.',
+                'message' => 'Este campo é obrigatório.',
             ),
         ),
         'caracteristica' => array(
             'notEmpty' => array(
-                'rule'     => 'notEmpty',
-                'message'  => 'Este campo não pode ser vazio.',
+                'rule' => 'notEmpty',
+                'message' => 'Este campo não pode ser vazio.',
                 'allowEmpty' => true,
                 'last' => false
             ),
             'tamanho' => array(
-                'rule'     => array('maxLength', 300),
-                'message'  => 'Este campo não pode ter mais que 300 caracteres.',
+                'rule' => array('maxLength', 300),
+                'message' => 'Este campo não pode ter mais que 300 caracteres.',
                 'allowEmpty' => true,
                 'last' => false
             ),
@@ -66,7 +73,7 @@ class Animai extends AppModel {
         'ativo' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-                'message'  => 'Este campo é obrigatório.',
+                'message' => 'Este campo é obrigatório.',
             ),
         ),
         'brinco' => array(
@@ -76,8 +83,8 @@ class Animai extends AppModel {
                 'last' => false
             ),
             'tamanho' => array(
-                'rule'     => array('maxLength', 15),
-                'message'  => 'Este campo não pode ter mais que 15 caracteres.',
+                'rule' => array('maxLength', 15),
+                'message' => 'Este campo não pode ter mais que 15 caracteres.',
                 'allowEmpty' => true
             ),
         ),
@@ -88,8 +95,8 @@ class Animai extends AppModel {
                 'last' => false
             ),
             'tamanho' => array(
-                'rule'     => array('maxLength', 15),
-                'message'  => 'Este campo não pode ter mais que 15 caracteres.',
+                'rule' => array('maxLength', 15),
+                'message' => 'Este campo não pode ter mais que 15 caracteres.',
                 'allowEmpty' => true
             ),
         ),
@@ -100,8 +107,8 @@ class Animai extends AppModel {
                 'last' => false
             ),
             'tamanho' => array(
-                'rule'     => array('maxLength', 15),
-                'message'  => 'Este campo não pode ter mais que 15 caracteres.',
+                'rule' => array('maxLength', 15),
+                'message' => 'Este campo não pode ter mais que 15 caracteres.',
                 'allowEmpty' => true
             ),
         ),
@@ -112,8 +119,8 @@ class Animai extends AppModel {
                 'last' => false
             ),
             'tamanho' => array(
-                'rule'     => array('maxLength', 30),
-                'message'  => 'Este campo não pode ter mais que 30 caracteres.',
+                'rule' => array('maxLength', 30),
+                'message' => 'Este campo não pode ter mais que 30 caracteres.',
                 'allowEmpty' => true,
             ),
         ),
@@ -124,8 +131,8 @@ class Animai extends AppModel {
                 'last' => false
             ),
             'tamanho' => array(
-                'rule'     => array('maxLength', 20),
-                'message'  => 'Este campo não pode ter mais que 20 caracteres.',
+                'rule' => array('maxLength', 20),
+                'message' => 'Este campo não pode ter mais que 20 caracteres.',
                 'allowEmpty' => true
             ),
         ),
@@ -136,8 +143,8 @@ class Animai extends AppModel {
                 'last' => false
             ),
             'tamanho' => array(
-                'rule'     => array('maxLength', 6),
-                'message'  => 'Este campo não pode ter mais que 6 caracteres.',
+                'rule' => array('maxLength', 6),
+                'message' => 'Este campo não pode ter mais que 6 caracteres.',
                 'allowEmpty' => true
             ),
         ),
@@ -149,20 +156,20 @@ class Animai extends AppModel {
         ),
         'dtnasc' => array(
             'tamanho' => array(
-                'rule'     => array('maxLength', 10),
-                'message'  => 'Este campo não pode ter mais que 10 caracteres.',
+                'rule' => array('maxLength', 10),
+                'message' => 'Este campo não pode ter mais que 10 caracteres.',
                 'allowEmpty' => true
             ),
         ),
         'dtcomprado' => array(
             'tamanho' => array(
-                'rule'     => array('maxLength', 10),
-                'message'  => 'Este campo não pode ter mais que 10 caracteres.',
+                'rule' => array('maxLength', 10),
+                'message' => 'Este campo não pode ter mais que 10 caracteres.',
                 'allowEmpty' => true
             ),
         ),
     );
-    
+
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['dtnasc'])) {
             $this->data[$this->alias]['dtnasc'] = $this->formataData($this->data[$this->alias]['dtnasc'], 'EN', 'N');
@@ -172,7 +179,7 @@ class Animai extends AppModel {
         }
         return true;
     }
-    
+
     public function afterFind($dados, $primary = false) {
         foreach ($dados as $key => $value) {
             if (!empty($value["Animai"]["dtnasc"])) {
@@ -234,7 +241,6 @@ class Animai extends AppModel {
             'order' => ''
         ),
     );
-
 
 }
 

@@ -33,6 +33,49 @@ class CategorialotesController extends AppController {
 
     }
     
+    /**
+     * add method
+     */
+    public function add() {
+        
+        $dadosUser = $this->Session->read();
+        $empresa_id = $dadosUser['empresa_id'];
+        $dadosUser['Auth']['User']['holding_id'];
+        
+        $lotes = $this->Categorialote->Lote->find('list', array(
+            'fields' => array('id', 'descricao'), 
+            'conditions' => array('empresa_id' => $dadosUser['empresa_id']),
+            'order' => array('descricao' => 'asc')
+        ));
+        $this->set(compact('lotes'));
+        
+        $this->loadModel('Especy');
+        $especies = $this->Especy->find('list', array(
+            'fields' => array('id', 'descricao'), 
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('descricao' => 'asc')
+        ));
+        $this->set(compact('especies'));
+        
+        $potreiros = $this->Categorialote->Potreiro->find('list', array(
+            'fields' => array('id', 'descricao'), 
+            'conditions' => array('empresa_id' => $dadosUser['empresa_id']),
+            'order' => array('descricao' => 'asc')
+        ));
+        $this->set(compact('potreiros'));
+        
+        if ($this->request->is('post')) {
+            $this->Categorialote->create();
+            if ($this->Categorialote->save($this->request->data)) {
+                $this->Session->setFlash('Montagem do lote realizada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash('Registro não foi salvo. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
+            }
+        }
+        
+    }
+    
 }
 
 ?>
