@@ -22,12 +22,6 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
                 <div id="botoes">
                     <?php
                     echo $this->Html->link($this->Html->image("botoes/view.png", array("alt" => "Visualizar", "title" => "Visualizar")), array('action' => 'view', $item['Categorialote']['id']), array('escape' => false));
-                    echo $this->Html->link($this->Html->image("botoes/editar.gif", array("alt" => "Editar", "title" => "Editar")), array('action' => 'edit', $item['Categorialote']['id']), array('escape' => false));
-                    echo $this->Form->postLink($this->Html->image('botoes/excluir.gif', array('alt' => 'Exluir', 'title' => 'Exluir')),
-                                               array('action' => 'delete', $item['Categorialote']['id']), array('escape' => false),
-                                               __('Você realmete deseja apagar esse item?')
-                                              );
-                    
                     ?>
                 </div>
             </td>

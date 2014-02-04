@@ -151,11 +151,37 @@ class CategoriasController extends AppController {
      * Funções ajax
      */
     
-    public function buscaCategorias($chave) {
+    public function buscaCategorias($chave, $loteID) {
         $this->layout = 'ajax';
         if (array_key_exists("especie_id", $this->request->data[$chave])) {
             $catID = $this->request->data[$chave]['especie_id'];
         }
+        
+//        $conditionsSubQuery['"User2"."status"'] = 'B';
+//
+//        $db = $this->User->getDataSource();
+//        $subQuery = $db->buildStatement(
+//            array(
+//                'fields'     => array('"User2"."id"'),
+//                'table'      => $db->fullTableName($this->User),
+//                'alias'      => 'User2',
+//                'limit'      => null,
+//                'offset'     => null,
+//                'joins'      => array(),
+//                'conditions' => $conditionsSubQuery,
+//                'order'      => null,
+//                'group'      => null
+//            ),
+//            $this->User
+//        );
+//        $subQuery = ' "User"."id" NOT IN (' . $subQuery . ') ';
+//        $subQueryExpression = $db->expression($subQuery);
+//
+//        $conditions[] = $subQueryExpression;
+//
+//        $this->User->find('all', compact('conditions'));
+        
+        echo "<option value=\"\"> -- {$loteID} --</option>";
         $categorias = $this->Categoria->find('list' , array('order' => 'descricao ASC','fields' => array('id', 'descricao'),'conditions' => array('especie_id' => $catID)));
         $this->set('categorias', $categorias);
     }

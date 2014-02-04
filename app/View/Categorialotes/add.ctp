@@ -17,21 +17,22 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <?php echo $this->Form->end(__('Montar lote')); ?>
 
 <?php
-$this->Js->get('#especieID')->event(
-    'change',
-    $this->Js->request(
-        array('controller' => 'Categorias', 'action' => 'buscaCategorias', 'Categorialote'),
-        array(  'update' => '#categoriaID',
-                'async' => true,
-		'method' => 'post',
-		'dataExpression'=>true,
-		'data'=> $this->Js->serializeForm(array(
-			'isForm' => true,
-			'inline' => true
-			)),
-            )
-    )
-);
+//$this->Js->get('#especieID')->event(
+//    'change',
+//    $this->Js->request(
+//        array('controller' => 'Categorias', 'action' => 'buscaCategorias', 'Categorialote'),
+//        array(  'update' => '#categoriaID',
+//                'async' => true,
+//		'method' => 'post',
+//		'dataExpression'=>true,
+//		'data'=> $this->Js->serializeForm(array(
+//                        'lote_id' => '$("loteID").value()',
+//			'isForm' => true,
+//			'inline' => true
+//			)),
+//            )
+//    )
+//);
 $this->Js->get('#categoriaID')->event(
     'change',
     $this->Js->request(
@@ -48,6 +49,26 @@ $this->Js->get('#categoriaID')->event(
     )
 );
 ?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        
+        $('#loteID').focus();
+        
+        $("#especieID").change( function(){
+            $.ajax({async:true, 
+                    data:$("#especieID").serialize(), 
+                    dataType:"html", 
+                    success:function (data, textStatus) {
+                        $("#categoriaID").html(data);
+                    }, 
+                    type:"post", 
+                    url:"\/pecuaria/categorias\/buscaCategorias\/Categorialote\/" + $("#loteID option:selected").val()
+            });
+        });
+        
+    });
+</script>
 
 
 

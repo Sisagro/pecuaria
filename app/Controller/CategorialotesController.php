@@ -34,6 +34,31 @@ class CategorialotesController extends AppController {
     }
     
     /**
+     * view method
+     */
+    public function view($id = null) {
+        
+        $this->Categorialote->id = $id;
+        if (!$this->Categorialote->exists($id)) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $dadosUser = $this->Session->read();
+        $empresa_id = $dadosUser['empresa_id'];
+        
+        $categorialote = $this->Categorialote->read(null, $id);
+        
+        if ($categorialote['Lote']['empresa_id'] != $empresa_id) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $this->set('item', $categorialote);
+        
+    }
+    
+    /**
      * add method
      */
     public function add() {
