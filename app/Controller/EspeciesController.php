@@ -130,6 +130,17 @@ class EspeciesController extends AppController {
         
     }
     
+    /**
+     * Funções ajax
+     */
+    
+    public function buscaTodasEspecies() {
+        $this->layout = 'ajax';
+        $dadosUser = $this->Session->read();
+        $especies = $this->Especy->find('list' , array('order' => 'descricao ASC','fields' => array('id', 'descricao'),'conditions' => array('holding_id' => $dadosUser['Auth']['User']['Holding']['id'])));
+        $this->set('especies', $especies);
+    }
+    
 }
 
 ?>

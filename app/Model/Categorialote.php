@@ -8,7 +8,6 @@ App::uses('AppModel', 'Model');
  * @property Lote $Lote
  * @property Categoria $Categoria
  * @property Potreiro $Potreiro
- * @property Animallote $Animallote
  */
 class Categorialote extends AppModel {
 
@@ -34,14 +33,6 @@ class Categorialote extends AppModel {
             'Numerico' => array(
                 'rule' => array('notempty'),
                 'message' => 'Este campo deve ser informado.',
-            ),
-        ),
-        'Animai.animai_id' => array(
-            'Selecione' => array(
-                'rule' => array('multiple', array(
-                                'min' => 1
-                            )),
-                'message' => 'Seleciona ao menos um animal.',
             ),
         ),
     );
@@ -87,31 +78,20 @@ class Categorialote extends AppModel {
                 'joinTable'             => 'animallotes',
                 'foreignKey'            => 'categorialote_id',
                 'associationForeignKey' => 'animai_id',
-                //'order'                 => 'Animai.menu, Menu.ordem',
+                'dependent'             => true,
             )
     );
     
     
     
-    /**
-     * hasMany associations
-     *
-     * @var array
-     */
-    public $hasMany = array(
-        'Animallote' => array(
-            'className' => 'Animallote',
-            'foreignKey' => 'categorialote_id',
-            'dependent' => false,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
-        )
-    );
-
+    // VALIDAÇÕES
+    
+    public function afterValidate($options = array()) {
+        if (empty($this->data['Animai']['Animai'])) {
+            $this->invalidate('erro', array('message' => 'É obrigatório informar ao menos um animal.'));
+            return false;
+        }
+        return true;
+    }
+    
 }

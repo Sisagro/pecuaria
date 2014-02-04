@@ -216,9 +216,11 @@ class AnimaisController extends AppController {
             $this->Animallote
         );
         $subQuery = ' Animai.id NOT IN (' . $subQuery . ') ';
+        $subQuery = 'categoria_id = ' . $catID . ' AND ' . $subQuery;
         $subQueryExpression = $db->expression($subQuery);
 
         $conditions[] = $subQueryExpression;
+        
         $this->Animai->recursive = -1;
         $animais = $this->Animai->find('list', array(
             'fields' => array('id', 'descricao'),
@@ -228,6 +230,7 @@ class AnimaisController extends AppController {
         $this->set('animais', $animais);
 
     }
+    
     
 }
 

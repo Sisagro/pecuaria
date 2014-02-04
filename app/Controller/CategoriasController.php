@@ -157,32 +157,58 @@ class CategoriasController extends AppController {
             $catID = $this->request->data[$chave]['especie_id'];
         }
         
-//        $conditionsSubQuery['"User2"."status"'] = 'B';
-//
-//        $db = $this->User->getDataSource();
-//        $subQuery = $db->buildStatement(
-//            array(
-//                'fields'     => array('"User2"."id"'),
-//                'table'      => $db->fullTableName($this->User),
-//                'alias'      => 'User2',
-//                'limit'      => null,
-//                'offset'     => null,
-//                'joins'      => array(),
-//                'conditions' => $conditionsSubQuery,
-//                'order'      => null,
-//                'group'      => null
-//            ),
-//            $this->User
-//        );
-//        $subQuery = ' "User"."id" NOT IN (' . $subQuery . ') ';
-//        $subQueryExpression = $db->expression($subQuery);
-//
-//        $conditions[] = $subQueryExpression;
-//
-//        $this->User->find('all', compact('conditions'));
+        $this->loadModel('Categorialote');
+        $db = $this->Categorialote->getDataSource();
+        $subQuery = $db->buildStatement(
+            array(
+                'fields'     => array('Categorialote.categoria_id'),
+                'table'      => $db->fullTableName($this->Categorialote),
+                'alias'      => 'Categorialote',
+                'limit'      => null,
+                'offset'     => null,
+                'joins'      => array(),
+                'conditions' => array('lote_id' => $loteID),
+                'order'      => null,
+                'group'      => null
+            ),
+            $this->Animallote
+        );
         
-        echo "<option value=\"\"> -- {$loteID} --</option>";
-        $categorias = $this->Categoria->find('list' , array('order' => 'descricao ASC','fields' => array('id', 'descricao'),'conditions' => array('especie_id' => $catID)));
+        $subQuery = ' Categoria.id NOT IN (' . $subQuery . ') ';
+        $subQuery = 'especie_id = ' . $catID . ' AND ' . $subQuery;
+        $subQueryExpression = $db->expression($subQuery);
+        
+        $conditions[] = $subQueryExpression;
+        
+        $this->Categoria->recursive = -1;
+        $categorias = $this->Categoria->find('list', array(
+            'fields' => array('id', 'descricao'),
+            'conditions' => $conditions,
+            ));
+        
+        $this->set('categorias', $categorias);
+    }
+    
+    
+    public function buscaCategoriasLotes($chave) {
+        $this->layout = 'ajax';
+        if (array_key_exists("lote_id", $this->request->data[$chave])) {
+            $catID = $this->request->data[$chave]['lote_id'];
+        }
+        
+        $categorias = $this->Categoria->find('list', array(
+                    'fields' => array('Categoria.id', 'Categoria.descricao'),
+                    "joins" => array(
+                        array(
+                            "table" => "categorialotes",
+                            "alias" => "Categorialote",
+                            "type" => "INNER",
+                            "conditions" => array("Categorialote.categoria_id = Categoria.id")
+                        )
+                    ),
+                    'order' => array('Categoria.descricao' => 'asc')
+                ));
+        
         $this->set('categorias', $categorias);
     }
     
