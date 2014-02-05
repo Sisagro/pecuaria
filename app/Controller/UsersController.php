@@ -81,7 +81,7 @@ class UsersController extends AppController {
             if ($this->Auth->login()) {
                 
                 $usuario = $this->User->read(null, $this->Auth->user('id'));
-                if ($usuario['Holding']['validade'] < date()) {
+                if (date('d/m/Y', strtotime($usuario['Holding']['validade'])) < date('d/m/Y')) {
                     $this->Session->setFlash('Sua holding perdeu a validade. Por favor, entre em contato com o administrador.', 'default', array('class' => 'mensagem_erro'));
                     $this->redirect($this->Auth->logout());
                 }
