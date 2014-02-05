@@ -130,7 +130,7 @@ class PesagensController extends AppController {
         
         if ($this->request->is('post') || $this->request->is('put')) {
             
-            if ($this->Pesagen->save($this->request->data)) {
+            if ($this->Pesagen->saveField('peso', $this->request->data['Pesagen']['peso']) && $this->Pesagen->saveField('dtpesagem', $this->request->data['Pesagen']['dtpesagem'])) {
                 $this->Session->setFlash('Pesagem alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {

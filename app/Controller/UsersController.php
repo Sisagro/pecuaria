@@ -79,8 +79,14 @@ class UsersController extends AppController {
     public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
+                
+                $usuario = $this->User->read(null, $this->Auth->user('id'));
+                if ($usuario['Holding']['validade'] < date()) {
+                    $this->Session->setFlash('Sua holding perdeu a validade. Por favor, entre em contato com o administrador.', 'default', array('class' => 'mensagem_erro'));
+                    $this->redirect($this->Auth->logout());
+                }
+                
                 //Grava último acesso do usuário
-                $this->User->read(null, $this->Auth->user('id'));
                 $this->User->saveField('ultimoacesso', date('Y-m-d H:i:s'));
                 
                 // testa se existe um perfil pra ele em uma empresa
