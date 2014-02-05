@@ -26,7 +26,7 @@ class CategoriasController extends AppController {
         $this->Categoria->recursive = 0;
         $this->Paginator->settings = array(
             'conditions' => array('Especy.holding_id' => $dadosUser['Auth']['User']['holding_id']),
-            'order' => array('descricao' => 'asc')
+            'order' => array('Especy.descricao' => 'asc', 'Categoria.descricao' => 'asc')
         );
         $this->set('categorias', $this->Paginator->paginate('Categoria'));
     }

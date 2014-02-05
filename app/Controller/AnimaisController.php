@@ -199,6 +199,9 @@ class AnimaisController extends AppController {
             $catID = $this->request->data[$chave]['categoria_id'];
         }
         
+        $dadosUser = $this->Session->read();
+        $empresa_id = $dadosUser['empresa_id'];
+        
         $this->loadModel('Animallote');
         $db = $this->Animallote->getDataSource();
         $subQuery = $db->buildStatement(
@@ -216,7 +219,7 @@ class AnimaisController extends AppController {
             $this->Animallote
         );
         $subQuery = ' Animai.id NOT IN (' . $subQuery . ') ';
-        $subQuery = 'categoria_id = ' . $catID . ' AND ' . $subQuery;
+        $subQuery = 'empresa_id = ' . $empresa_id . ' AND categoria_id = ' . $catID . ' AND ' . $subQuery;
         $subQueryExpression = $db->expression($subQuery);
 
         $conditions[] = $subQueryExpression;
