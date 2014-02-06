@@ -81,9 +81,9 @@ class UsersController extends AppController {
             if ($this->Auth->login()) {
                 
                 $usuario = $this->User->read(null, $this->Auth->user('id'));
-                if (date('d/m/Y', strtotime($usuario['Holding']['validade'])) < date('d/m/Y')) {
-                    $this->Session->setFlash('Sua holding perdeu a validade. Por favor, entre em contato com o administrador.', 'default', array('class' => 'mensagem_erro'));
-                    $this->redirect($this->Auth->logout());
+                if (strtotime(date('d/m/Y', strtotime($usuario['Holding']['validade']))) < strtotime(date('d/m/Y'))) {
+                    $this->Auth->logout();
+                    $this->redirect("http://www.sisagro.com/?erro=validade");
                 }
                 
                 //Grava último acesso do usuário
@@ -114,7 +114,6 @@ class UsersController extends AppController {
     }
     
     public function logout() {
-        //$this->redirect("http://www.sisagro.com");
         $this->redirect($this->Auth->logout());
     }
     
