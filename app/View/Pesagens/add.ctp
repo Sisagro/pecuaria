@@ -8,7 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('lote_id', array ('id' => 'loteID', 'type' => 'select', 'options' => $lotes, 'label' => 'Lote', 'empty' => '-- Selecione o lote --', 'value' => ''));
     echo $this->Form->input('categoria_id', array('id' => 'categoriaID', 'type' => 'select', 'label' => 'Categoria', 'empty' => ' '));
-    echo $this->Form->input('peso', array('id' => 'dosagem', 'type' => 'text', 'label' => 'Peso por animal'));
+    echo $this->Form->input('peso', array('id' => 'peso', 'type' => 'text', 'label' => 'Peso por animal'));
     echo $this->Form->input('dtpesagem', array('id' => 'dtpesagem', 'class' => 'data', 'type' => 'text', 'label' => 'Data da pesagem'));
     ?>
     <div id="categorialote">
@@ -28,6 +28,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
         'id' => 'selecionatodos',
     )); 
     echo $this->Form->input('Animai.Animai',array('id' => 'animalID', 'title' => 'CTRL + Click (para selecionar mais de um)', 'label'=>'Selecione os animais', 'type'=>'select', 'multiple'=>true));
+    echo $this->Form->input('observacao', array('id' => 'obs', 'type' => 'textarea',  'label' => 'Observação'));
     echo $this->Form->input('user_id', array('type' => 'hidden', 'value' => $usuario));
     echo $this->Form->input('empresa_id', array('type' => 'hidden', 'value' => $empresa));
     ?>
@@ -79,6 +80,8 @@ $this->Js->get('#loteID')->event(
         $('#loteID').focus();
         
         $("#dtpesagem").mask("99/99/9999");
+        
+        $("#peso").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:3});
         
         $(".data").datepicker({
             dateFormat: 'dd/mm/yy',

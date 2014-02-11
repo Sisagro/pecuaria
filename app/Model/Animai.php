@@ -12,7 +12,7 @@ class Animai extends AppModel {
      * Virtual fields
      */
     public $virtualFields = array(
-        'descricao' => 'CONCAT(Animai.brinco, " ", Animai.tatuagem, " ", Animai.hbbsbb)'
+        'descricao' => 'CONCAT("B: " , Animai.brinco, " - T: ", Animai.tatuagem, " - H: ", Animai.hbbsbb)'
     );
 
     /**
@@ -41,7 +41,7 @@ class Animai extends AppModel {
         'categoria_id' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
-                'allowEmpty' => true
+                'message' => 'Este campo é obrigatório.',
             ),
         ),
         'grausangue_id' => array(

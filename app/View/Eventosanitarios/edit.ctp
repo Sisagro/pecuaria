@@ -40,6 +40,8 @@ $this->Js->get('#loteID')->event(
         
         $("#dtevento").mask("99/99/9999");
         
+        $("#dosagem").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:3});
+        
         $(".data").datepicker({
             dateFormat: 'dd/mm/yy',
             dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],

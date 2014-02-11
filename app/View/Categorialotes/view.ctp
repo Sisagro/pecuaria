@@ -13,6 +13,9 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <strong> Potreiro: </strong>
 <?php echo $item['Potreiro']['descricao']; ?>
 <br>
+<strong> Observação: </strong>
+<?php echo $item['Categorialote']['observacao']; ?>
+<br>
 <strong> Animais: </strong> <br>
 
 <?php foreach ($item['Animai'] as $animal): ?>

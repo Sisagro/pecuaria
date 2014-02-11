@@ -124,6 +124,10 @@ class Eventosanitario extends AppModel {
         if (isset($this->data[$this->alias]['dtevento'])) {
             $this->data[$this->alias]['dtevento'] = $this->formataDataHora($this->data[$this->alias]['dtevento'], 'EN');
         }
+        if (isset($this->data[$this->alias]['dosagem'])) {
+            $this->data[$this->alias]['dosagem'] = str_replace(".", "", $this->data[$this->alias]['dosagem']);
+            $this->data[$this->alias]['dosagem'] = str_replace(",", ".", $this->data[$this->alias]['dosagem']);
+        }
         return true;
     }
 
@@ -137,6 +141,9 @@ class Eventosanitario extends AppModel {
             }
             if (!empty($value["Eventosanitario"]["dtevento"])) {
                 $dados[$key]["Eventosanitario"]["dtevento"] = $this->formataData($value["Eventosanitario"]["dtevento"], 'PT');
+            }
+            if (!empty($value["Eventosanitario"]["dosagem"])) {
+                $dados[$key]["Eventosanitario"]["dosagem"] = str_replace(".", ",", $value["Eventosanitario"]["dosagem"]);
             }
         }
         return $dados;

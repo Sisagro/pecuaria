@@ -184,6 +184,7 @@ class CategoriasController extends AppController {
         $categorias = $this->Categoria->find('list', array(
             'fields' => array('id', 'descricao'),
             'conditions' => $conditions,
+            'order' => array('descricao' => 'asc'),
             ));
         
         $this->set('categorias', $categorias);
@@ -208,6 +209,24 @@ class CategoriasController extends AppController {
                     ),
                     'order' => array('Categoria.descricao' => 'asc')
                 ));
+        
+        $this->set('categorias', $categorias);
+    }
+    
+    public function buscaCategoriasAnimais($chave, $especieID) {
+        $this->layout = 'ajax';
+        if (array_key_exists("sexo", $this->request->data[$chave])) {
+            $catID = $this->request->data[$chave]['sexo'];
+        }
+        
+        $categorias = $this->Categoria->find('list', array(
+                            'fields' => array('id', 'descricao'),
+                            'conditions' => array(
+                                'sexo' => $catID,
+                                'especie_id' => $especieID,
+                            ),
+                            'order' => array('descricao' => 'asc'),
+                        ));
         
         $this->set('categorias', $categorias);
     }

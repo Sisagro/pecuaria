@@ -10,6 +10,9 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <strong> Data do evento: </strong>
 <?php echo $item['Pesagen']['dtpesagem']; ?>
 <br>
+<strong> Observação: </strong>
+<?php echo $item['Pesagen']['observacao']; ?>
+<br>
 <strong> Criado em: </strong>
 <?php echo $item['Pesagen']['created']; ?>
 <br>

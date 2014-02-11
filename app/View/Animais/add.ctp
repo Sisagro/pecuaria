@@ -7,6 +7,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <fieldset>
     <?php
     echo $this->Form->input('especie_id', array ('id' => 'especieID', 'type' => 'select','options' => $especies, 'label' => 'Espécie', 'empty' => '-- Selecione a espécie --'));
+    echo $this->Form->input('sexo', array ('id' => 'sexoID', 'type' => 'select', 'options' => $sexos, 'label' => 'Sexo', 'empty' => '-- Selecione o sexo --'));
     echo $this->Form->input('categoria_id', array('id' => 'categoriaID', 'type' => 'select', 'label' => 'Categoria'));
     echo $this->Form->input('raca_id', array('id' => 'racaID', 'type' => 'select', 'label' => 'Raça'));
     echo $this->Form->input('pelagen_id', array('id' => 'pelagenID', 'type' => 'select', 'label' => 'Pelagem'));
@@ -15,22 +16,26 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <div class="fomr_checkbox_animais">
         <label>Identificação</label><br>
         <input type="checkbox" name="brinco" id="brinco" value="check" onclick="myfunction(this);" > Brinco
+        <input type="checkbox" name="tatuagem" id="tatuagem" value="check" onclick="myfunction(this);"> Tatuagem
+        <input type="checkbox" name="hbbsbb" id="hbbsbb" value="check" onclick="myfunction(this);"> HBB/SBB
         <input type="checkbox" name="chip" id="chip" value="check" onclick="myfunction(this);"> Chip eletrônico
         <input type="checkbox" name="colar" id="colar" value="check" onclick="myfunction(this);"> Colar Eletrônico
-        <input type="checkbox" name="tatuagem" id="tatuagem" value="check" onclick="myfunction(this);"> Tatuagem
         <input type="checkbox" name="cor" id="cor" value="check" onclick="myfunction(this);"> Cor
     </div>
     <div id="formMostraBrinco">
         <?php echo $this->Form->input('brinco', array ('id' => 'brincoInput', 'label' => 'Brinco')); ?>
+    </div>
+    <div id="formMostraTatuagem">
+        <?php echo $this->Form->input('tatuagem', array ('id' => 'tatuagemInput', 'label' => 'Tatuagem')); ?>
+    </div>
+    <div id="formMostraHBBSBB">
+        <?php echo $this->Form->input('hbbsbb', array ('id' => 'hbbsbbInput', 'label' => 'HBB/SBB')); ?>
     </div>
     <div id="formMostraChip">
         <?php echo $this->Form->input('chipeletronico', array ('id' => 'chipeletronicoInput', 'label' => 'Chip eletrônico')); ?>
     </div>
     <div id="formMostraColar">
         <?php echo $this->Form->input('colareletronico', array ('id' => 'colareletronicoInput', 'label' => 'Colar eletrônico')); ?>
-    </div>
-    <div id="formMostraTatuagem">
-        <?php echo $this->Form->input('tatuagem', array ('id' => 'tatuagemInput', 'label' => 'Tatuagem')); ?>
     </div>
     <div id="formMostraCor">
         &nbsp;Cor:<br>
@@ -45,35 +50,18 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     
     <?php
     
-    // identificacao (brinco - chipeletronico - colareletronico - tatuagem - cor)
-    echo $this->Form->input('sexo', array ('id' => 'sexo', 'type' => 'select', 'options' => $sexos, 'label' => 'Sexo', 'empty' => '-- Selecione o sexo --'));
     echo $this->Form->input('dtnasc', array('id' => 'dtnasc', 'class' => 'data', 'type' => 'text', 'label' => 'Data de nascimento'));
     echo $this->Form->input('dtcomprado', array('id' => 'dtcomprado', 'class' => 'data', 'type' => 'text', 'label' => 'Data de compra'));
-    echo $this->Form->input('hbbsbb', array ('id' => 'hbbsbb', 'label' => 'HBB/SBB'));
     echo $this->Form->input('caracteristica', array ('id' => 'caracteristica', 'type' => 'textarea', 'label' => 'Características', 'escape' => false));
-    echo $this->Form->input('causabaixa_id', array ('id' => 'causabaixaID', 'type' => 'select','options' => $causabaixas, 'label' => 'Causa de baixa', 'empty' => '-- Selecione a causa de baixa --'));
-    echo $this->Form->input('ativo', array ('id' => 'ativo', 'type' => 'select','options' => $status, 'label' => 'Ativo'));
+    //echo $this->Form->input('causabaixa_id', array ('id' => 'causabaixaID', 'type' => 'select','options' => $causabaixas, 'label' => 'Causa de baixa', 'empty' => '-- Selecione a causa de baixa --'));
+    //echo $this->Form->input('ativo', array ('id' => 'ativo', 'type' => 'select','options' => $status, 'label' => 'Ativo'));
+    echo $this->Form->input('ativo', array ('id' => 'ativo', 'type' => 'hidden', 'value' => 1));
     echo $this->Form->input('empresa_id', array('type' => 'hidden', 'value' => $empresa_id));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Adicionar')); ?>
 
 <?php
-$this->Js->get('#especieID')->event(
-    'change',
-    $this->Js->request(
-        array('controller' => 'Categorias', 'action' => 'buscaCategorias', 'Animai'),
-        array(  'update' => '#categoriaID',
-                'async' => true,
-		'method' => 'post',
-		'dataExpression'=>true,
-		'data'=> $this->Js->serializeForm(array(
-			'isForm' => true,
-			'inline' => true
-			)),
-            )
-    )
-);
 $this->Js->get('#especieID')->event(
     'change',
     $this->Js->request(
@@ -125,6 +113,9 @@ $this->Js->get('#racaID')->event(
             } else if (obj.name == "cor") {
                 $("#formMostraCor").show();
                 document.getElementById('corPlugin').focus();
+            } else if (obj.name == "hbbsbb") {
+                $("#formMostraHBBSBB").show();
+                document.getElementById('hbbsbbInput').focus();
             }
         } else {
             if (obj.name == "brinco") {
@@ -137,6 +128,8 @@ $this->Js->get('#racaID')->event(
                 $("#formMostraTatuagem").hide();
             } else if (obj.name == "cor") {
                 $("#formMostraCor").hide();
+            } else if (obj.name == "hbbsbb") {
+                $("#formMostraHBBSBB").hide();
             }
         }
     }
@@ -179,6 +172,19 @@ $this->Js->get('#racaID')->event(
         $("#formMostraColar").hide();
         $("#formMostraTatuagem").hide();
         $("#formMostraCor").hide();
+        $("#formMostraHBBSBB").hide();
+        
+        $("#sexoID").change( function(){
+            $.ajax({async:true, 
+                    data:$("#sexoID").serialize(), 
+                    dataType:"html",
+                    success:function (data, textStatus) {
+                        $("#categoriaID").html(data);
+                    },
+                    type:"post",
+                    url:"\/pecuaria/Categorias\/buscaCategoriasAnimais\/Animai\/" + $("#especieID option:selected").val()
+            });
+        });
         
     });
 </script>

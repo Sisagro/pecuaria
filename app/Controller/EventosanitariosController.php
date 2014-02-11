@@ -146,13 +146,10 @@ class EventosanitariosController extends AppController {
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            debug($this->request->data); die();
-            
             if ($this->Eventosanitario->save($this->request->data)) {
                 $this->Session->setFlash('Categoria alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                debug($this->Eventosanitario->validationErrors);die();
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         } else {

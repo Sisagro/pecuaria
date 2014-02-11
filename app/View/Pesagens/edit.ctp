@@ -8,6 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('peso', array('id' => 'peso', 'type' => 'text', 'label' => 'Peso por animal'));
     echo $this->Form->input('dtpesagem', array('id' => 'dtpesagem', 'class' => 'data', 'type' => 'text', 'label' => 'Data da pesagem'));
+    echo $this->Form->input('observacao', array('id' => 'obs', 'type' => 'textarea',  'label' => 'Observação'));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Altera pesagem')); ?>
@@ -18,6 +19,8 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
         $('#peso').focus();
         
         $("#dtpesagem").mask("99/99/9999");
+        
+        $("#peso").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:3});
         
         $(".data").datepicker({
             dateFormat: 'dd/mm/yy',

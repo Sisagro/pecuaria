@@ -14,35 +14,17 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Categoria: </strong>
 <?php echo $animal['Categoria']['descricao']; ?>
 <br>
+<strong> Sexo: </strong>
+<?php if($animal['Categoria']['sexo'] == "M") { echo "Macho"; } else { echo "Fêmea"; } ; ?>
+<br>
 <strong> Grau de sangue: </strong>
 <?php echo $animal['Grausangue']['descricao']; ?>
-<br>
-<strong> Sexo: </strong>
-<?php if($animal['Animai']['sexo'] == "M") { echo "MACHO"; } else { echo "FÊMEA"; } ; ?>
 <br>
 <strong> Data de nascimento: </strong>
 <?php echo $animal['Animai']['dtnasc']; ?>
 <br>
 <strong> Data de compra: </strong>
 <?php echo $animal['Animai']['dtcomprado']; ?>
-<br>
-<strong> Brinco: </strong>
-<?php echo $animal['Animai']['brinco']; ?>
-<br>
-<strong> Chip eletrônico: </strong>
-<?php echo $animal['Animai']['chipeletronico']; ?>
-<br>
-<strong> Colar eletrônico: </strong>
-<?php echo $animal['Animai']['colareletronico']; ?>
-<br>
-<strong> Tatuagem: </strong>
-<?php echo $animal['Animai']['tatuagem']; ?>
-<br>
-<strong> Cor: </strong>
-<?php echo $animal['Animai']['cor']; ?>
-<br>
-<strong> HBB/SBB: </strong>
-<?php echo $animal['Animai']['hbbsbb']; ?>
 <br>
 <strong> Características: </strong>
 <?php echo $animal['Animai']['caracteristica']; ?>
@@ -53,4 +35,30 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Ativo: </strong>
 <?php if($animal['Animai']['ativo'] == "S") { echo "SIM"; } else { echo "NÃO"; } ; ?>
 <br>
+<strong> Brinco: </strong>
+<?php echo $animal['Animai']['brinco']; ?>
+<br>
+<strong> Tatuagem: </strong>
+<?php echo $animal['Animai']['tatuagem']; ?>
+<br>
+<strong> HBB/SBB: </strong>
+<?php echo $animal['Animai']['hbbsbb']; ?>
+<br>
+<strong> Chip eletrônico: </strong>
+<?php echo $animal['Animai']['chipeletronico']; ?>
+<br>
+<strong> Colar eletrônico: </strong>
+<?php echo $animal['Animai']['colareletronico']; ?>
+<br>
+<strong> Cor: </strong>
+<br>
+<?php
+if (!empty($animal['Animai']['cor'])) {
+    ?>
+    <div id="colorSelector">
+        <div style="background-color: #<?php echo $animal['Animai']['cor']; ?>"></div>
+    </div>
+    <?php
+}
+?>
 </p>

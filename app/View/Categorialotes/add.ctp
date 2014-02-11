@@ -22,6 +22,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
         'id' => 'selecionatodos',
     )); 
     echo $this->Form->input('Animai.Animai',array('id' => 'animalID', 'title' => 'CTRL + Click (para selecionar mais de um)', 'label'=>'Selecione os animais', 'type'=>'select', 'multiple'=>true));
+    echo $this->Form->input('observacao', array('id' => 'obs', 'type' => 'textarea',  'label' => 'Observação'));
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Montar lote')); ?>
@@ -81,7 +82,7 @@ $this->Js->get('#categoriaID')->event(
     jQuery(document).ready(function(){
         
         $('#loteID').focus();
-        
+                
         $("#especieID").change( function(){
             $.ajax({async:true, 
                     data:$("#especieID").serialize(), 

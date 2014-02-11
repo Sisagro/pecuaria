@@ -27,7 +27,7 @@ class AnimaisController extends AppController {
         $this->Animai->recursive = 0;
         $this->Paginator->settings = array(
             'conditions' => array('empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('Especy.descricao' => 'asc')
+            'order' => array('Especy.descricao' => 'asc', 'Categoria.descricao' => 'asc', 'brinco' => 'asc', 'tatuagem' => 'asc')
         );
         $this->set('animais', $this->Paginator->paginate('Animai'));
 
@@ -153,6 +153,8 @@ class AnimaisController extends AppController {
             'order' => array('descricao' => 'asc')
         ));
         $this->set(compact('causabaixas'));
+        
+        $this->set('coranimal', $animal['Animai']['cor']);
         
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->Animai->id = $id;

@@ -110,6 +110,10 @@ class Pesagen extends AppModel {
         if (isset($this->data[$this->alias]['dtpesagem'])) {
             $this->data[$this->alias]['dtpesagem'] = $this->formataDataHora($this->data[$this->alias]['dtpesagem'], 'EN');
         }
+        if (isset($this->data[$this->alias]['peso'])) {
+            $this->data[$this->alias]['peso'] = str_replace(".", "", $this->data[$this->alias]['peso']);
+            $this->data[$this->alias]['peso'] = str_replace(",", ".", $this->data[$this->alias]['peso']);
+        }
         return true;
     }
 
@@ -123,6 +127,9 @@ class Pesagen extends AppModel {
             }
             if (!empty($value["Pesagen"]["dtpesagem"])) {
                 $dados[$key]["Pesagen"]["dtpesagem"] = $this->formataData($value["Pesagen"]["dtpesagem"], 'PT');
+            }
+            if (!empty($value["Pesagen"]["peso"])) {
+                $dados[$key]["Pesagen"]["peso"] = str_replace(".", ",", $value["Pesagen"]["peso"]);
             }
         }
         return $dados;
