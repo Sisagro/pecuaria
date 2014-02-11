@@ -33,8 +33,16 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
         <?php echo $this->Form->input('tatuagem', array ('id' => 'tatuagemInput', 'label' => 'Tatuagem')); ?>
     </div>
     <div id="formMostraCor">
-        <?php echo $this->Form->input('cor', array ('id' => 'corPlugin', 'label' => 'Cor')); ?>
+        &nbsp;Cor:<br>
+        <div id="colorSelector">
+            <div style="background-color: #0000EE">
+            </div>
+        </div>
     </div>
+    <div id="coranimal">
+        <?php echo $this->Form->input('cor', array ('id' => 'corAnimal', 'label' => 'Cor')); ?>
+    </div>
+    
     <?php
     
     // identificacao (brinco - chipeletronico - colareletronico - tatuagem - cor)
@@ -136,6 +144,7 @@ $this->Js->get('#racaID')->event(
     jQuery(document).ready(function(){
         $("#dtnasc").mask("99/99/9999");
         $("#dtcomprado").mask("99/99/9999");
+        $("#coranimal").hide();
         document.getElementById('especieID').focus();
         $(".data").datepicker({
             dateFormat: 'dd/mm/yy',
@@ -148,20 +157,22 @@ $this->Js->get('#racaID')->event(
             prevText: 'Anterior'
         });
         
-        $('#corPlugin').ColorPicker({
-            onSubmit: function(hsb, hex, rgb, el) {
-                 $(el).val(hex);
-                 $(el).ColorPickerHide();
-            },
-            onBeforeShow: function () {
-                 $(this).ColorPickerSetColor(this.value);
-            }
-            })
-            .bind('keyup', function(){
-            $(this).ColorPickerSetColor(this.value);
-            });
-        
-        
+        $('#colorSelector').ColorPicker({
+                color: '#0000ff',
+                onShow: function (colpkr) {
+                        $(colpkr).fadeIn(500);
+                        return false;
+                },
+                onHide: function (colpkr) {
+                        $(colpkr).fadeOut(500);
+                        return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                        $('#colorSelector div').css('backgroundColor', '#' + hex);
+                        $('#corAnimal').val(hex);
+                        
+                }
+        });
         
         $("#formMostraBrinco").hide();
         $("#formMostraChip").hide();

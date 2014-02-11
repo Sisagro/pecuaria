@@ -81,7 +81,7 @@ class UsersController extends AppController {
             if ($this->Auth->login()) {
                 
                 $usuario = $this->User->read(null, $this->Auth->user('id'));
-                if (strtotime(date('d/m/Y', strtotime($usuario['Holding']['validade']))) < strtotime(date('d/m/Y'))) {
+                if (strtotime($usuario['Holding']['validade']) < strtotime(date('Y-m-d H:i:s'))) {
                     $this->Auth->logout();
                     $this->redirect("http://www.sisagro.com/?erro=validade");
                 }

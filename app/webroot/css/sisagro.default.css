@@ -56,6 +56,44 @@ body {
     min-height: 400px;
 }
 
+
+/*#customWidget {
+	position: relative;
+	height: 36px;
+}*/
+
+#colorSelector {
+	position: relative;
+	width: 36px;
+	height: 36px;
+	/*background: url(../img/select.png);*/
+}
+#colorSelector div {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 18px;
+	height: 18px;
+	background: url(../img/select.png) center;
+}
+
+/*#colorSelector2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 36px;
+	height: 36px;
+	background: url(../img/select.png);
+}
+#colorSelector2 div {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 28px;
+	height: 28px;
+	background: url(../img/select.png) center;
+}*/
+
 #diferenca {
     width: 100%;
     height: auto;
