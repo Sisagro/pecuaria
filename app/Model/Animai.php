@@ -12,7 +12,7 @@ class Animai extends AppModel {
      * Virtual fields
      */
     public $virtualFields = array(
-        'descricao' => 'CONCAT("B: " , Animai.brinco, " - T: ", Animai.tatuagem, " - H: ", Animai.hbbsbb)'
+        'descricao' => 'CONCAT("B: " , Animai.brinco, " - T: ", Animai.tatuagem, " - H: ", Animai.hbbsbb, " ")'
     );
 
     /**

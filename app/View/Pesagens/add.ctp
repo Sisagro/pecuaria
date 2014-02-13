@@ -39,7 +39,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 $this->Js->get('#loteID')->event(
     'change',
     $this->Js->request(
-        array('controller' => 'Categorias', 'action' => 'buscaCategoriasLotes'),
+        array('controller' => 'Categorias', 'action' => 'buscaCategoriasLotes', 'Pesagen'),
         array(  'update' => '#categoriaID',
                 'async' => true,
 		'method' => 'post',

@@ -204,9 +204,10 @@ class CategoriasController extends AppController {
                             "table" => "categorialotes",
                             "alias" => "Categorialote",
                             "type" => "INNER",
-                            "conditions" => array("Categorialote.categoria_id = Categoria.id")
+                            "conditions" => array("Categorialote.categoria_id = Categoria.id", "Categorialote.lote_id" => $catID)
                         )
                     ),
+                    
                     'order' => array('Categoria.descricao' => 'asc')
                 ));
         

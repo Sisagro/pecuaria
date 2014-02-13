@@ -137,6 +137,19 @@ class MedicamentosController extends AppController {
         $this->redirect(array('action' => 'index'));
         
     }
+    
+    /**
+     * Funções ajax
+     */
+    
+    public function buscaMedicamentos($chave) {
+        $this->layout = 'ajax';
+        if (array_key_exists("grpeventosanitario_id", $this->request->data[$chave])) {
+            $catID = $this->request->data[$chave]['grpeventosanitario_id'];
+        }
+        $medicamentos = $this->Medicamento->find('list' , array('order' => 'descricao ASC','fields' => array('id', 'descricao'),'conditions' => array('grpeventosanitario_id' => $catID)));
+        $this->set('medicamentos', $medicamentos);
+    }
 
 }
 
