@@ -92,9 +92,10 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
                 document.getElementById('tatuagemInput').value = '';
             } else if (obj.name == "cor") {
                 $("#formMostraCor").hide();
-                document.getElementById('corPlugin').value = '';
+                document.getElementById('corAnimal').value = '';
             } else if (obj.name == "hbbsbb") {
                 $("#formMostraHBBSBB").hide();
+                document.getElementById('hbbsbbInput').value = '';
             }
         }
     }
