@@ -12,7 +12,27 @@ class Animai extends AppModel {
      * Virtual fields
      */
     public $virtualFields = array(
-        'descricao' => 'CONCAT("<b>B:</b> " , Animai.brinco, " - <b>T:</b> ", Animai.tatuagem, " - <b>H:</b> ", Animai.hbbsbb, " ")'
+        "descricao" => "IF (Animai.brinco = '' OR Animai.brinco IS NULL, 
+                                IF(Animai.tatuagem = '' OR Animai.tatuagem IS NULL, 
+                                        IF(Animai.hbbsbb = '' OR Animai.hbbsbb IS NULL, 
+                                                'Animal sem identificação', 
+                                                CONCAT('<b>H:</b> ' , Animai.hbbsbb)), 
+                                        IF(Animai.hbbsbb = '' OR Animai.hbbsbb IS NULL, 
+                                                CONCAT('<b>T:</b> ' , Animai.tatuagem), 
+                                                CONCAT('<b>T:</b> ' , Animai.tatuagem, ' <b>H:</b> ', Animai.hbbsbb))
+                                        ), 
+                                IF(Animai.tatuagem = '' OR Animai.tatuagem IS NULL, 
+                                        IF(Animai.hbbsbb = '' OR Animai.hbbsbb IS NULL, 
+                                                CONCAT('<b>B:</b> ' , Animai.brinco), 
+                                                CONCAT('<b>B:</b> ' , Animai.brinco, ' <b>H:</b> ', Animai.hbbsbb)), 
+                                        IF(Animai.hbbsbb = '' OR Animai.hbbsbb IS NULL, 
+                                                CONCAT('<b>B:</b> ' , Animai.brinco, ' <b>T:</b> ', Animai.tatuagem), 
+                                                CONCAT('<b>B:</b> ' , Animai.brinco, ' <b>T:</b> ', Animai.tatuagem, ' <b>H:</b> ', Animai.hbbsbb))
+                                        )
+                                )"
+        // CONCAT('<b>B:</b> ' , Animai.brinco)
+        //"descricao" => "CONCAT('<b>B:</b> ' , Animai.brinco, ' - <b>T:</b> ', Animai.tatuagem, ' - <b>H:</b> ', Animai.hbbsbb, ' ')"
+        //'customer' => "IF(Contact.company IS NULL OR Contact.company = '', CONCAT(Contact.first_name, ' ', Contact.last_name, ' ', Contact.company), Contact.company)"
     );
 
     /**

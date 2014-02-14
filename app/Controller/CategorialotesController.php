@@ -96,6 +96,29 @@ class CategorialotesController extends AppController {
         
     }
     
+    /**
+     * delete method
+     */
+    public function delete($id = null) {
+        
+        $this->Categorialote->id = $id;
+        if (!$this->Categorialote->exists()) {
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $this->request->onlyAllow('post', 'delete');
+        if ($this->Categorialote->delete()) {
+            $this->Session->setFlash('Montagem de lote deletado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
+            $this->redirect(array('action' => 'index'));
+        }
+        if(!$this->Session->check('Message.flash')) {
+            $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        } 
+        $this->redirect(array('action' => 'index'));
+        
+    }
+    
     
     /**
      * Funções ajax

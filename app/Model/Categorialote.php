@@ -38,7 +38,24 @@ class Categorialote extends AppModel {
     );
 
     //The Associations below have been created with all possible keys, those that are not needed can be removed
-
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Eventosanitario' => array(
+            'className' => 'Eventosanitario',
+            'foreignKey' => 'categorialote_id',
+            'dependent' => true,
+        ),
+        'Pesagen' => array(
+            'className' => 'Pesagen',
+            'foreignKey' => 'categorialote_id',
+            'dependent' => true,
+        ),
+    );
+    
+    
     /**
      * belongsTo associations
      *
@@ -92,6 +109,24 @@ class Categorialote extends AppModel {
             return false;
         }
         return true;
+    }
+    
+    public function beforeDelete($cascade = true) {
+        $eventos = $this->Eventosanitario->find("count", array(
+            "conditions" => array("categorialote_id" => $this->id)
+        ));
+        $pesagens = $this->Pesagen->find("count", array(
+            "conditions" => array("categorialote_id" => $this->id)
+        ));
+        
+        $totalRegistros = $eventos + $pesagens;
+        
+        if ($totalRegistros == 0) {
+            return true;
+        } else {
+            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registros associados.');
+            return false;
+        }
     }
     
 }
