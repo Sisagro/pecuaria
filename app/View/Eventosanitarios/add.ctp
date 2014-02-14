@@ -6,7 +6,8 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <?php echo $this->Form->create('Eventosanitario'); ?>
 <fieldset>
     <?php
-    echo $this->Form->input('medicamento_id', array ('id' => 'medicamentoID', 'type' => 'select', 'options' => $medicamentos, 'label' => 'Medicamento', 'empty' => '-- Selecione o medicamento --', 'value' => ''));
+    echo $this->Form->input('grpeventosanitario_id', array ('id' => 'grupomedID', 'type' => 'select', 'options' => $grpeventosanitarios, 'label' => 'Grupo de evento sanitário', 'empty' => '-- Selecione o grupo --', 'value' => ''));
+    echo $this->Form->input('medicamento_id', array('id' => 'medicamentoID', 'type' => 'select', 'label' => 'Medicamento', 'empty' => ' '));
     echo $this->Form->input('dosagem', array('id' => 'dosagem', 'type' => 'text', 'label' => 'Dosagem (ml)'));
     echo $this->Form->input('lote_id', array ('id' => 'loteID', 'type' => 'select', 'options' => $lotes, 'label' => 'Lote', 'empty' => '-- Selecione o lote --', 'value' => ''));
     echo $this->Form->input('categoria_id', array('id' => 'categoriaID', 'type' => 'select', 'label' => 'Categoria', 'empty' => ' '));
@@ -40,7 +41,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 $this->Js->get('#loteID')->event(
     'change',
     $this->Js->request(
-        array('controller' => 'Categorias', 'action' => 'buscaCategoriasLotes'),
+        array('controller' => 'Categorias', 'action' => 'buscaCategoriasLotes', 'Eventosanitario'),
         array(  'update' => '#categoriaID',
                 'async' => true,
 		'method' => 'post',
@@ -52,8 +53,21 @@ $this->Js->get('#loteID')->event(
             )
     )
 );
-
-
+$this->Js->get('#grupomedID')->event(
+    'change',
+    $this->Js->request(
+        array('controller' => 'Medicamentos', 'action' => 'buscaMedicamentos', 'Eventosanitario'),
+        array(  'update' => '#medicamentoID',
+                'async' => true,
+		'method' => 'post',
+		'dataExpression'=>true,
+		'data'=> $this->Js->serializeForm(array(
+                        'isForm' => true,
+			'inline' => true
+			)),
+            )
+    )
+);
 ?>
 
 <script type="text/javascript">
@@ -78,7 +92,7 @@ $this->Js->get('#loteID')->event(
         
         document.getElementById('categorialote').style.display = 'none';
         
-        $('#medicamentoID').focus();
+        $('#grupomedID').focus();
         
         $("#dtevento").mask("99/99/9999");
         

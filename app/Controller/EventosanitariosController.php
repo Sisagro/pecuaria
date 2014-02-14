@@ -73,21 +73,13 @@ class EventosanitariosController extends AppController {
         
         $this->set('empresa', $dadosUser['empresa_id']);
         
-        $medicamentos = $this->Eventosanitario->Medicamento->find('list', array(
-            'fields' => array('Medicamento.id', 'Medicamento.descricao'),
-            "joins" => array(
-                array(
-                    "table" => "grpeventosanitarios",
-                    "alias" => "Grpeventosanitario",
-                    "type" => "INNER",
-                    "conditions" => array("Grpeventosanitario.id = Medicamento.grpeventosanitario_id",
-                                          "Grpeventosanitario.holding_id = " . $dadosUser['Auth']['User']['holding_id'])
-                )
-            ),
-            'order' => array('Medicamento.descricao' => 'asc')
+        $grpeventosanitarios = $this->Eventosanitario->Medicamento->Grpeventosanitario->find('list', array(
+            'fields' => array('id', 'descricao'),
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('descricao' => 'asc')
         ));
         
-        $this->set(compact('medicamentos'));
+        $this->set(compact('grpeventosanitarios'));
         
         $lotes = $this->Eventosanitario->Categorialote->find('list', array(
             'fields' => array('Lote.id', 'Lote.descricao'),

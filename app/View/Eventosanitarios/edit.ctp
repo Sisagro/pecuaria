@@ -1,5 +1,5 @@
 <?php
-echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => "Retornar", "title" => "Retornar")), array('action' => 'index'), array('escape' => false, 'onclick' => 'history.go(-1); return false;'));
+echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => "Retornar", "title" => "Retornar")), array('action' => 'index'), array('escape' => false));
 ?>
 <br>
 <br>
@@ -12,26 +12,6 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     ?>
 </fieldset>
 <?php echo $this->Form->end(__('Altera evento sanitário')); ?>
-
-<?php
-$this->Js->get('#loteID')->event(
-    'change',
-    $this->Js->request(
-        array('controller' => 'Categorias', 'action' => 'buscaCategoriasLotes'),
-        array(  'update' => '#categoriaID',
-                'async' => true,
-		'method' => 'post',
-		'dataExpression'=>true,
-		'data'=> $this->Js->serializeForm(array(
-                        'isForm' => true,
-			'inline' => true
-			)),
-            )
-    )
-);
-
-
-?>
 
 <script type="text/javascript">
     jQuery(document).ready(function(){
