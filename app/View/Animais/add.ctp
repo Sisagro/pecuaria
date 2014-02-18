@@ -55,7 +55,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('caracteristica', array ('id' => 'caracteristica', 'type' => 'textarea', 'label' => 'Características', 'escape' => false));
     //echo $this->Form->input('causabaixa_id', array ('id' => 'causabaixaID', 'type' => 'select','options' => $causabaixas, 'label' => 'Causa de baixa', 'empty' => '-- Selecione a causa de baixa --'));
     //echo $this->Form->input('ativo', array ('id' => 'ativo', 'type' => 'select','options' => $status, 'label' => 'Ativo'));
-    echo $this->Form->input('ativo', array ('id' => 'ativo', 'type' => 'hidden', 'value' => 1));
+    echo $this->Form->input('ativo', array ('id' => 'ativo', 'type' => 'hidden', 'value' => 'A'));
     echo $this->Form->input('empresa_id', array('type' => 'hidden', 'value' => $empresa_id));
     ?>
 </fieldset>
@@ -173,6 +173,15 @@ $this->Js->get('#racaID')->event(
         $("#formMostraTatuagem").hide();
         $("#formMostraCor").hide();
         $("#formMostraHBBSBB").hide();
+        
+        
+        
+        $("#especieID").change( function(){
+            $('#categoriaID option').remove();
+            var select = jQuery('#sexoID');
+            select.val(jQuery('option:first', select).val());
+            
+        });
         
         $("#sexoID").change( function(){
             $.ajax({async:true, 
