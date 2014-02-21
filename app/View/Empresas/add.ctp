@@ -21,7 +21,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     ?>
     </div>
     <?php
-    echo $this->Form->input('logoempresa', array('type' => 'file','class' => 'file','label' => 'Logo da empresa (retrato 110x120) ou (paisagem 200x80)'));
+    echo $this->Form->input('logoempresa', array('type' => 'file','class' => 'file','label' => 'Logo da empresa (retrato 110x120) ou (paisagem 200x120)'));
     echo $this->Form->input('cnpj', array('type' => 'hidden'));
     echo $this->Form->input('inscestadual', array('type' => 'hidden'));
     echo $this->Form->input('inscmunicipal', array('type' => 'hidden'));
