@@ -33,7 +33,8 @@ class UsersController extends AppController {
         } else {
             $this->Paginator->settings = array(
                 'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
-                'order' => array('nome' => 'asc')
+                'order' => array('ultimoacesso' => 'desc',
+                                 'ultimoacesso' => 'desc',)
             );
         }
         $this->set('users', $this->Paginator->paginate('User'));
