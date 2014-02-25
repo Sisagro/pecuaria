@@ -5,11 +5,17 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <br>
 <br>
 <p>
-<strong> Peso: </strong>
-<?php echo $item['Pesagen']['peso']; ?>
+<strong> Lote: </strong>
+<?php echo $item['Categorialote']['Lote']['descricao']; ?>
+<br>
+<strong> Categoria: </strong>
+<?php echo $item['Categorialote']['Categoria']['descricao']; ?>
 <br>
 <strong> Data do evento: </strong>
 <?php echo $item['Pesagen']['dtpesagem']; ?>
+<br>
+<strong> Peso: </strong>
+<?php echo $item['Pesagen']['peso']; ?>
 <br>
 <strong> Observação: </strong>
 <?php echo $item['Pesagen']['observacao']; ?>

@@ -1,15 +1,16 @@
 <?php
 echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adicionar", "title" => "Adicionar")), array('action' => 'add'), array('escape' => false));
 //echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => "Imprimir", "title" => "Imprimir")), array('action' => 'print'), array('escape' => false));
+//debug($itens);
 ?>
 <br>
 <br>
 
-
-
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
+        <th><?php echo 'Lote'; ?></th>
+        <th><?php echo 'Categoria'; ?></th>
         <th><?php echo $this->Paginator->sort('dtevento', 'Data do evento'); ?></th>
         <th><?php echo $this->Paginator->sort('Medicamento.descricao', 'Medicamento'); ?></th>
         <th><?php echo $this->Paginator->sort('dosagem', 'Dosagem'); ?></th>
@@ -18,6 +19,8 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     <?php foreach ($itens as $item): ?>
         <tr>
             <td><?php echo h($item['Eventosanitario']['id']); ?>&nbsp;</td>
+            <td><?php echo h($item['Categorialote']['Lote']['descricao']); ?>&nbsp;</td>
+            <td><?php echo h($item['Categorialote']['Categoria']['descricao']); ?>&nbsp;</td>
             <td><?php echo h($item['Eventosanitario']['dtevento']); ?>&nbsp;</td>
             <td><?php echo h($item['Medicamento']['descricao']); ?>&nbsp;</td>
             <td><?php echo h($item['Eventosanitario']['dosagem']); ?>&nbsp;</td>

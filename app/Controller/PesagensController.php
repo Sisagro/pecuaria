@@ -25,7 +25,7 @@ class PesagensController extends AppController {
     public function index() {
         
         $dadosUser = $this->Session->read();
-        $this->Pesagen->recursive = 1;
+        $this->Pesagen->recursive = 2;
         $this->Paginator->settings = array(
             'conditions' => array('Pesagen.empresa_id' => $dadosUser['empresa_id']),
             'order' => array('dtpesagem' => 'desc'),
@@ -49,6 +49,7 @@ class PesagensController extends AppController {
         $dadosUser = $this->Session->read();
         $empresa_id = $dadosUser['empresa_id'];
         
+        $this->Pesagen->recursive = 2;
         $pesagem = $this->Pesagen->read(null, $id);
         
         if ($pesagem['Pesagen']['empresa_id'] != $empresa_id) {
@@ -97,7 +98,7 @@ class PesagensController extends AppController {
                 $this->Session->setFlash('Pesagem criada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $errors = $this->Eventosanitario->validationErrors;
+                $errors = $this->Pesagen->validationErrors;
                 if (isset($errors['erro'][0]['message'])) {
                     $this->Session->setFlash('Registro não foi salvo. ' . $errors['erro'][0]['message'], 'default', array('class' => 'mensagem_erro'));
                 } else {

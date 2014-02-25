@@ -5,18 +5,20 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
 <br>
 <br>
 
-
-
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
+        <th><?php echo 'Lote'; ?></th>
+        <th><?php echo 'Categoria'; ?></th>
         <th><?php echo $this->Paginator->sort('dtpesagem', 'Data da pesagem'); ?></th>
-        <th><?php echo $this->Paginator->sort('peso', 'Peso'); ?></th>
+        <th><?php echo $this->Paginator->sort('peso', 'Peso individual'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($itens as $item): ?>
         <tr>
             <td><?php echo h($item['Pesagen']['id']); ?>&nbsp;</td>
+            <td><?php echo h($item['Categorialote']['Lote']['descricao']); ?>&nbsp;</td>
+            <td><?php echo h($item['Categorialote']['Categoria']['descricao']); ?>&nbsp;</td>
             <td><?php echo h($item['Pesagen']['dtpesagem']); ?>&nbsp;</td>
             <td><?php echo h($item['Pesagen']['peso']); ?>&nbsp;</td>
             <td>

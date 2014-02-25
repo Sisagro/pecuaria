@@ -25,14 +25,14 @@ class EventosanitariosController extends AppController {
     public function index() {
         
         $dadosUser = $this->Session->read();
-        $this->Eventosanitario->recursive = 1;
+        $this->Eventosanitario->recursive = 2;
         $this->Paginator->settings = array(
-            //'fields' => array('Eventosanitario.id', 'Eventosanitario.dtevento', 'Eventosanitario.categorialote_id'),
             'conditions' => array('Eventosanitario.empresa_id' => $dadosUser['empresa_id']),
-//            'order' => array('Lote.descricao' => 'asc', 'Categoria.descricao' => 'asc', 'Potreiro.descricao' => 'asc'),
+            'order' => array('dtevento' => 'desc'),
         );
-        $this->set('itens', $this->Paginator->paginate('Eventosanitario'));
-        
+        $eventosanitario = $this->Paginator->paginate('Eventosanitario');
+        $this->set('itens', $eventosanitario);
+                
     }
     
     
@@ -50,6 +50,7 @@ class EventosanitariosController extends AppController {
         $dadosUser = $this->Session->read();
         $empresa_id = $dadosUser['empresa_id'];
         
+        $this->Eventosanitario->recursive = 2;
         $eventosanitario = $this->Eventosanitario->read(null, $id);
         
         if ($eventosanitario['Eventosanitario']['empresa_id'] != $empresa_id) {
@@ -58,7 +59,7 @@ class EventosanitariosController extends AppController {
         }
         
         $this->set('item', $eventosanitario);
-        
+               
     }
     
     
