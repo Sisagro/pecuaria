@@ -115,11 +115,11 @@ class EventomelhoracamposController extends AppController {
         ));
         $this->set(compact('melhoracampos'));
         
-        $potreiro = $this->Eventomelhoracampo->read(null, $id);       
-        if ($potreiro['Eventomelhoracampo']['potreiro_id'] != $holding_id) {
-            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
-            $this->redirect(array('action' => 'index'));
-        }
+//        $potreiro = $this->Eventomelhoracampo->read(null, $id);       
+//        if ($potreiro['Eventomelhoracampo']['potreiro_id'] != $holding_id) {
+//            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
+//            $this->redirect(array('action' => 'index'));
+//        }
         
 //        $potreiros = $this->Eventomelhoracampo->Potreiro->find('list', array(
 //            'fields' => array('id', 'descricao'), 
@@ -130,7 +130,7 @@ class EventomelhoracamposController extends AppController {
         
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Eventomelhoracampo->save($this->request->data)) {
-                $this->Session->setFlash('Eventomelhoracampo alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
+                $this->Session->setFlash('Evento de melhoramento de campo alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));

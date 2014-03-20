@@ -67,12 +67,14 @@ class Eventomelhoracampo extends AppModel {
     }
     
     public function afterFind($dados, $primary = false) {
+        foreach ($dados as $key => $value) {
         if (!empty($value["Eventomelhoracampo"]["dtmelhoria"])) {
                 $dados[$key]["Eventomelhoracampo"]["dtmelhoria"] = $this->formataData($value["Eventomelhoracampo"]["dtmelhoria"], 'PT');
             }
         if (!empty($value["Eventomelhoracampo"]["dtvalidade"])) {
                 $dados[$key]["Eventomelhoracampo"]["dtvalidade"] = $this->formataData($value["Eventomelhoracampo"]["dtvalidade"], 'PT');
             }
+        }
     return $dados;
     }
 }
