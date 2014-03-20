@@ -9,7 +9,7 @@ App::import('Controller', 'Users');
 class EventomelhoracamposController extends AppController {
     
     function beforeFilter() {
-        $this->set('title_for_layout', 'Aplic. de melhoria');
+        $this->set('title_for_layout', 'Aplicação m. campo');
     }
     
     public function isAuthorized($user) {
