@@ -99,8 +99,12 @@ class Potreiro extends AppModel {
             'foreignKey' => 'potreiro_id',
             'dependent' => false,
         ),
+        'Eventomelhoracampo' => array(
+            'className' => 'Eventomelhoracampo',
+            'foreignKey' => 'potreiro_id',
+            'dependent' => false,
+        ),
     );
-
 }
 
 ?>
