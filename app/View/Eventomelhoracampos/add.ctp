@@ -8,6 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('melhoracampo_id', array ('id' => 'melhoracampoID', 'type' => 'select','options' => $melhoracampos, 'label' => 'Melhoramento de campo', 'empty' => '-- Selecione o melhoramento de campo --'));
     echo $this->Form->input('potreiro_id', array ('id' => 'potreiroID', 'type' => 'select','options' => $potreiros, 'label' => 'Potreiro', 'empty' => '-- Selecione o potreiro --'));
+    echo $this->Form->input('empresa_id', array('type' => 'hidden', 'value' => $empresa));
     echo $this->Form->input('dtmelhoria', array('id' => 'dtmelhoria', 'class' => 'data', 'type' => 'text', 'label' => 'Data da melhoria de campo'));
     echo $this->Form->input('dtvalidade', array('id' => 'dtvalidade', 'class' => 'data', 'type' => 'text', 'label' => 'Validade da melhoria de campo'));
     echo $this->Form->input('observacao', array('id' => 'observacao', 'type' => 'textarea',  'label' => 'Observação'));

@@ -20,6 +20,12 @@ class Eventomelhoracampo extends AppModel {
                 'message' => 'Este campo deve ser informado.',
             ),
         ),
+        'empresa_id' => array(
+            'Numerico' => array(
+                'rule' => array('notempty'),
+                'message' => 'Este campo deve ser informado.',
+            ),
+        ),
         'potreiro_id' => array(
             'Numerico' => array(
                 'rule' => array('notempty'),

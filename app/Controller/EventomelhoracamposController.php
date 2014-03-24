@@ -25,7 +25,7 @@ class EventomelhoracamposController extends AppController {
         $dadosUser = $this->Session->read();
         $this->Eventomelhoracampo->recursive = 0;
         $this->Paginator->settings = array(
-            'conditions' => array('Melhoracampo.holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'conditions' => array('Eventomelhoracampo.empresa_id' => $dadosUser['empresa_id']),
             'order' => array('descricao' => 'asc')
         );
         $this->set('eventomelhoracampos', $this->Paginator->paginate('Eventomelhoracampo'));
@@ -43,15 +43,18 @@ class EventomelhoracamposController extends AppController {
         }
         
         $dadosUser = $this->Session->read();
-        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        $empresa_id = $dadosUser['empresa_id'];
+        
+        $this->Eventomelhoracampo->recursive = 2;
         $eventomelhoracampo = $this->Eventomelhoracampo->read(null, $id);
-        if ($eventomelhoracampo['Melhoracampo']['holding_id'] != $holding_id) {
+        
+        if ($eventomelhoracampo['Eventomelhoracampo']['empresa_id'] != $empresa_id) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
         $this->set('eventomelhoracampo', $eventomelhoracampo);
-        
+               
     }
 
     /**
@@ -60,7 +63,9 @@ class EventomelhoracamposController extends AppController {
     public function add() {
         
         $dadosUser = $this->Session->read();
-                
+        
+        $this->set('empresa', $dadosUser['empresa_id']);
+        
         $melhoracampos = $this->Eventomelhoracampo->Melhoracampo->find('list', array(
             'fields' => array('id', 'descricao'), 
             'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
@@ -165,14 +170,14 @@ class EventomelhoracamposController extends AppController {
      * Funções ajax
      */
     
-    public function buscaMedicamentos($chave) {
-        $this->layout = 'ajax';
-        if (array_key_exists("grpeventosanitario_id", $this->request->data[$chave])) {
-            $catID = $this->request->data[$chave]['grpeventosanitario_id'];
-        }
-        $medicamentos = $this->Eventomelhoracampo->find('list' , array('order' => 'descricao ASC','fields' => array('id', 'descricao'),'conditions' => array('grpeventosanitario_id' => $catID)));
-        $this->set('medicamentos', $medicamentos);
-    }
+//    public function buscaMedicamentos($chave) {
+//        $this->layout = 'ajax';
+//        if (array_key_exists("grpeventosanitario_id", $this->request->data[$chave])) {
+//            $catID = $this->request->data[$chave]['grpeventosanitario_id'];
+//        }
+//        $medicamentos = $this->Eventomelhoracampo->find('list' , array('order' => 'descricao ASC','fields' => array('id', 'descricao'),'conditions' => array('grpeventosanitario_id' => $catID)));
+//        $this->set('medicamentos', $medicamentos);
+//    }
 
 }
 
