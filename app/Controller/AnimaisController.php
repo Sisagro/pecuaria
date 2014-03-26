@@ -3,6 +3,8 @@ App::uses('AppController', 'Controller');
 
 App::import('Controller', 'Users');
 
+App::import('Vendor', 'PHPJasperXML/ReportToPDF');
+
 /**
  * Animais Controller
  */
@@ -16,6 +18,18 @@ class AnimaisController extends AppController {
         $Users = new UsersController;
         return $Users->validaAcesso($this->Session->read(), $this->request->controller);
         return parent::isAuthorized($user);
+    }
+    
+    public function imprimir() {
+        
+        $params = "";
+        
+        //ReportToPDF::generateReport(array(), 'rpt2_grafico1.jrxml', '' , 'Relatorio');
+        
+        ReportToPDF::generateReport(array('empresa_id' => 3, 'especie_id' => 1, 'categoria_id' => 1), 'animais.jrxml', '2', 'Animais');
+        
+        //ReportToPDF::generateReport(array(), 'animais.jrxml');
+        
     }
     
     /**

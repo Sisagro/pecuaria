@@ -4,6 +4,8 @@ App::uses('AppController', 'Controller');
 
 App::import('Controller', 'Users');
 
+App::import('Vendor', 'PHPJasperXML/ReportToPDF');
+
 /**
  * Pesagens Controller
  */
@@ -17,6 +19,14 @@ class PesagensController extends AppController {
         $Users = new UsersController;
         return $Users->validaAcesso($this->Session->read(), $this->request->controller);
         return parent::isAuthorized($user);
+    }
+    
+    public function imprimir() {
+        
+        ReportToPDF::generateReport('', 'rpt2_grafico1.jrxml', '2', 'Pesagens');
+        
+//        ReportToPDF::generateReport(array('ID' => 6), 'teste.jrxml');
+        
     }
     
     /**

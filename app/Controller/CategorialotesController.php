@@ -96,6 +96,8 @@ class CategorialotesController extends AppController {
         
     }
     
+    
+    
     /**
      * delete method
      */

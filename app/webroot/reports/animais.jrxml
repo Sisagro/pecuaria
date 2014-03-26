@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5fae1694-9774-417b-9d32-f37b515dd562">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa_id" class="java.lang.String"/>
+	<parameter name="especie_id" class="java.lang.String"/>
+	<parameter name="categoria_id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     especies.`id` AS especies_id,
+     especies.`holding_id` AS especies_holding_id,
+     especies.`descricao` AS especies_descricao,
+     categorias.`id` AS categorias_id,
+     categorias.`especie_id` AS categorias_especie_id,
+     categorias.`abreveatura` AS categorias_abreveatura,
+     categorias.`descricao` AS categorias_descricao,
+     categorias.`idade_max` AS categorias_idade_max,
+     categorias.`sexo` AS categorias_sexo,
+     animais.`id` AS animais_id,
+     animais.`empresa_id` AS animais_empresa_id,
+     animais.`especie_id` AS animais_especie_id,
+     animais.`pelagen_id` AS animais_pelagen_id,
+     animais.`categoria_id` AS animais_categoria_id,
+     animais.`grausangue_id` AS animais_grausangue_id,
+     animais.`dtnasc` AS animais_dtnasc,
+     animais.`dtcomprado` AS animais_dtcomprado,
+     animais.`brinco` AS animais_brinco,
+     animais.`chipeletronico` AS animais_chipeletronico,
+     animais.`colareletronico` AS animais_colareletronico,
+     animais.`tatuagem` AS animais_tatuagem,
+     animais.`hbbsbb` AS animais_hbbsbb,
+     animais.`cor` AS animais_cor,
+     animais.`causabaixa_id` AS animais_causabaixa_id,
+     animais.`caracteristica` AS animais_caracteristica,
+     animais.`ativo` AS animais_ativo
+FROM
+     `especies` especies
+INNER JOIN `categorias` categorias ON especies.`id` = categorias.`especie_id`
+INNER JOIN `animais` animais ON categorias.`id` = animais.`categoria_id`
+WHERE animais.empresa_id = $P{empresa_id}
+  AND animais.categoria_id = $P{categoria_id}
+  AND animais.especie_id = $P{especie_id}]]>
+	</queryString>
+	<field name="especies_id" class="java.lang.Integer"/>
+	<field name="especies_holding_id" class="java.lang.Integer"/>
+	<field name="especies_descricao" class="java.lang.String"/>
+	<field name="categorias_id" class="java.lang.Integer"/>
+	<field name="categorias_especie_id" class="java.lang.Integer"/>
+	<field name="categorias_abreveatura" class="java.lang.String"/>
+	<field name="categorias_descricao" class="java.lang.String"/>
+	<field name="categorias_idade_max" class="java.lang.Integer"/>
+	<field name="categorias_sexo" class="java.lang.String"/>
+	<field name="animais_id" class="java.lang.Integer"/>
+	<field name="animais_empresa_id" class="java.lang.Integer"/>
+	<field name="animais_especie_id" class="java.lang.Integer"/>
+	<field name="animais_pelagen_id" class="java.lang.Integer"/>
+	<field name="animais_categoria_id" class="java.lang.Integer"/>
+	<field name="animais_grausangue_id" class="java.lang.Integer"/>
+	<field name="animais_dtnasc" class="java.sql.Timestamp"/>
+	<field name="animais_dtcomprado" class="java.sql.Timestamp"/>
+	<field name="animais_brinco" class="java.lang.String"/>
+	<field name="animais_chipeletronico" class="java.lang.String"/>
+	<field name="animais_colareletronico" class="java.lang.String"/>
+	<field name="animais_tatuagem" class="java.lang.String"/>
+	<field name="animais_hbbsbb" class="java.lang.String"/>
+	<field name="animais_cor" class="java.lang.String"/>
+	<field name="animais_causabaixa_id" class="java.lang.Integer"/>
+	<field name="animais_caracteristica" class="java.lang.String"/>
+	<field name="animais_ativo" class="java.lang.String"/>
+	<sortField name="especies_descricao"/>
+	<sortField name="categorias_descricao"/>
+	<variable name="animais_id_1" class="java.lang.Integer" resetType="Group" resetGroup="Categoria" calculation="Count">
+		<variableExpression><![CDATA[$F{animais_id}]]></variableExpression>
+	</variable>
+	<variable name="animais_id_2" class="java.lang.Integer" resetType="Group" resetGroup="Especie" calculation="Count">
+		<variableExpression><![CDATA[$F{animais_id}]]></variableExpression>
+	</variable>
+	<variable name="identificacao_animal" class="java.lang.String">
+		<variableExpression><![CDATA[$F{animais_brinco} != null]]></variableExpression>
+	</variable>
+	<group name="Especie">
+		<groupExpression><![CDATA[$F{especies_id}]]></groupExpression>
+		<groupHeader>
+			<band height="29">
+				<textField>
+					<reportElement x="140" y="7" width="182" height="20" uuid="231acdb2-6b92-4bf9-874a-d149ba12628c"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{especies_descricao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="7" y="6" width="114" height="20" uuid="dd688246-2104-481a-b717-6ca3ac110227"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Espécie]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="36">
+				<line>
+					<reportElement x="-1" y="31" width="802" height="1" uuid="526542bd-e71c-4855-83e3-a7ad092a05fd"/>
+				</line>
+				<textField>
+					<reportElement x="244" y="8" width="74" height="20" uuid="d7e7a2c4-7ead-402d-9c81-2c15185f1454"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{animais_id_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="7" y="8" width="218" height="20" uuid="c445d344-1f58-4254-a7a8-ebd833b78999"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Total_da_espécie]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Categoria">
+		<groupExpression><![CDATA[$F{categorias_id}]]></groupExpression>
+		<groupHeader>
+			<band height="29">
+				<textField>
+					<reportElement x="157" y="7" width="179" height="20" uuid="36280cf5-0aa3-423b-9e1f-462e293dfcbb"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{categorias_descricao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="62" y="5" width="89" height="20" uuid="00bbf953-aab4-4895-9901-08f33691bba8"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Categoria]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="27">
+				<textField>
+					<reportElement x="248" y="7" width="74" height="20" uuid="b3227677-7572-42ac-9c7d-2247fbf7e56f"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{animais_id_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="7" width="218" height="20" uuid="a2593109-a04c-469d-b2c3-86a0e8a89eb4"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Total_da_categoria]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="2" width="801" height="31" uuid="9b403b91-4d5e-4215-8122-f9d6c7017aff"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Animais]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="310" y="9" width="283" height="20" uuid="56c44c70-ac88-4b01-8083-8a787c2d7dfe"/>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Identificação do animal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="598" y="9" width="61" height="20" uuid="7799a083-0c5a-4da3-8344-a1edeab6e23c"/>
+				<textElement textAlignment="Center">
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="667" y="9" width="100" height="20" uuid="c1f21eb2-6e8b-4849-b11d-1c59c7ec0000"/>
+				<textElement textAlignment="Center">
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Dt. nascimento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="598" y="3" width="61" height="20" uuid="ce56951c-9082-42c3-b98c-c9e46b677906"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{categorias_sexo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="667" y="3" width="100" height="20" uuid="94aa6bad-e0bb-41e4-b4d1-3a84a0e78b34"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{animais_dtnasc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="3" width="283" height="20" uuid="ffa6cef6-c9e2-4315-903e-5a027b6627c6"/>
+				<textFieldExpression><![CDATA["B:  " + $F{animais_brinco} + "  T:  " + $F{animais_tatuagem} + "  HBB/SBB:  " + $F{animais_hbbsbb}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="15" splitType="Stretch"/>
+	</summary>
+</jasperReport>
