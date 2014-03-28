@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5fae1694-9774-417b-9d32-f37b515dd562">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="674"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa_id" class="java.lang.String"/>
 	<parameter name="especie_id" class="java.lang.String"/>
 	<parameter name="categoria_id" class="java.lang.String"/>
+	<parameter name="IMG_EXPRESSION4" class="java.lang.String"/>
+	<parameter name="nomedaempresa" class="java.lang.String"/>
+	<parameter name="nomedousuario" class="java.lang.String"/>
+	<parameter name="data" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      especies.`id` AS especies_id,
@@ -39,8 +43,8 @@ FROM
 INNER JOIN `categorias` categorias ON especies.`id` = categorias.`especie_id`
 INNER JOIN `animais` animais ON categorias.`id` = animais.`categoria_id`
 WHERE animais.empresa_id = $P{empresa_id}
-  AND animais.categoria_id = $P{categoria_id}
-  AND animais.especie_id = $P{especie_id}]]>
+  AND animais.especie_id = IF($P{especie_id} = 0, animais.especie_id, $P{especie_id})
+  AND animais.categoria_id = IF($P{categoria_id} = 0, animais.categoria_id, $P{categoria_id})]]>
 	</queryString>
 	<field name="especies_id" class="java.lang.Integer"/>
 	<field name="especies_holding_id" class="java.lang.Integer"/>
@@ -82,16 +86,16 @@ WHERE animais.empresa_id = $P{empresa_id}
 	<group name="Especie">
 		<groupExpression><![CDATA[$F{especies_id}]]></groupExpression>
 		<groupHeader>
-			<band height="29">
+			<band height="26">
 				<textField>
-					<reportElement x="140" y="7" width="182" height="20" uuid="231acdb2-6b92-4bf9-874a-d149ba12628c"/>
+					<reportElement x="92" y="3" width="235" height="20" uuid="231acdb2-6b92-4bf9-874a-d149ba12628c"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{especies_descricao}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="7" y="6" width="114" height="20" uuid="dd688246-2104-481a-b717-6ca3ac110227"/>
+					<reportElement x="6" y="2" width="86" height="20" uuid="dd688246-2104-481a-b717-6ca3ac110227"/>
 					<textElement>
 						<font size="14" isBold="true" isUnderline="false"/>
 					</textElement>
@@ -100,23 +104,34 @@ WHERE animais.empresa_id = $P{empresa_id}
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="36">
-				<line>
-					<reportElement x="-1" y="31" width="802" height="1" uuid="526542bd-e71c-4855-83e3-a7ad092a05fd"/>
-				</line>
+			<band height="42">
 				<textField>
-					<reportElement x="244" y="8" width="74" height="20" uuid="d7e7a2c4-7ead-402d-9c81-2c15185f1454"/>
+					<reportElement x="158" y="4" width="90" height="20" uuid="d7e7a2c4-7ead-402d-9c81-2c15185f1454"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{animais_id_2}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="7" y="8" width="218" height="20" uuid="c445d344-1f58-4254-a7a8-ebd833b78999"/>
+					<reportElement x="6" y="4" width="47" height="20" uuid="c445d344-1f58-4254-a7a8-ebd833b78999"/>
 					<textElement>
 						<font size="14" isBold="true" isUnderline="false"/>
 					</textElement>
-					<text><![CDATA[Total_da_espécie]]></text>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="50" y="4" width="25" height="20" uuid="702f1418-a31a-43f6-9cfa-66fd160baea4"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[da]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="73" y="4" width="77" height="20" uuid="ce0dcb44-ebe9-4fcf-8293-8bb22a5ee944"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[espécie]]></text>
 				</staticText>
 			</band>
 		</groupFooter>
@@ -124,16 +139,16 @@ WHERE animais.empresa_id = $P{empresa_id}
 	<group name="Categoria">
 		<groupExpression><![CDATA[$F{categorias_id}]]></groupExpression>
 		<groupHeader>
-			<band height="29">
+			<band height="27">
 				<textField>
-					<reportElement x="157" y="7" width="179" height="20" uuid="36280cf5-0aa3-423b-9e1f-462e293dfcbb"/>
+					<reportElement x="144" y="5" width="179" height="20" uuid="36280cf5-0aa3-423b-9e1f-462e293dfcbb"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{categorias_descricao}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="62" y="5" width="89" height="20" uuid="00bbf953-aab4-4895-9901-08f33691bba8"/>
+					<reportElement x="53" y="5" width="89" height="20" uuid="00bbf953-aab4-4895-9901-08f33691bba8"/>
 					<textElement>
 						<font size="14" isBold="true" isUnderline="false"/>
 					</textElement>
@@ -142,21 +157,35 @@ WHERE animais.empresa_id = $P{empresa_id}
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="27">
+			<band height="22">
+				<staticText>
+					<reportElement x="53" y="0" width="47" height="20" uuid="794faddf-4bf7-4ebe-a788-00cb3eb11172"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="0" width="89" height="20" uuid="3ba53fa3-013c-48ee-8c41-95e37065c16c"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[categoria]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="97" y="0" width="25" height="20" uuid="e6f6ee5b-248e-45a9-81b3-1d0410b66150"/>
+					<textElement>
+						<font size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[da]]></text>
+				</staticText>
 				<textField>
-					<reportElement x="248" y="7" width="74" height="20" uuid="b3227677-7572-42ac-9c7d-2247fbf7e56f"/>
+					<reportElement x="209" y="0" width="74" height="20" uuid="b3227677-7572-42ac-9c7d-2247fbf7e56f"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{animais_id_1}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="1" y="7" width="218" height="20" uuid="a2593109-a04c-469d-b2c3-86a0e8a89eb4"/>
-					<textElement>
-						<font size="14" isBold="true" isUnderline="false"/>
-					</textElement>
-					<text><![CDATA[Total_da_categoria]]></text>
-				</staticText>
 			</band>
 		</groupFooter>
 	</group>
@@ -164,37 +193,60 @@ WHERE animais.empresa_id = $P{empresa_id}
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="75" splitType="Stretch">
+		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="2" width="801" height="31" uuid="9b403b91-4d5e-4215-8122-f9d6c7017aff"/>
+				<reportElement x="1" y="2" width="800" height="31" uuid="9b403b91-4d5e-4215-8122-f9d6c7017aff"/>
+				<box topPadding="5"/>
 				<textElement textAlignment="Center">
 					<font size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Animais]]></text>
 			</staticText>
+			<image>
+				<reportElement x="1" y="2" width="157" height="31" uuid="4a1c6519-04ee-4142-b872-5f22d2e67b4a"/>
+				<imageExpression><![CDATA[$P{IMG_EXPRESSION4}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="1" y="46" width="800" height="1" uuid="d3262369-41d4-498a-bce5-30d8c6b82636"/>
+			</line>
+			<textField>
+				<reportElement x="631" y="0" width="171" height="14" uuid="d3581323-b19a-4c96-8ebb-10938e9fe4e7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{nomedaempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="631" y="14" width="171" height="14" uuid="768f8291-1553-44cb-b989-562508639a44"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{nomedousuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="631" y="28" width="171" height="14" uuid="90ef8aa8-f7e6-4e5f-b861-8b69ce596718"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{data}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="17" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="29" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="310" y="9" width="283" height="20" uuid="56c44c70-ac88-4b01-8083-8a787c2d7dfe"/>
+				<reportElement x="310" y="0" width="283" height="20" uuid="56c44c70-ac88-4b01-8083-8a787c2d7dfe"/>
 				<textElement>
 					<font size="12" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Identificação do animal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="598" y="9" width="61" height="20" uuid="7799a083-0c5a-4da3-8344-a1edeab6e23c"/>
+				<reportElement x="598" y="0" width="61" height="20" uuid="7799a083-0c5a-4da3-8344-a1edeab6e23c"/>
 				<textElement textAlignment="Center">
 					<font size="12" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Sexo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="667" y="9" width="100" height="20" uuid="c1f21eb2-6e8b-4849-b11d-1c59c7ec0000"/>
+				<reportElement x="667" y="0" width="100" height="20" uuid="c1f21eb2-6e8b-4849-b11d-1c59c7ec0000"/>
 				<textElement textAlignment="Center">
 					<font size="12" isUnderline="true"/>
 				</textElement>
@@ -203,7 +255,7 @@ WHERE animais.empresa_id = $P{empresa_id}
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="28" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<textField>
 				<reportElement x="598" y="3" width="61" height="20" uuid="ce56951c-9082-42c3-b98c-c9e46b677906"/>
 				<textElement textAlignment="Center"/>
@@ -221,12 +273,37 @@ WHERE animais.empresa_id = $P{empresa_id}
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="19" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="6" width="801" height="16" uuid="f68c92b8-bc6d-4ad4-9587-4161b6da0209"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[www.sisagro.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="801" height="16" uuid="73db9ff3-de33-45b8-8e9a-9dd483aff8b4"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[contato@sisagro.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="801" height="16" uuid="1cadc425-f1e1-4d29-86d3-d53b98231fbf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[tel: (53) 3027.1711]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-1" y="2" width="802" height="1" uuid="526542bd-e71c-4855-83e3-a7ad092a05fd"/>
+			</line>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="15" splitType="Stretch"/>
+		<band height="11" splitType="Stretch"/>
 	</summary>
 </jasperReport>

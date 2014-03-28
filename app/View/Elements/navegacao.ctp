@@ -21,6 +21,11 @@
             echo " > ";
             echo $this->Html->link(__($title_for_layout), array('action' => 'index'));
             echo " > Visualizar";
+        } else if ($this->action == "imprimir") {
+            echo $this->Html->link(__('Home'), array('controller' => 'homes', 'action' => 'index'));
+            echo " > ";
+            echo $this->Html->link(__($title_for_layout), array('action' => 'index'));
+            echo " > Imprimir";
         }
     ?>
 </p>

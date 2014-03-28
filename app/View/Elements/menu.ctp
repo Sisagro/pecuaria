@@ -56,7 +56,7 @@
                 ?>
                     </ul>
                 </li>
-                <li><a href="#">Financeiro</a>
+                <li><a href="#">Relatórios</a>
                     <ul>
                 <?php
                 $menu_5++;

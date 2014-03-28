@@ -22,20 +22,44 @@ class AnimaisController extends AppController {
     
     public function imprimir() {
         
-        $params = "";
+        $dadosUser = $this->Session->read();
         
-        //ReportToPDF::generateReport(array(), 'rpt2_grafico1.jrxml', '' , 'Relatorio');
+        $sexos = array('M' => 'MACHO', 'F' => 'FÊMEA');
+        $this->set('sexos', $sexos);
         
-        // adicionar o parâmetro de sexto e testar passar nulo nos parâmetros
-        // adicionar o parâmetro de sexto e testar passar nulo nos parâmetros
-        // adicionar o parâmetro de sexto e testar passar nulo nos parâmetros
-        // adicionar o parâmetro de sexto e testar passar nulo nos parâmetros
-        // adicionar o parâmetro de sexto e testar passar nulo nos parâmetros
+        $especies = $this->Animai->Especy->find('list', array(
+            'fields' => array('id', 'descricao'), 
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('descricao' => 'asc')
+        ));
+        $this->set(compact('especies'));
         
-        
-        ReportToPDF::generateReport(array('empresa_id' => 3, 'especie_id' => 1, 'categoria_id' => 1), 'animais.jrxml', '1', 'Animais');
-        
-        //ReportToPDF::generateReport(array(), 'animais.jrxml');
+        if ($this->request->is('post')) {
+            
+            if (empty($this->request->data['Relatorio']['especie_id'])) {
+                $especie = 0;
+            } else {
+                $especie = $this->request->data['Relatorio']['especie_id'];
+            }
+            
+            if (empty($this->request->data['Relatorio']['categoria_id'])) {
+                $categoria = 0;
+            } else {
+                $categoria = $this->request->data['Relatorio']['categoria_id'];
+            }
+            
+            $params = array(
+                'empresa_id' => $dadosUser['empresa_id'],
+                'especie_id' => $especie,
+                'categoria_id' => $categoria,
+                'nomedaempresa' => $dadosUser['nomeEmpresa'],
+                'nomedousuario' => $dadosUser['Auth']['User']['nome'],
+                'data' => date("d/m/Y"),
+            );
+            
+            ReportToPDF::generateReport($params, 'animais.jrxml', '2', 'Animais');
+            
+        }
         
     }
     
