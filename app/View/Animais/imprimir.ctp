@@ -3,7 +3,8 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 ?>
 <br>
 <br>
-<?php echo $this->Form->create('Relatorio'); ?>
+<?php echo $this->Form->create('Relatorio', array('target' => '_blank')); ?>
+    <?php //echo $this->Form->create('Relatorio'); ?>
 <fieldset>
     <?php
     echo $this->Form->input('especie_id', array ('id' => 'especieID', 'type' => 'select','options' => $especies, 'label' => 'Espécie', 'empty' => '-- Selecione a espécie --'));
@@ -11,6 +12,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('categoria_id', array('id' => 'categoriaID', 'type' => 'select', 'label' => 'Categoria'));
     ?>
 </fieldset>
+
 <?php echo $this->Form->end(__('Imprimir')); ?>
 
 <?php

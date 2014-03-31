@@ -57,7 +57,7 @@ class AnimaisController extends AppController {
                 'data' => date("d/m/Y"),
             );
             
-            ReportToPDF::generateReport($params, 'animais.jrxml', '2', 'Animais');
+            ReportToPDF::generateReport($params, 'animais.jrxml', '1', 'Animais');
             
         }
         
