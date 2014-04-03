@@ -37,7 +37,7 @@ class Eventomelhoracampo extends AppModel {
                 'rule' => array('notempty'),
                 'message' => 'Informe uma data.',
             ),
-        ),    
+        ),
     );
     
     /**
@@ -64,15 +64,15 @@ class Eventomelhoracampo extends AppModel {
 
     /**
      * hasMany associations
-     */
+     
     public $hasMany = array(
-        'Alimentacao' => array(
-            'className' => 'Alimentacao',
-            'foreignKey' => 'eventomelhoracampo_id',
+        'Melhoracampo' => array(
+            'className' => 'Melhoracampo',
+            'foreignKey' => 'melhoracampo_id',
             'dependent' => true,
         ),       
     );
-        
+    */    
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['dtmelhoria'])) {
                 $this->data[$this->alias]['dtmelhoria'] = $this->formataDataHora($this->data[$this->alias]['dtmelhoria'], 'EN');

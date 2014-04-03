@@ -1,11 +1,10 @@
 <?php
-
 App::uses('AppController', 'Controller');
 
 App::import('Controller', 'Users');
 
 /**
- * Alimentacaos Controller
+ * Menus Controller
  */
 class AlimentacaosController extends AppController {
     
@@ -23,110 +22,60 @@ class AlimentacaosController extends AppController {
      * index method
      */
     public function index() {
-        
         $dadosUser = $this->Session->read();
-        $this->Alimentacao->recursive = 2;
+        $this->Alimentacao->recursive = 0;
         $this->Paginator->settings = array(
-            'conditions' => array('Alimentacao.empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('dtalimentacao' => 'desc'),
+            'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id']),
+            'order' => array('descricao' => 'asc')
         );
-        
-        $this->set('itens', $this->Paginator->paginate('Alimentacao'));
-        
+        $this->set('alimentacaos', $this->Paginator->paginate('Alimentacao'));
     }
-    
-    
+
     /**
      * view method
      */
     public function view($id = null) {
         
         $this->Alimentacao->id = $id;
-        if (!$this->Alimentacao->exists($id)) {
+        if (!$this->Alimentacao->exists()) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
         $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         
-        $this->Alimentacao->recursive = 2;
         $alimentacao = $this->Alimentacao->read(null, $id);
-        
-        if ($alimentacao['Alimentacao']['empresa_id'] != $empresa_id) {
+        if ($alimentacao['Alimentacao']['holding_id'] != $holding_id) {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
         
-        $this->set('item', $alimentacao);
+        $this->set('alimentacao', $alimentacao);
         
     }
-    
-    
+
     /**
      * add method
      */
     public function add() {
         
         $dadosUser = $this->Session->read();
-        
-        $this->set('usuario', $dadosUser['Auth']['User']['id']);
-        
-        $this->set('empresa', $dadosUser['empresa_id']);
-        
-        $lotes = $this->Alimentacao->Categorialote->find('list', array(
-            'fields' => array('Lote.id', 'Lote.descricao'),
-            "joins" => array(
-                array(
-                    "table" => "lotes",
-                    "alias" => "Lote",
-                    "type" => "INNER",
-                    "conditions" => array("Categorialote.lote_id = Lote.id",
-                                          "Lote.empresa_id = " . $dadosUser['empresa_id'])
-                )
-            ),
-            'order' => array('Lote.descricao' => 'asc')
-        ));
-        
-        $this->set(compact('lotes'));
-        
-        $melhoracampos = $this->Alimentacao->Eventomelhoracampo->find('list', array(
-            'fields' => array('Eventomelhoracampo.id', 'Melhoracampo.descricao'),
-            "joins" => array(
-                array(
-                    "table" => "melhoracampos",
-                    "alias" => "Melhoracampo",
-                    "type" => "INNER",
-                    "conditions" => array("Eventomelhoracampo.melhoracampo_id = Melhoracampo.id",
-                                          "Eventomelhoracampo.empresa_id = " . $dadosUser['empresa_id'])
-                )
-            ),
-            'order' => array('Melhoracampo.descricao' => 'asc')
-        ));
-        
-        $this->set(compact('melhoracampos'));
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
+        $this->set(compact('holding_id'));
         
         if ($this->request->is('post')) {
-            
-//            debug($this->request->data); die();
-            
             $this->Alimentacao->create();
-            if ($this->Alimentacao->saveAll($this->request->data)) {
-                $this->Session->setFlash('Alimentação criada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
+            if ($this->Alimentacao->save($this->request->data)) {
+                $this->Session->setFlash('Alimentação adicionada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $errors = $this->Alimentacao->validationErrors;
-                if (isset($errors['erro'][0]['message'])) {
-                    $this->Session->setFlash('Registro não foi salvo. ' . $errors['erro'][0]['message'], 'default', array('class' => 'mensagem_erro'));
-                } else {
-                    $this->Session->setFlash('Registro não foi salvo. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
-                }
+                $this->Session->setFlash('Registro não foi salvo. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }
         }
         
     }
-    
-    
+
     /**
      * edit method
      */
@@ -139,17 +88,15 @@ class AlimentacaosController extends AppController {
         }
         
         $dadosUser = $this->Session->read();
-        $empresa_id = $dadosUser['empresa_id'];
-        $alimentacao = $this->Alimentacao->read(null, $id);
+        $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         
-        if ($alimentacao['Alimentacao']['empresa_id'] != $empresa_id) {
-            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
-            $this->redirect(array('action' => 'index'));
+        $alimentacao = $this->Alimentacao->read(null, $id);
+        if ($alimentacao['Alimentacao']['holding_id'] != $holding_id) {
+            throw new NotFoundException(__('Alimentação inválida'));
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            
-            if ($this->Alimentacao->saveField('dtalimentacao', $this->request->data['Alimentacao']['dtalimentacao']) && $this->Alimentacao->saveField('observacao', $this->request->data['Alimentacao']['observacao'])) {
+            if ($this->Alimentacao->save($this->request->data)) {
                 $this->Session->setFlash('Alimentação alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -160,8 +107,7 @@ class AlimentacaosController extends AppController {
         }
         
     }
-    
-    
+
     /**
      * delete method
      */
@@ -172,7 +118,6 @@ class AlimentacaosController extends AppController {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
-        
         $this->request->onlyAllow('post', 'delete');
         if ($this->Alimentacao->delete()) {
             $this->Session->setFlash('Alimentação deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
@@ -184,5 +129,3 @@ class AlimentacaosController extends AppController {
     }
 
 }
-    
-?>

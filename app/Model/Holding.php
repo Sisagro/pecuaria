@@ -82,6 +82,10 @@ class Holding extends AppModel {
             'className' => 'Melhoracampo',
             'foreignKey' => 'holding_id',
             'dependent' => false,
+        ),'Alimentacao' => array(
+            'className' => 'Alimentacao',
+            'foreignKey' => 'holding_id',
+            'dependent' => false,
         ),
     );
     

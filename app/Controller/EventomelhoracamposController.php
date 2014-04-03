@@ -26,7 +26,7 @@ class EventomelhoracamposController extends AppController {
         $this->Eventomelhoracampo->recursive = 0;
         $this->Paginator->settings = array(
             'conditions' => array('Eventomelhoracampo.empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('descricao' => 'asc')
+            'order' => array('dtmelhoria' => 'desc')
         );
         $this->set('eventomelhoracampos', $this->Paginator->paginate('Eventomelhoracampo'));
     }

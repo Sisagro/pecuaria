@@ -53,8 +53,8 @@ class Categorialote extends AppModel {
             'foreignKey' => 'categorialote_id',
             'dependent' => true,
         ),
-        'Alimentacao' => array(
-            'className' => 'Alimentacao',
+        'Eventoalimentacao' => array(
+            'className' => 'Eventoalimentacao',
             'foreignKey' => 'categorialote_id',
             'dependent' => true,
         ),
