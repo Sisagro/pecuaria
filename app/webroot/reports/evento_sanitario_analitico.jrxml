@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a66d5b75-f6b0-482d-82a1-b4315efee82e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="145"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa_id" class="java.lang.String"/>
+	<parameter name="especie_id" class="java.lang.String"/>
+	<parameter name="categoria_id" class="java.lang.String"/>
+	<parameter name="IMG_EXPRESSION4" class="java.lang.String"/>
+	<parameter name="nomedaempresa" class="java.lang.String"/>
+	<parameter name="nomedousuario" class="java.lang.String"/>
+	<parameter name="data" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     lotes.`id` AS lotes_id,
+     lotes.`empresa_id` AS lotes_empresa_id,
+     lotes.`descricao` AS lotes_descricao,
+     lotes.`ativo` AS lotes_ativo,
+     lotes.`created` AS lotes_created,
+     lotes.`modified` AS lotes_modified,
+     lotes.`user_id` AS lotes_user_id,
+     categorialotes.`id` AS categorialotes_id,
+     categorialotes.`lote_id` AS categorialotes_lote_id,
+     categorialotes.`categoria_id` AS categorialotes_categoria_id,
+     categorialotes.`potreiro_id` AS categorialotes_potreiro_id,
+     categorialotes.`observacao` AS categorialotes_observacao,
+     eventosanitarios.`id` AS eventosanitarios_id,
+     eventosanitarios.`categorialote_id` AS eventosanitarios_categorialote_id,
+     eventosanitarios.`dtevento` AS eventosanitarios_dtevento,
+     eventosanitarios.`dosagem` AS eventosanitarios_dosagem,
+     eventosanitarios.`observacao` AS eventosanitarios_observacao,
+     eventosanitarios.`created` AS eventosanitarios_created,
+     eventosanitarios.`modified` AS eventosanitarios_modified,
+     eventosanitarios.`user_id` AS eventosanitarios_user_id,
+     eventosanitarios.`medicamento_id` AS eventosanitarios_medicamento_id,
+     eventosanitarios.`empresa_id` AS eventosanitarios_empresa_id,
+     medicamentos.`id` AS medicamentos_id,
+     medicamentos.`grpeventosanitario_id` AS medicamentos_grpeventosanitario_id,
+     medicamentos.`descricao` AS medicamentos_descricao,
+     medicamentos.`palavrachave` AS medicamentos_palavrachave,
+     medicamentos.`principioativo` AS medicamentos_principioativo,
+     animais.`id` AS animais_id,
+     animais.`empresa_id` AS animais_empresa_id,
+     animais.`especie_id` AS animais_especie_id,
+     animais.`pelagen_id` AS animais_pelagen_id,
+     animais.`categoria_id` AS animais_categoria_id,
+     animais.`grausangue_id` AS animais_grausangue_id,
+     animais.`dtnasc` AS animais_dtnasc,
+     animais.`dtcomprado` AS animais_dtcomprado,
+     animais.`brinco` AS animais_brinco,
+     animais.`chipeletronico` AS animais_chipeletronico,
+     animais.`colareletronico` AS animais_colareletronico,
+     animais.`tatuagem` AS animais_tatuagem,
+     animais.`hbbsbb` AS animais_hbbsbb,
+     animais.`cor` AS animais_cor,
+     animais.`causabaixa_id` AS animais_causabaixa_id,
+     animais.`caracteristica` AS animais_caracteristica,
+     animais.`ativo` AS animais_ativo,
+     animaleventos.`animai_id` AS animaleventos_animai_id,
+     animaleventos.`eventosanitario_id` AS animaleventos_eventosanitario_id
+FROM
+     `lotes` lotes INNER JOIN `categorialotes` categorialotes ON lotes.`id` = categorialotes.`lote_id`
+     INNER JOIN `eventosanitarios` eventosanitarios ON categorialotes.`id` = eventosanitarios.`categorialote_id`
+     INNER JOIN `medicamentos` medicamentos ON eventosanitarios.`medicamento_id` = medicamentos.`id`
+     INNER JOIN `animaleventos` animaleventos ON eventosanitarios.`id` = animaleventos.`eventosanitario_id`
+     INNER JOIN `animais` animais ON animaleventos.`animai_id` = animais.`id`
+WHERE animais.empresa_id = $P{empresa_id}
+  AND animais.especie_id = IF($P{especie_id} = 0, animais.especie_id, $P{especie_id})
+  AND animais.categoria_id = IF($P{categoria_id} = 0, animais.categoria_id, $P{categoria_id})]]>
+	</queryString>
+	<field name="lotes_id" class="java.lang.Integer"/>
+	<field name="lotes_empresa_id" class="java.lang.Integer"/>
+	<field name="lotes_descricao" class="java.lang.String"/>
+	<field name="lotes_ativo" class="java.lang.String"/>
+	<field name="lotes_created" class="java.sql.Timestamp"/>
+	<field name="lotes_modified" class="java.sql.Timestamp"/>
+	<field name="lotes_user_id" class="java.lang.Integer"/>
+	<field name="categorialotes_id" class="java.lang.Integer"/>
+	<field name="categorialotes_lote_id" class="java.lang.Integer"/>
+	<field name="categorialotes_categoria_id" class="java.lang.Integer"/>
+	<field name="categorialotes_potreiro_id" class="java.lang.Integer"/>
+	<field name="categorialotes_observacao" class="java.lang.String"/>
+	<field name="eventosanitarios_id" class="java.lang.Integer"/>
+	<field name="eventosanitarios_categorialote_id" class="java.lang.Integer"/>
+	<field name="eventosanitarios_dtevento" class="java.sql.Date"/>
+	<field name="eventosanitarios_dosagem" class="java.math.BigDecimal"/>
+	<field name="eventosanitarios_observacao" class="java.lang.String"/>
+	<field name="eventosanitarios_created" class="java.sql.Timestamp"/>
+	<field name="eventosanitarios_modified" class="java.sql.Timestamp"/>
+	<field name="eventosanitarios_user_id" class="java.lang.Integer"/>
+	<field name="eventosanitarios_medicamento_id" class="java.lang.Integer"/>
+	<field name="eventosanitarios_empresa_id" class="java.lang.Integer"/>
+	<field name="medicamentos_id" class="java.lang.Integer"/>
+	<field name="medicamentos_grpeventosanitario_id" class="java.lang.Integer"/>
+	<field name="medicamentos_descricao" class="java.lang.String"/>
+	<field name="medicamentos_palavrachave" class="java.lang.String"/>
+	<field name="medicamentos_principioativo" class="java.lang.String"/>
+	<field name="animais_id" class="java.lang.Integer"/>
+	<field name="animais_empresa_id" class="java.lang.Integer"/>
+	<field name="animais_especie_id" class="java.lang.Integer"/>
+	<field name="animais_pelagen_id" class="java.lang.Integer"/>
+	<field name="animais_categoria_id" class="java.lang.Integer"/>
+	<field name="animais_grausangue_id" class="java.lang.Integer"/>
+	<field name="animais_dtnasc" class="java.sql.Timestamp"/>
+	<field name="animais_dtcomprado" class="java.sql.Timestamp"/>
+	<field name="animais_brinco" class="java.lang.String"/>
+	<field name="animais_chipeletronico" class="java.lang.String"/>
+	<field name="animais_colareletronico" class="java.lang.String"/>
+	<field name="animais_tatuagem" class="java.lang.String"/>
+	<field name="animais_hbbsbb" class="java.lang.String"/>
+	<field name="animais_cor" class="java.lang.String"/>
+	<field name="animais_causabaixa_id" class="java.lang.Integer"/>
+	<field name="animais_caracteristica" class="java.lang.String"/>
+	<field name="animais_ativo" class="java.lang.String"/>
+	<field name="animaleventos_animai_id" class="java.lang.Integer"/>
+	<field name="animaleventos_eventosanitario_id" class="java.lang.Integer"/>
+	<sortField name="lotes_descricao"/>
+	<sortField name="eventosanitarios_dtevento"/>
+	<group name="Lote">
+		<groupExpression><![CDATA[$F{lotes_id}]]></groupExpression>
+		<groupHeader>
+			<band height="35">
+				<staticText>
+					<reportElement x="15" y="8" width="38" height="20" uuid="4c0311a5-e46d-4ca1-bbc4-6410a71160f1"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Lote]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="55" y="8" width="195" height="20" uuid="76ae83b1-f384-44d9-91a2-95320dc385d9"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lotes_descricao}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="9">
+				<elementGroup/>
+				<line>
+					<reportElement x="0" y="4" width="802" height="1" uuid="cf1672ba-ba28-4a68-a0ae-edad8e4b10d7"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="2" width="798" height="31" uuid="4078eb36-cd8d-4c46-8421-ceebb5cd619b"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Evento sanitário por lote (analítico)]]></text>
+			</staticText>
+			<image>
+				<reportElement x="6" y="-10" width="150" height="49" uuid="90638702-a7a2-4e06-b6fd-f3d060eb0e19"/>
+				<imageExpression><![CDATA[$P{IMG_EXPRESSION4}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="628" y="31" width="171" height="14" uuid="c3c7604f-8308-46a4-8ce3-aa505d598a29"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="628" y="17" width="171" height="14" uuid="66f0a6a7-53b0-49bc-97b3-72b1a33f8c0d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{nomedousuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="628" y="3" width="171" height="14" uuid="8e368271-36d7-4eb5-910a-8b093458f8d6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{nomedaempresa}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="7" y="50" width="792" height="1" uuid="957202e0-796e-4903-b1d6-bf527043842a"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="203" y="12" width="100" height="20" uuid="2084a3a5-9f16-47b5-9a27-a5dad54ac548"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Data evento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="691" y="12" width="100" height="20" uuid="dbc613bd-e5be-48f2-9c4c-4313800d88a2"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Dosagem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="525" y="12" width="163" height="20" uuid="64313328-924c-4110-a51e-585cfa2ceaa0"/>
+				<textElement>
+					<font size="12" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Medicamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="12" width="207" height="20" uuid="d5804ea5-05c1-4f07-bf3c-045823722c72"/>
+				<textElement>
+					<font size="12" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Identificação do animal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="525" y="3" width="163" height="20" uuid="b37178dc-9d53-441d-a02a-f55ba7bdb2a7"/>
+				<textFieldExpression><![CDATA[$F{medicamentos_descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="691" y="3" width="100" height="20" uuid="484de164-321e-4322-8fe0-ae66cb47461c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{eventosanitarios_dosagem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="203" y="3" width="100" height="20" uuid="479b8971-3d24-477d-aa7c-7a93d7c8d8a3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{eventosanitarios_dtevento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="3" width="207" height="20" uuid="4188eefa-3899-43d3-ab7e-2aa27c94ec45"/>
+				<textFieldExpression><![CDATA["B:  " + $F{animais_brinco} + "  T:  " + $F{animais_tatuagem} + "  HBB/SBB:  " + $F{animais_hbbsbb}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="36" width="799" height="16" forecolor="#5F7846" uuid="ec9f115a-9adf-4ad7-9ec8-5012af859519"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[tel: (53) 3027.1711]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="794" height="1" uuid="0e7fa17b-c572-44a9-a4ba-5f4187f964b5"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="19" width="799" height="16" forecolor="#5F7846" uuid="9ff4a2e6-6a86-4d08-85c9-da091d372be6"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[contato@sisagro.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="799" height="16" forecolor="#5F7846" uuid="599ffe0d-aafe-43a7-8629-60b0050a11fb"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[www.sisagro.com]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>
