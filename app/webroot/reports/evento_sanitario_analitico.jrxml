@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a66d5b75-f6b0-482d-82a1-b4315efee82e">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="145"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa_id" class="java.lang.String"/>
-	<parameter name="especie_id" class="java.lang.String"/>
+	<parameter name="lote_id" class="java.lang.String"/>
 	<parameter name="categoria_id" class="java.lang.String"/>
 	<parameter name="IMG_EXPRESSION4" class="java.lang.String"/>
 	<parameter name="nomedaempresa" class="java.lang.String"/>
@@ -65,7 +65,7 @@ FROM
      INNER JOIN `animaleventos` animaleventos ON eventosanitarios.`id` = animaleventos.`eventosanitario_id`
      INNER JOIN `animais` animais ON animaleventos.`animai_id` = animais.`id`
 WHERE animais.empresa_id = $P{empresa_id}
-  AND animais.especie_id = IF($P{especie_id} = 0, animais.especie_id, $P{especie_id})
+  AND categorialotes.lote_id = IF($P{lote_id} = 0, categorialotes.lote_id, $P{lote_id})
   AND animais.categoria_id = IF($P{categoria_id} = 0, animais.categoria_id, $P{categoria_id})]]>
 	</queryString>
 	<field name="lotes_id" class="java.lang.Integer"/>

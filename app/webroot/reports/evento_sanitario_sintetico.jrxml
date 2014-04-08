@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa_id" class="java.lang.String"/>
-	<parameter name="especie_id" class="java.lang.String"/>
+	<parameter name="lote_id" class="java.lang.String"/>
 	<parameter name="categoria_id" class="java.lang.String"/>
 	<parameter name="IMG_EXPRESSION4" class="java.lang.String"/>
 	<parameter name="nomedaempresa" class="java.lang.String"/>
@@ -55,7 +55,7 @@ FROM
      INNER JOIN `especies` especies ON categorias.`especie_id` = especies.`id`
      INNER JOIN `medicamentos` medicamentos ON eventosanitarios.`medicamento_id` = medicamentos.`id`
 WHERE lotes.empresa_id = $P{empresa_id}
-  AND categorias.especie_id = IF($P{especie_id} = 0, categorias.especie_id, $P{especie_id})
+  AND categorialotes.lote_id = IF($P{lote_id} = 0, categorialotes.lote_id, $P{lote_id})
   AND categorialotes.categoria_id = IF($P{categoria_id} = 0, categorialotes.categoria_id, $P{categoria_id})]]>
 	</queryString>
 	<field name="lotes_id" class="java.lang.Integer"/>
