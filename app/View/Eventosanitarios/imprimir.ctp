@@ -9,7 +9,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('lote_id', array ('id' => 'loteID', 'type' => 'select', 'options' => $lotes, 'label' => 'Lote', 'empty' => '-- Selecione o lote --', 'value' => ''));
     echo $this->Form->input('categoria_id', array('id' => 'categoriaID', 'type' => 'select', 'label' => 'Categoria', 'empty' => ' '));
-    echo $this->Form->input('tprelatorio', array ('id' => 'tprelatorio', 'type' => 'select','options' => $tprelatorio, 'label' => 'Tipo de relatório', 'empty' => ''));
+    echo $this->Form->input('tprelatorio', array ('id' => 'tprelatorio', 'type' => 'select','options' => $tprelatorio, 'label' => 'Tipo de relatório'));
     ?>
 
 <?php echo $this->Form->end(__('Imprimir')); ?>
