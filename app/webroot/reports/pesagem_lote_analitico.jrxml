@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="068f4314-210d-49ec-9d52-b3a13bfbd1e2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa_id" class="java.lang.String"/>
+	<parameter name="lote_id" class="java.lang.String"/>
+	<parameter name="categoria_id" class="java.lang.String"/>
+	<parameter name="IMG_EXPRESSION4" class="java.lang.String"/>
+	<parameter name="nomedaempresa" class="java.lang.String"/>
+	<parameter name="nomedousuario" class="java.lang.String"/>
+	<parameter name="data" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     lotes.`id` AS lotes_id,
+     lotes.`empresa_id` AS lotes_empresa_id,
+     lotes.`descricao` AS lotes_descricao,
+     lotes.`ativo` AS lotes_ativo,
+     lotes.`created` AS lotes_created,
+     lotes.`modified` AS lotes_modified,
+     lotes.`user_id` AS lotes_user_id,
+     categorialotes.`id` AS categorialotes_id,
+     categorialotes.`lote_id` AS categorialotes_lote_id,
+     categorialotes.`categoria_id` AS categorialotes_categoria_id,
+     categorialotes.`potreiro_id` AS categorialotes_potreiro_id,
+     categorialotes.`observacao` AS categorialotes_observacao,
+     pesagens.`id` AS pesagens_id,
+     pesagens.`categorialote_id` AS pesagens_categorialote_id,
+     pesagens.`dtpesagem` AS pesagens_dtpesagem,
+     pesagens.`peso` AS pesagens_peso,
+     pesagens.`created` AS pesagens_created,
+     pesagens.`modified` AS pesagens_modified,
+     pesagens.`user_id` AS pesagens_user_id,
+     pesagens.`empresa_id` AS pesagens_empresa_id,
+     pesagens.`observacao` AS pesagens_observacao,
+     animalpesagens.`animai_id` AS animalpesagens_animai_id,
+     animalpesagens.`pesagen_id` AS animalpesagens_pesagen_id,
+     animais.`id` AS animais_id,
+     animais.`empresa_id` AS animais_empresa_id,
+     animais.`especie_id` AS animais_especie_id,
+     animais.`pelagen_id` AS animais_pelagen_id,
+     animais.`categoria_id` AS animais_categoria_id,
+     animais.`grausangue_id` AS animais_grausangue_id,
+     animais.`dtnasc` AS animais_dtnasc,
+     animais.`dtcomprado` AS animais_dtcomprado,
+     animais.`brinco` AS animais_brinco,
+     animais.`chipeletronico` AS animais_chipeletronico,
+     animais.`colareletronico` AS animais_colareletronico,
+     animais.`tatuagem` AS animais_tatuagem,
+     animais.`hbbsbb` AS animais_hbbsbb,
+     animais.`cor` AS animais_cor,
+     animais.`causabaixa_id` AS animais_causabaixa_id,
+     animais.`caracteristica` AS animais_caracteristica,
+     animais.`ativo` AS animais_ativo
+FROM
+     `lotes` lotes INNER JOIN `categorialotes` categorialotes ON lotes.`id` = categorialotes.`lote_id`
+     INNER JOIN `pesagens` pesagens ON categorialotes.`id` = pesagens.`categorialote_id`
+     INNER JOIN `animalpesagens` animalpesagens ON pesagens.`id` = animalpesagens.`pesagen_id`
+     INNER JOIN `animais` animais ON animalpesagens.`animai_id` = animais.`id`
+WHERE
+     pesagens.empresa_id = $P{empresa_id}
+ AND IF($P{lote_id} = 0,categorialotes.lote_id,$P{lote_id})
+ AND IF($P{categoria_id} = 0,animais.categoria_id,$P{categoria_id})]]>
+	</queryString>
+	<field name="lotes_id" class="java.lang.Integer"/>
+	<field name="lotes_empresa_id" class="java.lang.Integer"/>
+	<field name="lotes_descricao" class="java.lang.String"/>
+	<field name="lotes_ativo" class="java.lang.String"/>
+	<field name="lotes_created" class="java.sql.Timestamp"/>
+	<field name="lotes_modified" class="java.sql.Timestamp"/>
+	<field name="lotes_user_id" class="java.lang.Integer"/>
+	<field name="categorialotes_id" class="java.lang.Integer"/>
+	<field name="categorialotes_lote_id" class="java.lang.Integer"/>
+	<field name="categorialotes_categoria_id" class="java.lang.Integer"/>
+	<field name="categorialotes_potreiro_id" class="java.lang.Integer"/>
+	<field name="categorialotes_observacao" class="java.lang.String"/>
+	<field name="pesagens_id" class="java.lang.Integer"/>
+	<field name="pesagens_categorialote_id" class="java.lang.Integer"/>
+	<field name="pesagens_dtpesagem" class="java.sql.Date"/>
+	<field name="pesagens_peso" class="java.math.BigDecimal"/>
+	<field name="pesagens_created" class="java.sql.Timestamp"/>
+	<field name="pesagens_modified" class="java.sql.Timestamp"/>
+	<field name="pesagens_user_id" class="java.lang.Integer"/>
+	<field name="pesagens_empresa_id" class="java.lang.Integer"/>
+	<field name="pesagens_observacao" class="java.lang.String"/>
+	<field name="animalpesagens_animai_id" class="java.lang.Integer"/>
+	<field name="animalpesagens_pesagen_id" class="java.lang.Integer"/>
+	<field name="animais_id" class="java.lang.Integer"/>
+	<field name="animais_empresa_id" class="java.lang.Integer"/>
+	<field name="animais_especie_id" class="java.lang.Integer"/>
+	<field name="animais_pelagen_id" class="java.lang.Integer"/>
+	<field name="animais_categoria_id" class="java.lang.Integer"/>
+	<field name="animais_grausangue_id" class="java.lang.Integer"/>
+	<field name="animais_dtnasc" class="java.sql.Timestamp"/>
+	<field name="animais_dtcomprado" class="java.sql.Timestamp"/>
+	<field name="animais_brinco" class="java.lang.String"/>
+	<field name="animais_chipeletronico" class="java.lang.String"/>
+	<field name="animais_colareletronico" class="java.lang.String"/>
+	<field name="animais_tatuagem" class="java.lang.String"/>
+	<field name="animais_hbbsbb" class="java.lang.String"/>
+	<field name="animais_cor" class="java.lang.String"/>
+	<field name="animais_causabaixa_id" class="java.lang.Integer"/>
+	<field name="animais_caracteristica" class="java.lang.String"/>
+	<field name="animais_ativo" class="java.lang.String"/>
+	<sortField name="lotes_descricao"/>
+	<sortField name="pesagens_dtpesagem"/>
+	<group name="Lote">
+		<groupExpression><![CDATA[$F{lotes_id}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<textField>
+					<reportElement x="45" y="8" width="368" height="20" uuid="55cb990d-7f5a-4e32-b8a8-12257c04978f"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lotes_descricao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="10" y="8" width="31" height="20" uuid="1edeee13-6b48-479d-91b6-7b6dfbdd362a"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Lote]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="7">
+				<elementGroup/>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="2" width="795" height="30" uuid="2e69cafa-0081-436f-a6d0-7a6416315bfc"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pesagem de animais por lote (analítico)]]></text>
+			</staticText>
+			<image>
+				<reportElement x="5" y="-8" width="150" height="49" uuid="1d704d28-5219-4f4c-93b8-da5d87fdc500"/>
+				<imageExpression><![CDATA[$P{IMG_EXPRESSION4}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="625" y="4" width="171" height="14" uuid="27395e34-ee39-4453-8e08-6ec728e8d3ef"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{nomedaempresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="625" y="18" width="171" height="14" uuid="c221296b-5719-4d87-b187-d340685b20f8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{nomedousuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="625" y="32" width="171" height="14" uuid="69a772cc-b9b0-470b-87d2-5570d4ef6859"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{data}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="53" width="800" height="1" uuid="ecc190ea-2043-47c4-ab10-892988bd70b3"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="9" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="173" y="12" width="100" height="20" uuid="ee6314b0-3ce6-4950-8708-5014b4de5185"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Data pesagem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="634" y="12" width="100" height="20" uuid="e65f4864-9dea-4e77-acb9-b55dbc127135"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Peso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="12" width="207" height="20" uuid="46bbcb84-83c7-4067-b4e1-0c92726331fe"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Identificação do animal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="173" y="3" width="100" height="20" uuid="e65399b8-85af-4883-8728-c3213614208f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pesagens_dtpesagem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="634" y="3" width="100" height="20" uuid="6806ec86-279e-4e7f-bb00-c552dba99691"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{pesagens_peso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="3" width="207" height="20" uuid="ad570f1d-3443-4159-a7ad-ff444ab4c7b7"/>
+				<textFieldExpression><![CDATA["B:  " + $F{animais_brinco} + "  T:  " + $F{animais_tatuagem} + "  HBB/SBB:  " + $F{animais_hbbsbb}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="62" splitType="Stretch">
+			<line>
+				<reportElement x="5" y="6" width="794" height="1" uuid="4893ff07-e4df-4d87-83a2-675d5d8e3729"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="8" width="795" height="16" forecolor="#5F7846" uuid="23b1cd21-5cd4-4721-bbc2-c686d360a329"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[www.sisagro.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="25" width="795" height="16" forecolor="#5F7846" uuid="bed971d9-e0fd-41fe-851f-305882f595bf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[contato@sisagro.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="42" width="795" height="16" forecolor="#5F7846" uuid="19d6c837-5a9a-4f6f-bb6b-ca7787e88299"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[tel: (53) 3027.1711]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="15" splitType="Stretch"/>
+	</summary>
+</jasperReport>
