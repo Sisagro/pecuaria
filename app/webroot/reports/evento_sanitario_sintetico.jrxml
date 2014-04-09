@@ -131,7 +131,7 @@ WHERE lotes.empresa_id = $P{empresa_id}
 	<title>
 		<band height="57" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="4" width="798" height="31" uuid="9ed11edb-4722-4233-bd8e-cb7f2ad05c63"/>
+				<reportElement x="1" y="4" width="793" height="31" uuid="9ed11edb-4722-4233-bd8e-cb7f2ad05c63"/>
 				<textElement textAlignment="Center">
 					<font size="20" isBold="true"/>
 				</textElement>
