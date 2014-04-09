@@ -34,30 +34,70 @@ class AnimaisController extends AppController {
         ));
         $this->set(compact('especies'));
         
+        $animais = 0;
+        
         if ($this->request->is('post')) {
             
             if (empty($this->request->data['Relatorio']['especie_id'])) {
+                
                 $especie = 0;
+                
+                $animais = $this->Animai->find('count', array(
+                    'conditions' => array(
+                        'Animai.empresa_id' => $dadosUser['empresa_id'],
+                    )
+                ));
+                
             } else {
+                
                 $especie = $this->request->data['Relatorio']['especie_id'];
+                
+                if (empty($this->request->data['Relatorio']['categoria_id'])) {
+                    
+                    $categoria = 0;
+                    
+                    $animais = $this->Animai->find('count', array(
+                        'conditions' => array(
+                            'Animai.empresa_id' => $dadosUser['empresa_id'],
+                            'Animai.especie_id' => $especie,
+                        )
+                    ));
+                    
+                } else {
+                    
+                    $categoria = $this->request->data['Relatorio']['categoria_id'];
+                    
+                    $animais = $this->Animai->find('count', array(
+                        'conditions' => array(
+                            'Animai.empresa_id' => $dadosUser['empresa_id'],
+                            'Animai.especie_id' => $especie,
+                            'Animai.categoria_id' => $categoria,
+                        )
+                    ));
+                    
+                }
+                
             }
             
-            if (empty($this->request->data['Relatorio']['categoria_id'])) {
-                $categoria = 0;
+            
+            if ($animais > 0) {
+                
+                $params = array(
+                    'empresa_id' => $dadosUser['empresa_id'],
+                    'especie_id' => $especie,
+                    'categoria_id' => $categoria,
+                    'nomedaempresa' => $dadosUser['nomeEmpresa'],
+                    'nomedousuario' => $dadosUser['Auth']['User']['nome'],
+                    'data' => date("d/m/Y"),
+                );
+
+                ReportToPDF::generateReport($params, 'animais.jrxml', '2', 'Animais');
+                
             } else {
-                $categoria = $this->request->data['Relatorio']['categoria_id'];
+                
+                $this->Session->setFlash('Não existem dados para exibir o relatório.', 'default', array('class' => 'mensagem_erro'));
+                
             }
-            
-            $params = array(
-                'empresa_id' => $dadosUser['empresa_id'],
-                'especie_id' => $especie,
-                'categoria_id' => $categoria,
-                'nomedaempresa' => $dadosUser['nomeEmpresa'],
-                'nomedousuario' => $dadosUser['Auth']['User']['nome'],
-                'data' => date("d/m/Y"),
-            );
-            
-            ReportToPDF::generateReport($params, 'animais.jrxml', '1', 'Animais');
             
         }
         
@@ -231,7 +271,9 @@ class AnimaisController extends AppController {
             $this->Session->setFlash('Animal deletado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        if(!$this->Session->check('Message.flash')) {
+            $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        } 
         $this->redirect(array('action' => 'index'));
         
     }

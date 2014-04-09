@@ -63,6 +63,27 @@ class Raca extends AppModel {
             'dependent' => false,
         ),
     );
+    
+    
+    /**
+     * Validações
+     */
+    
+    public function beforeDelete($cascade = true) {
+        
+        $pelagens = $this->Pelagen->find("count", array(
+            "conditions" => array("raca_id" => $this->id)
+        ));
+        
+        $totalRegistros = $pelagens;
+        
+        if ($totalRegistros == 0) {
+            return true;
+        } else {
+            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registro(s) associado(s).');
+            return false;
+        }
+    }
 
 
 }

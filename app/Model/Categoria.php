@@ -50,23 +50,6 @@ class Categoria extends AppModel {
     );
     
     /**
-     * Regras de validação
-     *
-     */
-//    public function validaIdadeMinima($check) {
-//        
-//        if(empty($this->data['Categoria']['idade_min']) || empty($this->data['Categoria']['idade_max'])) {
-//            return false;
-//        }
-//        
-//        if($this->data['Categoria']['idade_min'] >= $this->data['Categoria']['idade_max']) {
-//            return false;
-//        }
-//        
-//        return true;
-//    }
-    
-    /**
      * belongsTo associations
      *
      * @var array
@@ -97,6 +80,31 @@ class Categoria extends AppModel {
             'dependent' => false,
         ),
     );
+    
+    
+    /**
+     * Validações
+     */
+    
+    public function beforeDelete($cascade = true) {
+        
+        $animais = $this->Animai->find("count", array(
+            "conditions" => array("Animai.categoria_id" => $this->id)
+        ));
+        
+        $lotes = $this->Categorialote->find("count", array(
+            "conditions" => array("Categorialote.categoria_id" => $this->id)
+        ));
+        
+        $totalRegistros = $animais + $lotes;
+        
+        if ($totalRegistros == 0) {
+            return true;
+        } else {
+            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registro(s) associado(s).');
+            return false;
+        }
+    }
 
 }
 

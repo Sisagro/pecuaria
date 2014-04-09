@@ -56,6 +56,26 @@ class Causabaixa extends AppModel {
         ),
     );
 
+    
+    /**
+     * Validações
+     */
+    
+    public function beforeDelete($cascade = true) {
+        
+        $animais = $this->Animai->find("count", array(
+            "conditions" => array("causabaixa_id" => $this->id)
+        ));
+        
+        $totalRegistros = $animais;
+        
+        if ($totalRegistros == 0) {
+            return true;
+        } else {
+            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registro(s) associado(s).');
+            return false;
+        }
+    }
 
 }
 

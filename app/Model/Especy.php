@@ -56,12 +56,46 @@ class Especy extends AppModel {
             'foreignKey' => 'especie_id',
             'dependent' => false,
         ),
+        'Categoria' => array(
+            'className' => 'Categoria',
+            'foreignKey' => 'especie_id',
+            'dependent' => false,
+        ),
         'Animai' => array(
             'className' => 'Animai',
             'foreignKey' => 'especie_id',
             'dependent' => false,
         ),
     );
+    
+    
+    /**
+     * Validações
+     */
+    
+    public function beforeDelete($cascade = true) {
+        
+        $racas = $this->Raca->find("count", array(
+            "conditions" => array("Raca.especie_id" => $this->id)
+        ));
+        
+        $categorias = $this->Categoria->find("count", array(
+            "conditions" => array("Categoria.especie_id" => $this->id)
+        ));
+        
+        $animais = $this->Animai->find("count", array(
+            "conditions" => array("Animai.especie_id" => $this->id)
+        ));
+        
+        $totalRegistros = $racas + $categorias + $animais;
+        
+        if ($totalRegistros == 0) {
+            return true;
+        } else {
+            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registro(s) associado(s).');
+            return false;
+        }
+    }
     
 }
 ?>

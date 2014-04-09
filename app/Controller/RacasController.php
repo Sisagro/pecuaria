@@ -129,13 +129,14 @@ class RacasController extends AppController {
             $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
-        
         $this->request->onlyAllow('post', 'delete');
         if ($this->Raca->delete()) {
             $this->Session->setFlash('Raça deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        if(!$this->Session->check('Message.flash')) {
+            $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        } 
         $this->redirect(array('action' => 'index'));
         
     }

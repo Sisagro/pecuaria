@@ -127,7 +127,9 @@ class PotreirosController extends AppController {
             $this->Session->setFlash('Potreiro deletado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        if(!$this->Session->check('Message.flash')) {
+            $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        } 
         $this->redirect(array('action' => 'index'));
         
     }

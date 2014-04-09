@@ -106,7 +106,9 @@ class Categorialote extends AppModel {
     
     
     
-    // VALIDAÇÕES
+    /**
+     * Validações
+     */
     
     public function afterValidate($options = array()) {
         if (empty($this->data['Animai']['Animai'])) {
@@ -129,7 +131,7 @@ class Categorialote extends AppModel {
         if ($totalRegistros == 0) {
             return true;
         } else {
-            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registros associados.');
+            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registro(s) associado(s).');
             return false;
         }
     }

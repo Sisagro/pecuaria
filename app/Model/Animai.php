@@ -30,9 +30,6 @@ class Animai extends AppModel {
                                                 CONCAT('<b>B:</b> ' , Animai.brinco, ' <b>T:</b> ', Animai.tatuagem, ' <b>H:</b> ', Animai.hbbsbb))
                                         )
                                 )"
-        // CONCAT('<b>B:</b> ' , Animai.brinco)
-        //"descricao" => "CONCAT('<b>B:</b> ' , Animai.brinco, ' - <b>T:</b> ', Animai.tatuagem, ' - <b>H:</b> ', Animai.hbbsbb, ' ')"
-        //'customer' => "IF(Contact.company IS NULL OR Contact.company = '', CONCAT(Contact.first_name, ' ', Contact.last_name, ' ', Contact.company), Contact.company)"
     );
 
     /**
@@ -190,28 +187,7 @@ class Animai extends AppModel {
         ),
     );
 
-    public function beforeSave($options = array()) {
-        if (isset($this->data[$this->alias]['dtnasc'])) {
-            $this->data[$this->alias]['dtnasc'] = $this->formataData($this->data[$this->alias]['dtnasc'], 'EN', 'N');
-        }
-        if (isset($this->data[$this->alias]['dtcomprado'])) {
-            $this->data[$this->alias]['dtcomprado'] = $this->formataData($this->data[$this->alias]['dtcomprado'], 'EN', 'N');
-        }
-        return true;
-    }
-
-    public function afterFind($dados, $primary = false) {
-        foreach ($dados as $key => $value) {
-            if (!empty($value["Animai"]["dtnasc"])) {
-                $dados[$key]["Animai"]["dtnasc"] = $this->formataData($value["Animai"]["dtnasc"], 'PT', 'N');
-            }
-            if (!empty($value["Animai"]["dtcomprado"])) {
-                $dados[$key]["Animai"]["dtcomprado"] = $this->formataData($value["Animai"]["dtcomprado"], 'PT', 'N');
-            }
-        }
-        return $dados;
-    }
-
+    
     /**
      * belongsTo associations
      *
@@ -261,6 +237,60 @@ class Animai extends AppModel {
             'order' => ''
         ),
     );
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Animallote' => array(
+            'className' => 'Animallote',
+            'foreignKey' => 'animai_id',
+            'dependent' => false,
+        ),
+    );
+    
+    
+    /**
+     * Validações
+     */
+    
+    public function beforeSave($options = array()) {
+        if (isset($this->data[$this->alias]['dtnasc'])) {
+            $this->data[$this->alias]['dtnasc'] = $this->formataData($this->data[$this->alias]['dtnasc'], 'EN', 'N');
+        }
+        if (isset($this->data[$this->alias]['dtcomprado'])) {
+            $this->data[$this->alias]['dtcomprado'] = $this->formataData($this->data[$this->alias]['dtcomprado'], 'EN', 'N');
+        }
+        return true;
+    }
+
+    public function afterFind($dados, $primary = false) {
+        foreach ($dados as $key => $value) {
+            if (!empty($value["Animai"]["dtnasc"])) {
+                $dados[$key]["Animai"]["dtnasc"] = $this->formataData($value["Animai"]["dtnasc"], 'PT', 'N');
+            }
+            if (!empty($value["Animai"]["dtcomprado"])) {
+                $dados[$key]["Animai"]["dtcomprado"] = $this->formataData($value["Animai"]["dtcomprado"], 'PT', 'N');
+            }
+        }
+        return $dados;
+    }
+    
+    public function beforeDelete($cascade = true) {
+        
+        $animais = $this->Animallote->find("count", array(
+            "conditions" => array("animai_id" => $this->id)
+        ));
+        
+        $totalRegistros = $animais;
+        
+        if ($totalRegistros == 0) {
+            return true;
+        } else {
+            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registro(s) associado(s).');
+            return false;
+        }
+    }
 
 }
 

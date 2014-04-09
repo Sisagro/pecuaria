@@ -45,7 +45,37 @@ class Medicamento extends AppModel {
             'order' => ''
         )
     );
-
+    
+    /**
+     * hasMany associations
+     */
+    public $hasMany = array(
+        'Eventosanitario' => array(
+            'className' => 'Eventosanitario',
+            'foreignKey' => 'medicamento_id',
+            'dependent' => false,
+        ),
+    );
+    
+    
+    /**
+     * Validações
+     */
+    
+    public function beforeDelete($cascade = true) {
+        $eventos = $this->Eventosanitario->find("count", array(
+            "conditions" => array("medicamento_id" => $this->id)
+        ));
+        
+        $totalRegistros = $eventos;
+        
+        if ($totalRegistros == 0) {
+            return true;
+        } else {
+            SessionComponent::setFlash('Registro não pode ser deletado porque possui ' . $totalRegistros . ' registro(s) associado(s).');
+            return false;
+        }
+    }
 
 }
 
