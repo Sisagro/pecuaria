@@ -11,6 +11,9 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Validade da holding: </strong>
 <?php echo date('d/m/Y', strtotime($holding['Holding']['validade'])); ?>
 <br>
+<strong> Plano: </strong>
+<?php echo $holding['Plano']['descricao']; ?>
+<br>
 <strong> Última modifiação: </strong>
 <?php echo date('d/m/Y', strtotime($holding['Holding']['modified'])); ?>
 <br>

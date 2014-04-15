@@ -38,6 +38,9 @@ class UsersController extends AppController {
             );
         }
         $this->set('users', $this->Paginator->paginate('User'));
+        
+        $this->set('validaPlano', $this->validaPlano($dadosUser['Auth']['User']['holding_id'], $dadosUser['Auth']['User']['Holding']['plano_id']));
+        
     }
     
     public function validaAcesso($user, $controller) {
@@ -143,6 +146,11 @@ class UsersController extends AppController {
     }
 
     public function add() {
+        
+        $dadosUser = $this->Session->read();
+        if (!$this->validaPlano($dadosUser['Auth']['User']['holding_id'], $dadosUser['Auth']['User']['Holding']['plano_id'])) {
+            $this->redirect(array('action' => 'index'));
+        }
         
         $this->set('adminmaster', $this->Auth->user('adminmaster'));
         $this->set('holding_id', $this->Auth->user('holding_id'));
@@ -255,6 +263,27 @@ class UsersController extends AppController {
             }
             
         }
+        
+    }
+    
+    public function validaPlano ($holding_id, $plano_id) {
+        
+        $totalUsuarios = $this->User->find('count', array(
+            'conditions' => array('User.holding_id' => $holding_id)
+        ));
+        
+        $this->User->Holding->Plano->recursive = 0;
+        $plano = $this->User->Holding->Plano->find('first', array('conditions' => array('id' => $plano_id)));
+                
+        if(empty($plano['Plano']['usuario'])) {
+            return true;
+        } else {
+            if ($totalUsuarios >= $plano['Plano']['usuario']) {
+                return false;
+            } else {
+                return true;
+            }
+        }    
         
     }
     

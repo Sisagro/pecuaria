@@ -8,6 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('nome');
     echo $this->Form->input('Menu.Menu',array('title' => 'CTRL + Click (para selecionar mais de um)', 'label'=>'Escolha os menus', 'type'=>'select', 'multiple'=>true));
+    echo $this->Form->input('plano_id', array ('id' => 'planoID', 'type' => 'select', 'options' => $planos, 'label' => 'Plano', 'empty' => '-- Selecione o plano --'));
     ?>
     <div class="input text required">
         <label for="datepicker">Data de validade</label>

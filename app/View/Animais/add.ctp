@@ -17,7 +17,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
         <label>Identificação</label><br>
         <input type="checkbox" name="brinco" id="brinco" value="check" onclick="myfunction(this);" > Brinco
         <input type="checkbox" name="tatuagem" id="tatuagem" value="check" onclick="myfunction(this);"> Tatuagem
-        <input type="checkbox" name="hbbsbb" id="hbbsbb" value="check" onclick="myfunction(this);"> HBB/SBB
+        <input type="checkbox" name="hbbsbb" id="hbbsbb" value="check" onclick="myfunction(this);"> HBB/SBB/FBB
         <input type="checkbox" name="chip" id="chip" value="check" onclick="myfunction(this);"> Chip eletrônico
         <input type="checkbox" name="colar" id="colar" value="check" onclick="myfunction(this);"> Colar Eletrônico
         <input type="checkbox" name="cor" id="cor" value="check" onclick="myfunction(this);"> Cor
@@ -29,7 +29,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
         <?php echo $this->Form->input('tatuagem', array ('id' => 'tatuagemInput', 'label' => 'Tatuagem')); ?>
     </div>
     <div id="formMostraHBBSBB">
-        <?php echo $this->Form->input('hbbsbb', array ('id' => 'hbbsbbInput', 'label' => 'HBB/SBB')); ?>
+        <?php echo $this->Form->input('hbbsbb', array ('id' => 'hbbsbbInput', 'label' => 'HBB/SBB/FBB')); ?>
     </div>
     <div id="formMostraChip">
         <?php echo $this->Form->input('chipeletronico', array ('id' => 'chipeletronicoInput', 'label' => 'Chip eletrônico')); ?>

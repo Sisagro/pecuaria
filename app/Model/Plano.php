@@ -19,22 +19,7 @@ class Plano extends AppModel {
             'notempty' => array(
                 'rule' => array('notempty'),
             ),
-        ),               
-//        'empresa' => array(
-//            'notempty' => array(
-//                'rule' => array('numeric'),
-//            ),
-//        ),
-//        'usuario' => array(
-//            'notempty' => array(
-//                'rule' => array('numeric'),
-//            ),
-//        ),
-//        'animal' => array(
-//            'notempty' => array(
-//                'rule' => array('numeric'),
-//            ),            
-//        ),
+        ),
         'valor' => array(
             'numeric' => array(
                 'rule' => array('numeric'),
@@ -70,13 +55,14 @@ class Plano extends AppModel {
     
     /**
      * hasMany associations
-     
+     */
     public $hasMany = array(
-        'Holdingmenu' => array(
-            'className' => 'Holdingmenu',
-            'foreignKey' => 'menu_id',
+        'Holding' => array(
+            'className' => 'Holding',
+            'foreignKey' => 'plano_id',
             'dependent' => false,
-        )
+        ),
     );
-*/
+    
+    
 }

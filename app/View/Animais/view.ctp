@@ -33,7 +33,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <?php echo $animal['Causabaixa']['descricao']; ?>
 <br>
 <strong> Ativo: </strong>
-<?php if($animal['Animai']['ativo'] == "S") { echo "SIM"; } else { echo "NÃO"; } ; ?>
+<?php if($animal['Animai']['ativo'] == "A") { echo "SIM"; } else { echo "NÃO"; } ; ?>
 <br>
 <strong> Brinco: </strong>
 <?php echo $animal['Animai']['brinco']; ?>
@@ -41,7 +41,7 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Tatuagem: </strong>
 <?php echo $animal['Animai']['tatuagem']; ?>
 <br>
-<strong> HBB/SBB: </strong>
+<strong> HBB/SBB/FBB: </strong>
 <?php echo $animal['Animai']['hbbsbb']; ?>
 <br>
 <strong> Chip eletrônico: </strong>

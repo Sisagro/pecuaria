@@ -34,7 +34,14 @@ class EmpresasController extends AppController {
             'order' => array('razaosocial' => 'asc')
         );
         $this->set('empresas', $this->Paginator->paginate('Empresa'));
+        
+        $this->set('validaPlano', $this->validaPlano($dadosUser['Auth']['User']['holding_id'], $dadosUser['Auth']['User']['Holding']['plano_id']));
+        
     }
+    
+    
+    
+    
 
     /**
      * view method
@@ -66,6 +73,14 @@ class EmpresasController extends AppController {
         $dadosUser = $this->Session->read();
         $holding_id = $dadosUser['Auth']['User']['Holding']['id'];
         $this->set(compact('holding_id'));
+        
+        if (!$this->validaPlano($dadosUser['Auth']['User']['holding_id'], $dadosUser['Auth']['User']['Holding']['plano_id'])) {
+            $this->redirect(array('action' => 'index'));
+        }
+        
+        $this->Empresa->Holding->Plano->recursive = 0;
+        $plano = $this->Empresa->Holding->Plano->find('first', array('conditions' => array('id' => $dadosUser['Auth']['User']['Holding']['plano_id'])));
+//        debug($plano);        
         
         $opcoes = array(1 => 'MATRIZ', 2 => 'FILIAL');
         $this->set('opcoes', $opcoes);
@@ -196,5 +211,28 @@ class EmpresasController extends AppController {
         $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
         $this->redirect(array('action' => 'index'));
     }
+    
+    
+    public function validaPlano ($holding_id, $plano_id) {
+        
+        $totalEmpresas = $this->Empresa->find('count', array(
+            'conditions' => array('Empresa.holding_id' => $holding_id)
+        ));
+        
+        $this->Empresa->Holding->Plano->recursive = 0;
+        $plano = $this->Empresa->Holding->Plano->find('first', array('conditions' => array('id' => $plano_id)));
+                
+        if(empty($plano['Plano']['empresa'])) {
+            return true;
+        } else {
+            if ($totalEmpresas >= $plano['Plano']['empresa']) {
+                return false;
+            } else {
+                return true;
+            }
+        }    
+        
+    }
+    
 
 }

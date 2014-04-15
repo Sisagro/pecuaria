@@ -8,6 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
         <th><?php echo $this->Paginator->sort('nome'); ?></th>
+        <th><?php echo $this->Paginator->sort('Plano.descricao'); ?></th>
         <th><?php echo $this->Paginator->sort('validade'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
@@ -15,6 +16,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
         <tr>
             <td><?php echo h($holding['Holding']['id']); ?>&nbsp;</td>
             <td><?php echo h($holding['Holding']['nome']); ?>&nbsp;</td>
+            <td><?php echo h($holding['Plano']['descricao']); ?>&nbsp;</td>
             <td><?php echo date('d/m/Y', strtotime($holding['Holding']['validade'])); ?></td>
             <td>
                 <div id="botoes">

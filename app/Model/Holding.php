@@ -38,11 +38,6 @@ class Holding extends AppModel {
             'foreignKey' => 'holding_id',
             'dependent' => false,
         ),
-        'Holdingmenu' => array(
-            'className' => 'Holdingmenu',
-            'foreignKey' => 'holding_id',
-            'dependent' => false,
-        ),
         'Causabaixa' => array(
             'className' => 'Causabaixa',
             'foreignKey' => 'holding_id',
@@ -82,10 +77,26 @@ class Holding extends AppModel {
             'className' => 'Melhoracampo',
             'foreignKey' => 'holding_id',
             'dependent' => false,
-        ),'Alimentacao' => array(
+        ),
+        'Alimentacao' => array(
             'className' => 'Alimentacao',
             'foreignKey' => 'holding_id',
             'dependent' => false,
+        ),
+    );
+    
+    /**
+     * belongsTo associations
+     *
+     * @var array
+     */
+    public $belongsTo = array(
+        'Plano' => array(
+            'className' => 'Plano',
+            'foreignKey' => 'plano_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
         ),
     );
     
@@ -100,7 +111,9 @@ class Holding extends AppModel {
                 'foreignKey'            => 'holding_id',
                 'associationForeignKey' => 'menu_id',
                 'order'                 => 'Menu.menu, Menu.ordem',
+                'dependent'             => true,
             )
     );
+    
 
 }

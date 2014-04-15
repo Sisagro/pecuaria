@@ -40,6 +40,9 @@ class HoldingsController extends AppController {
         $menus = $this->Holding->Menu->find('list',array('fields'=>array('id','nome'), 'conditions' => array('NOT'=> array('id'=>array(1,6))),'order'=>array('Menu.menu' => 'asc','Menu.ordem' => 'asc')));
         $this->set(compact('menus'));
         
+        $planos = $this->Holding->Plano->find('list',array('fields'=>array('id','descricao'), 'order'=>array('id' => 'asc')));
+        $this->set(compact('planos'));
+        
         if ($this->request->is('post')) {
             $this->Holding->create();
             $this->request->data['Holding']['validade'] = substr($this->request->data['datepicker'],6,4) . "-" . substr($this->request->data['datepicker'],3,2) . "-" . substr($this->request->data['datepicker'],0,2) . " 00:00:00";
@@ -61,6 +64,9 @@ class HoldingsController extends AppController {
         $menus = $this->Holding->Menu->find('list',array('fields'=>array('id','nome'), 'order'=>array('Menu.menu' => 'asc','Menu.ordem' => 'asc')));
         $this->set(compact('menus'));
         
+        $planos = $this->Holding->Plano->find('list',array('fields'=>array('id','descricao'), 'order'=>array('id' => 'asc')));
+        $this->set(compact('planos'));
+        
         if ($this->request->is('post') || $this->request->is('put')) {
             $this->request->data['Holding']['validade'] = substr($this->request->data['datepicker'],6,4) . "-" . substr($this->request->data['datepicker'],3,2) . "-" . substr($this->request->data['datepicker'],0,2) . " 00:00:00";
             if ($this->Holding->save($this->request->data)) {
@@ -75,18 +81,20 @@ class HoldingsController extends AppController {
     }
 
     public function delete($id = null) {
-        if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException();
-        }
         $this->Holding->id = $id;
         if (!$this->Holding->exists()) {
-            throw new NotFoundException(__('Invalid holding'));
-        }
-        if ($this->Holding->delete()) {
-            $this->Session->setFlash('Holding deletada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
+            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        
+        $this->request->onlyAllow('post', 'delete');
+        if ($this->Holding->delete()) {
+            $this->Session->setFlash('Montagem de lote deletado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
+            $this->redirect(array('action' => 'index'));
+        }
+        if(!$this->Session->check('Message.flash')) {
+            $this->Session->setFlash('Registro não foi deletado.', 'default', array('class' => 'mensagem_erro'));
+        } 
         $this->redirect(array('action' => 'index'));
     }
 

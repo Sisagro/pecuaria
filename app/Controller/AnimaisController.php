@@ -115,6 +115,8 @@ class AnimaisController extends AppController {
             'order' => array('Especy.descricao' => 'asc', 'Categoria.descricao' => 'asc', 'brinco' => 'asc', 'tatuagem' => 'asc')
         );
         $this->set('animais', $this->Paginator->paginate('Animai'));
+        
+        $this->set('validaPlano', $this->validaPlano($dadosUser['Auth']['User']['holding_id'], $dadosUser['Auth']['User']['Holding']['plano_id']));
 
     }
     
@@ -149,6 +151,11 @@ class AnimaisController extends AppController {
     public function add() {
         
         $dadosUser = $this->Session->read();
+        
+        if (!$this->validaPlano($dadosUser['Auth']['User']['holding_id'], $dadosUser['Auth']['User']['Holding']['plano_id'])) {
+            $this->redirect(array('action' => 'index'));
+        }
+        
         $empresa_id = $dadosUser['empresa_id'];
         $this->set(compact('empresa_id'));
         
@@ -321,6 +328,29 @@ class AnimaisController extends AppController {
         
         $this->set('animais', $animais);
 
+    }
+    
+    
+    public function validaPlano ($holding_id, $plano_id) {
+        
+        $this->Animai->recursive = 1;
+        $totalAnimais = $this->Animai->find('count', array(
+            'conditions' => array('Empresa.holding_id' => $holding_id)
+        ));
+        
+        $this->Animai->Empresa->Holding->Plano->recursive = 0;
+        $plano = $this->Animai->Empresa->Holding->Plano->find('first', array('conditions' => array('id' => $plano_id)));
+        
+        if(empty($plano['Plano']['animal'])) {
+            return true;
+        } else {
+            if ($totalAnimais >= $plano['Plano']['animal']) {
+                return false;
+            } else {
+                return true;
+            }
+        }    
+        
     }
     
     

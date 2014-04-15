@@ -1,10 +1,10 @@
 <?php
-echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adicionar", "title" => "Adicionar")), array('action' => 'add'), array('escape' => false));
+if ($validaPlano) {
+    echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adicionar", "title" => "Adicionar")), array('action' => 'add'), array('escape' => false));
+    echo "<br><br>";
+}
 //echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => "Imprimir", "title" => "Imprimir")), array('action' => 'print'), array('escape' => false));
-//debug($animais);
 ?>
-<br>
-<br>
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -12,7 +12,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
         <th><?php echo $this->Paginator->sort('Categoria.descricao', 'Categoria'); ?></th>
         <th><?php echo $this->Paginator->sort('brinco', 'Brinco'); ?></th>
         <th><?php echo $this->Paginator->sort('tatuagem', 'Tatuagem'); ?></th>
-        <th><?php echo $this->Paginator->sort('hbbsbb', 'HBB/SBB'); ?></th>
+        <th><?php echo $this->Paginator->sort('hbbsbb', 'HBB/SBB/FBB'); ?></th>
         <th><?php echo $this->Paginator->sort('ativo', 'Ativo'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
