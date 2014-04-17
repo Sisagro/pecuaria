@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="068f4314-210d-49ec-9d52-b3a13bfbd1e2">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="1"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa_id" class="java.lang.String"/>
 	<parameter name="lote_id" class="java.lang.String"/>
@@ -57,10 +57,10 @@ FROM
      INNER JOIN `pesagens` pesagens ON categorialotes.`id` = pesagens.`categorialote_id`
      INNER JOIN `animalpesagens` animalpesagens ON pesagens.`id` = animalpesagens.`pesagen_id`
      INNER JOIN `animais` animais ON animalpesagens.`animai_id` = animais.`id`
-WHERE
-     pesagens.empresa_id = $P{empresa_id}
- AND IF($P{lote_id} = 0,categorialotes.lote_id,$P{lote_id})
- AND categorialotes.categoria_id = IF($P{categoria_id} = 0, categorialotes.categoria_id, $P{categoria_id})]]>
+WHERE pesagens.empresa_id = $P{empresa_id}
+ AND categorialotes.lote_id = IF($P{lote_id} = 0,categorialotes.lote_id,$P{lote_id})
+ AND categorialotes.categoria_id = IF($P{categoria_id} = 0, categorialotes.categoria_id, $P{categoria_id})
+]]>
 	</queryString>
 	<field name="lotes_id" class="java.lang.Integer"/>
 	<field name="lotes_empresa_id" class="java.lang.Integer"/>
@@ -109,7 +109,7 @@ WHERE
 		<groupHeader>
 			<band height="33">
 				<textField>
-					<reportElement x="45" y="8" width="368" height="20" uuid="55cb990d-7f5a-4e32-b8a8-12257c04978f"/>
+					<reportElement x="45" y="8" width="406" height="20" uuid="55cb990d-7f5a-4e32-b8a8-12257c04978f"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -129,6 +129,27 @@ WHERE
 				<elementGroup/>
 			</band>
 		</groupFooter>
+	</group>
+	<group name="data">
+		<groupExpression><![CDATA[$F{pesagens_dtpesagem}]]></groupExpression>
+		<groupHeader>
+			<band height="26">
+				<staticText>
+					<reportElement x="92" y="3" width="94" height="20" uuid="3babf1f6-b08f-4643-9ae6-43953aa8c5c9"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data_pesagem]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="189" y="4" width="100" height="20" uuid="05167498-105f-4f8a-abd7-80e082b2898b"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pesagens_dtpesagem}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -172,13 +193,6 @@ WHERE
 	<columnHeader>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="173" y="12" width="100" height="20" uuid="ee6314b0-3ce6-4950-8708-5014b4de5185"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Data pesagem]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="634" y="12" width="100" height="20" uuid="e65f4864-9dea-4e77-acb9-b55dbc127135"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true" isUnderline="true"/>
@@ -196,11 +210,6 @@ WHERE
 	</columnHeader>
 	<detail>
 		<band height="27" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="173" y="3" width="100" height="20" uuid="e65399b8-85af-4883-8728-c3213614208f"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{pesagens_dtpesagem}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="634" y="3" width="100" height="20" uuid="6806ec86-279e-4e7f-bb00-c552dba99691"/>
 				<textElement textAlignment="Right"/>
@@ -208,7 +217,7 @@ WHERE
 			</textField>
 			<textField>
 				<reportElement x="302" y="3" width="207" height="20" uuid="ad570f1d-3443-4159-a7ad-ff444ab4c7b7"/>
-				<textFieldExpression><![CDATA["B:  " + $F{animais_brinco} + "  T:  " + $F{animais_tatuagem} + "  HBB/SBB:  " + $F{animais_hbbsbb}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["B:  " + $F{animais_brinco} + "  T:  " + $F{animais_tatuagem} + "  HBB/SBB/FBB:  " + $F{animais_hbbsbb}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

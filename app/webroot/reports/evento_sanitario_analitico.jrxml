@@ -128,7 +128,7 @@ WHERE animais.empresa_id = $P{empresa_id}
 					<text><![CDATA[Lote]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="55" y="8" width="195" height="20" uuid="76ae83b1-f384-44d9-91a2-95320dc385d9"/>
+					<reportElement x="55" y="8" width="383" height="20" uuid="76ae83b1-f384-44d9-91a2-95320dc385d9"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -144,6 +144,27 @@ WHERE animais.empresa_id = $P{empresa_id}
 				</line>
 			</band>
 		</groupFooter>
+	</group>
+	<group name="data">
+		<groupExpression><![CDATA[$F{eventosanitarios_dtevento}]]></groupExpression>
+		<groupHeader>
+			<band height="29">
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="196" y="7" width="89" height="20" uuid="479b8971-3d24-477d-aa7c-7a93d7c8d8a3"/>
+					<textElement textAlignment="Left">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{eventosanitarios_dtevento}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="114" y="6" width="79" height="20" uuid="ec689e06-f77a-4ea9-8b36-ddc83a4a62f1"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data_evento]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -187,13 +208,6 @@ WHERE animais.empresa_id = $P{empresa_id}
 	<columnHeader>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="203" y="12" width="100" height="20" uuid="2084a3a5-9f16-47b5-9a27-a5dad54ac548"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="false" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Data evento]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="691" y="12" width="100" height="20" uuid="dbc613bd-e5be-48f2-9c4c-4313800d88a2"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="false" isUnderline="true"/>
@@ -227,14 +241,9 @@ WHERE animais.empresa_id = $P{empresa_id}
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{eventosanitarios_dosagem}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="203" y="3" width="100" height="20" uuid="479b8971-3d24-477d-aa7c-7a93d7c8d8a3"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{eventosanitarios_dtevento}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="310" y="3" width="207" height="20" uuid="4188eefa-3899-43d3-ab7e-2aa27c94ec45"/>
-				<textFieldExpression><![CDATA["B:  " + $F{animais_brinco} + "  T:  " + $F{animais_tatuagem} + "  HBB/SBB:  " + $F{animais_hbbsbb}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["B:  " + $F{animais_brinco} + "  T:  " + $F{animais_tatuagem} + "  HBB/SBB/FBB:  " + $F{animais_hbbsbb}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
