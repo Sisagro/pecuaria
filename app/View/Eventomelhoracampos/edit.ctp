@@ -7,9 +7,9 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <fieldset>
     <?php
     echo $this->Form->input('melhoracampo_id', array ('id' => 'melhoracampoID', 'type' => 'select','options' => $melhoracampos, 'label' => 'Melhoria de campo', 'empty' => ''));
-//    echo $this->Form->input('potreiro_id', array ('id' => 'potreiro', 'type' => 'select','options' => $potreiros, 'label' => 'Potreiro', 'empty' => ''));
     echo $this->Form->input('dtmelhoria', array('id' => 'dtevento', 'class' => 'data', 'type' => 'text', 'label' => 'Data da melhoria'));
     echo $this->Form->input('dtvalidade', array('id' => 'dtevento', 'class' => 'data', 'type' => 'text', 'label' => 'Validade da melhoria'));
+    echo $this->Form->input('valor', array('id' => 'valor', 'type' => 'text', 'label' => 'Valor da melhoria de campo'));
     echo $this->Form->input('observacao', array('id' => 'observacao', 'type' => 'textarea',  'label' => 'Observação'));
     ?>
 </fieldset>
@@ -19,6 +19,8 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     jQuery(document).ready(function(){
         
         $('#melhoracampoID').focus();
+        
+        $("#valor").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:2});
         
         $("#dtevento").mask("99/99/9999");
                

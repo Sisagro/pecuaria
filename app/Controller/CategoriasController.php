@@ -215,10 +215,11 @@ class CategoriasController extends AppController {
         $this->set('categorias', $categorias);
     }
     
-    public function buscaCategoriasAnimais($chave, $especieID) {
+    public function buscaCategoriasAnimais($chave, $campo, $especieID) {
         $this->layout = 'ajax';
-        if (array_key_exists("sexo", $this->request->data[$chave])) {
-            $catID = $this->request->data[$chave]['sexo'];
+        
+        if (array_key_exists($campo, $this->request->data[$chave])) {
+            $catID = $this->request->data[$chave][$campo];
         }
         
         $categorias = $this->Categoria->find('list', array(

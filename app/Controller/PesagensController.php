@@ -88,12 +88,44 @@ class PesagensController extends AppController {
     public function index() {
         
         $dadosUser = $this->Session->read();
+        
         $this->Pesagen->recursive = 2;
-        $this->Paginator->settings = array(
-            'conditions' => array('Pesagen.empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('dtpesagem' => 'desc'),
+        
+        // busca espécies cadastradas
+        $this->Pesagen->Categorialote->Categoria->Especy->recursive = -1;
+        $especies = $this->Pesagen->Categorialote->Categoria->Especy->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id'])));
+        $this->set('especies', $especies);
+        
+        // Sexos
+        $sexos = array('M' => 'MACHO', 'F' => 'FÊMEA');
+        $this->set('sexos', $sexos);
+        
+        // Categorias
+        $filtroCategorias = array('' => '-- Categorias --');
+        
+        $this->Filter->addFilters(
+            array(
+                'filter1' => array(
+                    'Categorialote.categoria_id' => array(
+                        'select' => $filtroCategorias
+                    ),
+                ),
+            )
         );
-        $this->set('itens', $this->Paginator->paginate('Pesagen'));
+        
+        $this->Filter->setPaginate('order', array('dtpesagem' => 'desc'));
+        
+        $this->Filter->setPaginate('conditions', array($this->Filter->getConditions(), 'Pesagen.empresa_id' => $dadosUser['empresa_id']));
+        
+        $this->set('itens', $this->paginate());
+        
+//        $dadosUser = $this->Session->read();
+//        $this->Pesagen->recursive = 2;
+//        $this->Paginator->settings = array(
+//            'conditions' => array('Pesagen.empresa_id' => $dadosUser['empresa_id']),
+//            'order' => array('dtpesagem' => 'desc'),
+//        );
+//        $this->set('itens', $this->Paginator->paginate('Pesagen'));
         
     }
     

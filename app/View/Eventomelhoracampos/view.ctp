@@ -17,6 +17,9 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Data de validade: </strong>
 <?php echo $eventomelhoracampo['Eventomelhoracampo']['dtvalidade']; ?>
 <br>
+<strong> Valor: </strong>
+<?php echo $eventomelhoracampo['Eventomelhoracampo']['valor']; ?>
+<br>
 <strong> Observação: </strong>
 <?php echo $eventomelhoracampo['Eventomelhoracampo']['observacao']; ?>
 <br>

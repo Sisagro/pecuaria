@@ -35,8 +35,15 @@ class AnimaisController extends AppController {
         $this->set(compact('especies'));
         
         $animais = 0;
+        $especie = 0;
+        $categoria = 0;
         
         if ($this->request->is('post')) {
+            
+            
+            
+                
+            
             
             if (empty($this->request->data['Relatorio']['especie_id'])) {
                 
@@ -48,6 +55,9 @@ class AnimaisController extends AppController {
                     )
                 ));
                 
+//                debug($animais);
+//                die();
+                                                
             } else {
                 
                 $especie = $this->request->data['Relatorio']['especie_id'];
@@ -63,6 +73,9 @@ class AnimaisController extends AppController {
                         )
                     ));
                     
+//                    debug($especie);
+//                    die();
+                    
                 } else {
                     
                     $categoria = $this->request->data['Relatorio']['categoria_id'];
@@ -75,12 +88,18 @@ class AnimaisController extends AppController {
                         )
                     ));
                     
+//                    debug($categoria);
+//                    die();
+                    
                 }
                 
             }
             
-            
-            if ($animais > 0) {
+            if ($animais == 0) {
+                
+                $this->Session->setFlash('Não existem dados para exibir o relatório.', 'default', array('class' => 'mensagem_erro'));
+                
+            } else {
                 
                 $params = array(
                     'empresa_id' => $dadosUser['empresa_id'],
@@ -93,9 +112,6 @@ class AnimaisController extends AppController {
 
                 ReportToPDF::generateReport($params, 'animais.jrxml', '2', 'Animais');
                 
-            } else {
-                
-                $this->Session->setFlash('Não existem dados para exibir o relatório.', 'default', array('class' => 'mensagem_erro'));
                 
             }
             
@@ -109,12 +125,69 @@ class AnimaisController extends AppController {
     public function index() {
         
         $dadosUser = $this->Session->read();
-        $this->Animai->recursive = 0;
-        $this->Paginator->settings = array(
-            'conditions' => array('empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('Especy.descricao' => 'asc', 'Categoria.descricao' => 'asc', 'brinco' => 'asc', 'tatuagem' => 'asc')
+        
+        // busca espécies cadastradas
+        $this->Animai->Especy->recursive = -1;
+        $especies = $this->Animai->Especy->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id'])));
+        
+        // Sexos
+        $sexos = array('M' => 'MACHO', 'F' => 'FÊMEA');
+        
+        // Categorias
+        $filtroCategorias = array('' => '-- Categorias --');
+        
+        $this->Filter->addFilters(
+            array(
+                'filter1' => array(
+                    'Animai.especie_id' => array(
+                        'select' => $especies
+                    ),
+                ),
+                'filter2' => array(
+                    'Categoria.sexo' => array(
+                        'select' => $sexos
+                    ),
+                ),
+                'filter3' => array(
+                    'Animai.categoria_id' => array(
+                        'select' => $filtroCategorias
+                    ),
+                ),
+                'filter4' => array(
+                    'Animai.brinco' => array(
+                        'operator' => 'LIKE',
+                        'value' => array(
+                            'before' => '%',
+                            'after'  => '%'
+                        )
+                    )
+                ),
+                'filter5' => array(
+                    'Animai.tatuagem' => array(
+                        'operator' => 'LIKE',
+                        'value' => array(
+                            'before' => '%',
+                            'after'  => '%'
+                        )
+                    )
+                )
+            )
         );
-        $this->set('animais', $this->Paginator->paginate('Animai'));
+        
+        $this->Filter->setPaginate('order', array('Especy.descricao' => 'asc'));
+        
+        $this->Filter->setPaginate('conditions', array($this->Filter->getConditions(), 'Animai.empresa_id' => $dadosUser['empresa_id']));
+        
+        $this->set('animais', $this->paginate());
+        
+        
+//        $dadosUser = $this->Session->read();
+//        $this->Animai->recursive = 0;
+//        $this->Paginator->settings = array(
+//            'conditions' => array('empresa_id' => $dadosUser['empresa_id']),
+//            'order' => array('Especy.descricao' => 'asc', 'Categoria.descricao' => 'asc', 'brinco' => 'asc', 'tatuagem' => 'asc')
+//        );
+//        $this->set('animais', $this->Paginator->paginate('Animai'));
         
         $this->set('validaPlano', $this->validaPlano($dadosUser['Auth']['User']['holding_id'], $dadosUser['Auth']['User']['Holding']['plano_id']));
 

@@ -92,13 +92,46 @@ class EventosanitariosController extends AppController {
     public function index() {
         
         $dadosUser = $this->Session->read();
+        
         $this->Eventosanitario->recursive = 2;
-        $this->Paginator->settings = array(
-            'conditions' => array('Eventosanitario.empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('dtevento' => 'desc'),
+        
+        // busca espécies cadastradas
+        $this->Eventosanitario->Categorialote->Categoria->Especy->recursive = -1;
+        $especies = $this->Eventosanitario->Categorialote->Categoria->Especy->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id'])));
+        $this->set('especies', $especies);
+        
+        // Sexos
+        $sexos = array('M' => 'MACHO', 'F' => 'FÊMEA');
+        $this->set('sexos', $sexos);
+        
+        // Categorias
+        $filtroCategorias = array('' => '-- Categorias --');
+        
+        $this->Filter->addFilters(
+            array(
+                'filter1' => array(
+                    'Categorialote.categoria_id' => array(
+                        'select' => $filtroCategorias
+                    ),
+                ),
+            )
         );
-        $eventosanitario = $this->Paginator->paginate('Eventosanitario');
-        $this->set('itens', $eventosanitario);
+        
+        $this->Filter->setPaginate('order', array('dtpesagem' => 'desc'));
+        
+        $this->Filter->setPaginate('conditions', array($this->Filter->getConditions(), 'Eventosanitario.empresa_id' => $dadosUser['empresa_id']));
+        
+        $this->set('itens', $this->paginate());
+        
+        
+//        $dadosUser = $this->Session->read();
+//        $this->Eventosanitario->recursive = 2;
+//        $this->Paginator->settings = array(
+//            'conditions' => array('Eventosanitario.empresa_id' => $dadosUser['empresa_id']),
+//            'order' => array('dtevento' => 'desc'),
+//        );
+//        $eventosanitario = $this->Paginator->paginate('Eventosanitario');
+//        $this->set('itens', $eventosanitario);
                 
     }
     
@@ -206,9 +239,14 @@ class EventosanitariosController extends AppController {
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Eventosanitario->saveField('dosagem', $this->request->data['Eventosanitario']['dosagem']) && $this->Eventosanitario->saveField('dtevento', $this->request->data['Eventosanitario']['dtevento']) && $this->Eventosanitario->saveField('observacao', $this->request->data['Eventosanitario']['observacao'])) {
+            if ($this->Eventosanitario->saveField('dosagem', $this->request->data['Eventosanitario']['dosagem']) && 
+                $this->Eventosanitario->saveField('dtevento', $this->request->data['Eventosanitario']['dtevento']) && 
+                $this->Eventosanitario->saveField('observacao', $this->request->data['Eventosanitario']['observacao']) && 
+                $this->Eventosanitario->saveField('valor', $this->request->data['Eventosanitario']['valor'])) {
+                
                 $this->Session->setFlash('Evento sanitário alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
+                
             } else {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }

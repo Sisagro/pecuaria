@@ -10,6 +10,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
         <th><?php echo $this->Paginator->sort('Melhoracampo.descricao', 'Melhoramento de campo'); ?></th>
         <th><?php echo $this->Paginator->sort('Potreiro.descricao', 'Potreiro'); ?></th>
         <th><?php echo $this->Paginator->sort('Eventomelhoracampo.dtmelhoria', 'Data da melhoria'); ?></th>
+        <th><?php echo $this->Paginator->sort('Eventomelhoracampo.valor', 'Valor'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($eventomelhoracampos as $item): ?>
@@ -18,6 +19,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
             <td><?php echo h($item['Melhoracampo']['descricao']); ?>&nbsp;</td>
             <td><?php echo h($item['Potreiro']['descricao']); ?>&nbsp;</td>
             <td><?php echo h($item['Eventomelhoracampo']['dtmelhoria']); ?>&nbsp;</td>
+            <td><?php echo h($item['Eventomelhoracampo']['valor']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php

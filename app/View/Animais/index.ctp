@@ -5,6 +5,31 @@ if ($validaPlano) {
 }
 //echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => "Imprimir", "title" => "Imprimir")), array('action' => 'print'), array('escape' => false));
 ?>
+
+<div id="filtroGrade">
+    <?php
+    echo $this->Search->create();
+    echo $this->Search->input('filter1', array('class' => 'select-box', 'empty' => '-- Espécie --'));
+    echo $this->Html->image("separador.png");
+    echo $this->Search->input('filter2', array('class' => 'select-box', 'empty' => '-- Sexo --'));
+    echo $this->Html->image("separador.png");
+    echo $this->Search->input('filter3', array('class' => 'select-box', 'empty' => '-- Categoria --'));
+    echo $this->Html->image("separador.png");
+    echo $this->Search->input('filter4', array('class' => 'input-box', 'placeholder' => 'Brinco'));
+    echo $this->Html->image("separador.png");
+    echo $this->Search->input('filter5', array('class' => 'input-box', 'placeholder' => 'Tatuagem'));
+    echo $this->Html->image("separador.png");
+    ?>
+    <input  type="submit" value="Filtrar" class="botaoFiltro"/>
+
+</div>
+
+<form action="/FNRCake/Jogos/delete/1230920390239" name="post_69348294s3efsfd989" id="post_69348294s3efsfd989" style="display:none;" method="post">
+    <input type="hidden" name="_method" value="POST"/>
+</form>
+<a href="#" onclick="if (confirm('Você realmete deseja apagar esse item?')) { document.post_69348294s3efsfd989.submit(); } event.returnValue = false; return false;">
+</a>
+
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -52,3 +77,29 @@ if ($validaPlano) {
     }
     ?>
 </p>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        document.getElementById('filterFilter1').focus();
+        
+        $("#filterFilter1").change( function(){
+            var select = jQuery('#filterFilter2');
+            select.val(jQuery('option:first', select).val());
+            var select = jQuery('#filterFilter3');
+            select.val(jQuery('option:first', select).val());
+        });
+        
+        $("#filterFilter2").change( function(){
+            $.ajax({async:true, 
+                    data:$("#filterFilter2").serialize(), 
+                    dataType:"html",
+                    success:function (data, textStatus) {
+                        $("#filterFilter3").html(data);
+                    },
+                    type:"post",
+                    url:"\/pecuaria/Categorias\/buscaCategoriasAnimais\/filter\/filter2\/"  + $("#filterFilter1 option:selected").val()
+            });
+        });
+        
+    });
+</script>

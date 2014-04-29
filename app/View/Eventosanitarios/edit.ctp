@@ -8,6 +8,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     <?php
     echo $this->Form->input('dosagem', array('id' => 'dosagem', 'type' => 'text', 'label' => 'Dosagem (ml)'));
     echo $this->Form->input('dtevento', array('id' => 'dtevento', 'class' => 'data', 'type' => 'text', 'label' => 'Data do evento sanitário'));
+    echo $this->Form->input('valor', array('id' => 'valor', 'type' => 'text', 'label' => 'Valor do evento sanitário'));
     echo $this->Form->input('observacao', array('id' => 'dosagem', 'type' => 'textarea',  'label' => 'Observação'));
     ?>
 </fieldset>
@@ -17,6 +18,8 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     jQuery(document).ready(function(){
         
         $('#dosagem').focus();
+        
+        $("#valor").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:2});
         
         $("#dtevento").mask("99/99/9999");
         

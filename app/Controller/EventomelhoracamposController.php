@@ -120,19 +120,6 @@ class EventomelhoracamposController extends AppController {
         ));
         $this->set(compact('melhoracampos'));
         
-//        $potreiro = $this->Eventomelhoracampo->read(null, $id);       
-//        if ($potreiro['Eventomelhoracampo']['potreiro_id'] != $holding_id) {
-//            $this->Session->setFlash('Registro não encontrado.', 'default', array('class' => 'mensagem_erro'));
-//            $this->redirect(array('action' => 'index'));
-//        }
-        
-//        $potreiros = $this->Eventomelhoracampo->Potreiro->find('list', array(
-//            'fields' => array('id', 'descricao'), 
-//            'conditions' => array('potreiro_id' => $potreiro_id),
-//            'order' => array('descricao' => 'asc')
-//        ));
-//        $this->set(compact('potreiros'));
-        
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->Eventomelhoracampo->save($this->request->data)) {
                 $this->Session->setFlash('Evento de melhoramento de campo alterado com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
@@ -165,19 +152,6 @@ class EventomelhoracamposController extends AppController {
         $this->redirect(array('action' => 'index'));
         
     }
-    
-    /**
-     * Funções ajax
-     */
-    
-//    public function buscaMedicamentos($chave) {
-//        $this->layout = 'ajax';
-//        if (array_key_exists("grpeventosanitario_id", $this->request->data[$chave])) {
-//            $catID = $this->request->data[$chave]['grpeventosanitario_id'];
-//        }
-//        $medicamentos = $this->Eventomelhoracampo->find('list' , array('order' => 'descricao ASC','fields' => array('id', 'descricao'),'conditions' => array('grpeventosanitario_id' => $catID)));
-//        $this->set('medicamentos', $medicamentos);
-//    }
 
 }
 

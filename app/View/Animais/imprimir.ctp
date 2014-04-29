@@ -49,7 +49,7 @@ $this->Js->get('#especieID')->event(
                         $("#categoriaID").html(data);
                     },
                     type:"post",
-                    url:"\/pecuaria/Categorias\/buscaCategoriasAnimais\/Relatorio\/" + $("#especieID option:selected").val()
+                    url:"\/pecuaria/Categorias\/buscaCategoriasAnimais\/Relatorio\/sexo/" + $("#especieID option:selected").val()
             });
         });
     });

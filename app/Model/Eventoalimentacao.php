@@ -116,7 +116,11 @@ class Eventoalimentacao extends AppModel {
         }
         if (isset($this->data[$this->alias]['dtalimentacao'])) {
             $this->data[$this->alias]['dtalimentacao'] = $this->formataDataHora($this->data[$this->alias]['dtalimentacao'], 'EN');
-        }        
+        }
+        if (isset($this->data[$this->alias]['valor'])) {
+            $this->data[$this->alias]['valor'] = str_replace(".", "", $this->data[$this->alias]['valor']);
+            $this->data[$this->alias]['valor'] = str_replace(",", ".", $this->data[$this->alias]['valor']);
+        }
         return true;
     }
 
@@ -130,6 +134,9 @@ class Eventoalimentacao extends AppModel {
             }
             if (!empty($value["Eventoalimentacao"]["dtalimentacao"])) {
                 $dados[$key]["Eventoalimentacao"]["dtalimentacao"] = $this->formataData($value["Eventoalimentacao"]["dtalimentacao"], 'PT');
+            }
+            if (!empty($value["Eventoalimentacao"]["valor"])) {
+                $dados[$key]["Eventoalimentacao"]["valor"] = str_replace(".", ",", $value["Eventoalimentacao"]["valor"]);
             }
         }
         return $dados;

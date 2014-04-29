@@ -17,6 +17,9 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Data da alimentação: </strong>
 <?php echo $item['Eventoalimentacao']['dtalimentacao']; ?>
 <br>
+<strong> Valor da alimentação: </strong>
+<?php echo $item['Eventoalimentacao']['valor']; ?>
+<br>
 <strong> Observação: </strong>
 <?php echo $item['Eventoalimentacao']['observacao']; ?>
 <br>

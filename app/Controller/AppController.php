@@ -41,7 +41,17 @@ class AppController extends Controller {
             'loginRedirect' => array('controller' => 'homes', 'action' => 'index'),
             'logoutRedirect' => 'http://www.sisagro.com',
             'authorize' => array('Controller')
-        )
+        ),
+        'FilterResults.Filter' => array(
+            'auto' => array(
+                'paginate' => false,
+                'explode'  => true,  // recomendado
+            ),
+            'explode' => array(
+                'character'   => ' ',
+                'concatenate' => 'AND',
+            )
+        ),
     );
     
     public $helpers = array(
@@ -49,6 +59,7 @@ class AppController extends Controller {
         'Form', 
         'Js',
         'Session',
+        'FilterResults.Search',
     );
     
     public function isAuthorized($user) {

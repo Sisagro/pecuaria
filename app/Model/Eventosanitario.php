@@ -128,6 +128,10 @@ class Eventosanitario extends AppModel {
             $this->data[$this->alias]['dosagem'] = str_replace(".", "", $this->data[$this->alias]['dosagem']);
             $this->data[$this->alias]['dosagem'] = str_replace(",", ".", $this->data[$this->alias]['dosagem']);
         }
+        if (isset($this->data[$this->alias]['valor'])) {
+            $this->data[$this->alias]['valor'] = str_replace(".", "", $this->data[$this->alias]['valor']);
+            $this->data[$this->alias]['valor'] = str_replace(",", ".", $this->data[$this->alias]['valor']);
+        }
         return true;
     }
 
@@ -144,6 +148,9 @@ class Eventosanitario extends AppModel {
             }
             if (!empty($value["Eventosanitario"]["dosagem"])) {
                 $dados[$key]["Eventosanitario"]["dosagem"] = str_replace(".", ",", $value["Eventosanitario"]["dosagem"]);
+            }
+            if (!empty($value["Eventosanitario"]["valor"])) {
+                $dados[$key]["Eventosanitario"]["valor"] = str_replace(".", ",", $value["Eventosanitario"]["valor"]);
             }
         }
         return $dados;

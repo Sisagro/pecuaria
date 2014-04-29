@@ -12,6 +12,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('lote_id', array ('id' => 'loteID', 'type' => 'select', 'options' => $lotes, 'label' => 'Lote', 'empty' => '-- Selecione o lote --', 'value' => ''));
     echo $this->Form->input('categoria_id', array('id' => 'categoriaID', 'type' => 'select', 'label' => 'Categoria', 'empty' => ' '));
     echo $this->Form->input('dtevento', array('id' => 'dtevento', 'class' => 'data', 'type' => 'text', 'label' => 'Data do evento sanitário'));
+    echo $this->Form->input('valor', array('id' => 'valor', 'type' => 'text', 'label' => 'Valor do evento sanitário'));
     ?>
     <div id="categorialote">
         <?php
@@ -93,6 +94,8 @@ $this->Js->get('#grupomedID')->event(
         document.getElementById('categorialote').style.display = 'none';
         
         $('#grupomedID').focus();
+        
+        $("#valor").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:2});
         
         $("#dtevento").mask("99/99/9999");
         

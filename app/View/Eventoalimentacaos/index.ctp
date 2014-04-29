@@ -12,6 +12,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
         <th><?php echo 'Lote'; ?></th>
         <th><?php echo 'Categoria'; ?></th>
         <th><?php echo $this->Paginator->sort('dtalimentacao', 'Data da alimentação'); ?></th>
+        <th><?php echo $this->Paginator->sort('valor', 'Valor'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($itens as $item): ?>
@@ -21,6 +22,7 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
             <td><?php echo h($item['Categorialote']['Lote']['descricao']); ?>&nbsp;</td>
             <td><?php echo h($item['Categorialote']['Categoria']['descricao']); ?>&nbsp;</td>            
             <td><?php echo h($item['Eventoalimentacao']['dtalimentacao']); ?>&nbsp;</td>
+            <td><?php echo h($item['Eventoalimentacao']['valor']); ?>&nbsp;</td>
             <td>
                 <div id="botoes">
                     <?php

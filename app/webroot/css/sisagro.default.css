@@ -1029,3 +1029,87 @@ pre {
 #url-rewriting-warning {
 	display:none;
 }
+
+
+
+/** Filtros **/
+#filtroGrade {
+    width: 99%;
+    min-width: 650px;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background: #FFFFFF;
+    font: 12px tahoma, arial;
+    color: #324143;
+}
+
+#filtroGrade .form {
+    margin: 0;
+    
+}
+
+#filtroGrade form {
+    margin: 0;
+    
+}
+#filtroGrade form.input {
+    margin: 0;
+}
+#filtroGrade form.submit {
+    margin: 0;
+}
+
+#filtroGrade .submit {
+    margin: 0;
+}
+
+#filtroGrade .div {
+    margin: 0;
+    
+}
+
+.botaoFiltro { 
+    height: 50px;
+    border: 0px;
+    vertical-align: top;
+    margin-top: 5px;
+    margin-left: 0px;
+    padding: 0
+
+}
+
+.select-box {
+	clear: both;
+	font-size: 120%;
+	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
+	padding: 1%;
+        vertical-align: text-bottom;
+	width:5%;
+        min-width: 184px;
+        min-height: 27px;
+        margin-right: 8px;
+}
+
+.input-box {
+	clear: both;
+	font-size: 120%;
+	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
+	padding: 1%;
+        vertical-align: text-bottom;
+	width:5%;
+        min-width: 184px;
+        min-height: 12px;
+        margin-right: 8px;
+}
+
+.filtro-date {
+	clear: both;
+	font-size: 120%;
+	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
+	padding: 1%;
+        vertical-align: text-bottom;
+	width:5%;
+        min-width: 80px;
+        min-height: 5px;
+}

@@ -101,8 +101,6 @@ class EventoalimentacaosController extends AppController {
         
         if ($this->request->is('post')) {
             
-//            debug($this->request->data); die();
-            
             $this->Eventoalimentacao->create();
             if ($this->Eventoalimentacao->saveAll($this->request->data)) {
                 $this->Session->setFlash('Alimentação criada com sucesso!', 'default', array('class' => 'mensagem_sucesso'));
@@ -140,9 +138,13 @@ class EventoalimentacaosController extends AppController {
         }
         
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->Eventoalimentacao->saveField('dtalimentacao', $this->request->data['Eventoalimentacao']['dtalimentacao']) && $this->Eventoalimentacao->saveField('observacao', $this->request->data['Eventoalimentacao']['observacao'])) {
+            if ($this->Eventoalimentacao->saveField('dtalimentacao', $this->request->data['Eventoalimentacao']['dtalimentacao']) && 
+                $this->Eventoalimentacao->saveField('observacao', $this->request->data['Eventoalimentacao']['observacao']) && 
+                $this->Eventoalimentacao->saveField('valor', $this->request->data['Eventoalimentacao']['valor'])) {
+                
                 $this->Session->setFlash('Alimentação alterada com sucesso.', 'default', array('class' => 'mensagem_sucesso'));
                 $this->redirect(array('action' => 'index'));
+                
             } else {
                 $this->Session->setFlash('Registro não foi alterado. Por favor tente novamente.', 'default', array('class' => 'mensagem_erro'));
             }

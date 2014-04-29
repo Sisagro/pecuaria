@@ -20,6 +20,9 @@ echo $this->Form->postLink($this->Html->image('botoes/excluir.png', array('alt' 
 <strong> Dosagem: </strong>
 <?php echo $item['Eventosanitario']['dosagem']; ?>
 <br>
+<strong> Valor: </strong>
+<?php echo $item['Eventosanitario']['valor']; ?>
+<br>
 <strong> Observação: </strong>
 <?php echo $item['Eventosanitario']['observacao']; ?>
 <br>

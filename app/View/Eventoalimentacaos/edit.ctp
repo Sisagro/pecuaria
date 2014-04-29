@@ -7,6 +7,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
 <fieldset>
     <?php
     echo $this->Form->input('dtalimentacao', array('id' => 'dtalimentacao', 'class' => 'data', 'type' => 'text', 'label' => 'Data da alimentação'));
+    echo $this->Form->input('valor', array('id' => 'valor', 'type' => 'text', 'label' => 'Valor da alimentação'));
     echo $this->Form->input('observacao', array('id' => 'obs', 'type' => 'textarea',  'label' => 'Observação'));
     ?>
 </fieldset>
@@ -19,7 +20,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
         
         $("#dtalimentacao").mask("99/99/9999");
         
-//        $("#peso").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:3});
+        $("#valor").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:2});
         
         $(".data").datepicker({
             dateFormat: 'dd/mm/yy',

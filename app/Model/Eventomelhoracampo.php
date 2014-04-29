@@ -80,18 +80,25 @@ class Eventomelhoracampo extends AppModel {
         if (isset($this->data[$this->alias]['dtvalidade'])) {
                 $this->data[$this->alias]['dtvalidade'] = $this->formataDataHora($this->data[$this->alias]['dtvalidade'], 'EN');
         }
+        if (isset($this->data[$this->alias]['valor'])) {
+            $this->data[$this->alias]['valor'] = str_replace(".", "", $this->data[$this->alias]['valor']);
+            $this->data[$this->alias]['valor'] = str_replace(",", ".", $this->data[$this->alias]['valor']);
+        }
     return true;
     }
     
     public function afterFind($dados, $primary = false) {
         foreach ($dados as $key => $value) {
-        if (!empty($value["Eventomelhoracampo"]["dtmelhoria"])) {
+            if (!empty($value["Eventomelhoracampo"]["dtmelhoria"])) {
                 $dados[$key]["Eventomelhoracampo"]["dtmelhoria"] = $this->formataData($value["Eventomelhoracampo"]["dtmelhoria"], 'PT');
             }
-        if (!empty($value["Eventomelhoracampo"]["dtvalidade"])) {
+            if (!empty($value["Eventomelhoracampo"]["dtvalidade"])) {
                 $dados[$key]["Eventomelhoracampo"]["dtvalidade"] = $this->formataData($value["Eventomelhoracampo"]["dtvalidade"], 'PT');
             }
-        }
+            if (!empty($value["Eventomelhoracampo"]["valor"])) {
+                $dados[$key]["Eventomelhoracampo"]["valor"] = str_replace(".", ",", $value["Eventomelhoracampo"]["valor"]);
+            }
+        }    
     return $dados;
     }
 }

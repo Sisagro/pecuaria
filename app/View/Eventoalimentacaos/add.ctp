@@ -10,6 +10,7 @@ echo $this->Html->link($this->Html->image("botoes/retornar.png", array("alt" => 
     echo $this->Form->input('lote_id', array ('id' => 'loteID', 'type' => 'select', 'options' => $lotes, 'label' => 'Lote', 'empty' => '-- Selecione o lote --', 'value' => ''));
     echo $this->Form->input('categoria_id', array('id' => 'categoriaID', 'type' => 'select', 'label' => 'Categoria', 'empty' => ' '));
     echo $this->Form->input('dtalimentacao', array('id' => 'dtalimentacao', 'class' => 'data', 'type' => 'text', 'label' => 'Data da alimentação'));
+    echo $this->Form->input('valor', array('id' => 'valor', 'type' => 'text', 'label' => 'Valor da alimentação'));
     ?>
     <div id="categorialote">
         <?php
@@ -93,6 +94,8 @@ $this->Js->get('#alimentacaoID')->event(
         document.getElementById('categorialote').style.display = 'none';
         
         $('#alimentacaoID').focus();
+        
+        $("#valor").maskMoney({showSymbol:false, decimal:",", thousands:"", precision:2});
         
         $("#dtalimentacao").mask("99/99/9999");
         

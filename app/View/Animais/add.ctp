@@ -191,7 +191,7 @@ $this->Js->get('#racaID')->event(
                         $("#categoriaID").html(data);
                     },
                     type:"post",
-                    url:"\/pecuaria/Categorias\/buscaCategoriasAnimais\/Animai\/" + $("#especieID option:selected").val()
+                    url:"\/pecuaria/Categorias\/buscaCategoriasAnimais\/Animai\/sexo\/" + $("#especieID option:selected").val()
             });
         });
         

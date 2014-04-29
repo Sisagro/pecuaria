@@ -24,12 +24,50 @@ class CategorialotesController extends AppController {
     public function index() {
         
         $dadosUser = $this->Session->read();
-        $this->Categorialote->recursive = 0;
-        $this->Paginator->settings = array(
-            'conditions' => array('Lote.empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('Lote.descricao' => 'asc', 'Categoria.descricao' => 'asc', 'Potreiro.descricao' => 'asc'),
+        
+        // busca espécies cadastradas
+        $this->Categorialote->Categoria->Especy->recursive = -1;
+        $especies = $this->Categorialote->Categoria->Especy->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id'])));
+        
+        // Sexos
+        $sexos = array('M' => 'MACHO', 'F' => 'FÊMEA');
+        
+        // Categorias
+        $filtroCategorias = array('' => '-- Categorias --');
+        
+        $this->Filter->addFilters(
+            array(
+                'filter1' => array(
+                    'Categoria.especie_id' => array(
+                        'select' => $especies
+                    ),
+                ),
+                'filter2' => array(
+                    'Categoria.sexo' => array(
+                        'select' => $sexos
+                    ),
+                ),
+                'filter3' => array(
+                    'Categorialote.categoria_id' => array(
+                        'select' => $filtroCategorias
+                    ),
+                ),
+            )
         );
-        $this->set('categorialotes', $this->Paginator->paginate('Categorialote'));
+        
+        $this->Filter->setPaginate('order', array('Lote.descricao' => 'asc', 'Categoria.descricao' => 'asc', 'Potreiro.descricao' => 'asc'));
+        
+        $this->Filter->setPaginate('conditions', array($this->Filter->getConditions(), 'Lote.empresa_id' => $dadosUser['empresa_id']));
+        
+        $this->set('categorialotes', $this->paginate());
+        
+//        $dadosUser = $this->Session->read();
+//        $this->Categorialote->recursive = 0;
+//        $this->Paginator->settings = array(
+//            'conditions' => array('Lote.empresa_id' => $dadosUser['empresa_id']),
+//            'order' => array('Lote.descricao' => 'asc', 'Categoria.descricao' => 'asc', 'Potreiro.descricao' => 'asc'),
+//        );
+//        $this->set('categorialotes', $this->Paginator->paginate('Categorialote'));
 
     }
     
