@@ -1070,13 +1070,14 @@ pre {
 }
 
 .botaoFiltro { 
-    height: 50px;
+    height: 45px;
     border: 0px;
     vertical-align: top;
-    margin-top: 5px;
+    margin-top: 7px;
     margin-left: 0px;
-    padding: 0
-
+    padding: 0;
+    background: #5BA150;
+    background: #62af56;
 }
 
 .select-box {
@@ -1098,7 +1099,7 @@ pre {
 	padding: 1%;
         vertical-align: text-bottom;
 	width:5%;
-        min-width: 184px;
+        min-width: 114px;
         min-height: 12px;
         margin-right: 8px;
 }

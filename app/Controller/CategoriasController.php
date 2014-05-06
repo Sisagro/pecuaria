@@ -22,13 +22,43 @@ class CategoriasController extends AppController {
      * index method
      */
     public function index() {
+        
         $dadosUser = $this->Session->read();
-        $this->Categoria->recursive = 0;
-        $this->Paginator->settings = array(
-            'conditions' => array('Especy.holding_id' => $dadosUser['Auth']['User']['holding_id']),
-            'order' => array('Especy.descricao' => 'asc', 'Categoria.descricao' => 'asc')
+        
+        // busca espécies cadastradas
+        $this->Categoria->Especy->recursive = -1;
+        $especies = $this->Categoria->Especy->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id'])));
+        
+        // Sexos
+        $sexos = array('M' => 'MACHO', 'F' => 'FÊMEA');
+        
+        // Categorias
+        $filtroCategorias = array('' => '-- Categorias --');
+        
+        $this->Filter->addFilters(
+            array(
+                'filter1' => array(
+                    'Categoria.especie_id' => array(
+                        'select' => $especies
+                    ),
+                ),
+            )
         );
-        $this->set('categorias', $this->Paginator->paginate('Categoria'));
+        
+        $this->Filter->setPaginate('order', array('Categoria.descricao' => 'asc'));
+        
+        $this->Filter->setPaginate('conditions', array($this->Filter->getConditions(), 'Especy.holding_id' => $dadosUser['Auth']['User']['holding_id']));
+        
+        $this->set('categorias', $this->paginate());
+        
+        
+//        $dadosUser = $this->Session->read();
+//        $this->Categoria->recursive = 0;
+//        $this->Paginator->settings = array(
+//            'conditions' => array('Especy.holding_id' => $dadosUser['Auth']['User']['holding_id']),
+//            'order' => array('Especy.descricao' => 'asc', 'Categoria.descricao' => 'asc')
+//        );
+//        $this->set('categorias', $this->Paginator->paginate('Categoria'));
     }
     
     /**

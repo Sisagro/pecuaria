@@ -14,6 +14,8 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
     echo $this->Html->image("separador.png");
     echo $this->Search->input('filter3', array('class' => 'select-box', 'empty' => '-- Categoria --'));
     echo $this->Html->image("separador.png");
+    echo $this->Search->input('filter4', array('class' => 'select-box', 'empty' => '-- Lote --'));
+    echo $this->Html->image("separador.png");
     ?>
     <input  type="submit" value="Filtrar" class="botaoFiltro"/>
 

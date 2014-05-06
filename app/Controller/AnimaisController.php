@@ -170,6 +170,15 @@ class AnimaisController extends AppController {
                             'after'  => '%'
                         )
                     )
+                ),
+                'filter6' => array(
+                    'Animai.hbbsbb' => array(
+                        'operator' => 'LIKE',
+                        'value' => array(
+                            'before' => '%',
+                            'after'  => '%'
+                        )
+                    )
                 )
             )
         );

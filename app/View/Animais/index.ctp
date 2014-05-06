@@ -19,6 +19,8 @@ if ($validaPlano) {
     echo $this->Html->image("separador.png");
     echo $this->Search->input('filter5', array('class' => 'input-box', 'placeholder' => 'Tatuagem'));
     echo $this->Html->image("separador.png");
+    echo $this->Search->input('filter6', array('class' => 'input-box', 'placeholder' => 'SBB/HBB/FBB'));
+    echo $this->Html->image("separador.png");
     ?>
     <input  type="submit" value="Filtrar" class="botaoFiltro"/>
 

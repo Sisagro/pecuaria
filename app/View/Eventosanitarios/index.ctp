@@ -30,6 +30,10 @@ echo $this->Search->create();
     echo $this->Html->image("separador.png");
     echo $this->Search->input('filter1', array('class' => 'select-box', 'empty' => '-- Categoria --'));
     echo $this->Html->image("separador.png");
+    echo $this->Search->input('filter2', array('class' => 'select-box', 'empty' => '-- Lote --'));
+    echo $this->Html->image("separador.png");
+    echo $this->Search->input('filter3', array('class' => 'input-box', 'id' => 'data1', 'placeholder' => 'dia/mês/ano'), array('class' => 'input-box', 'id' => 'data2', 'placeholder' => 'dia/mês/ano'));
+    echo $this->Html->image("separador.png");
     ?>
     <input  type="submit" value="Filtrar" class="botaoFiltro"/>
 
@@ -90,6 +94,20 @@ echo $this->Search->create();
 <script type="text/javascript">
     jQuery(document).ready(function(){
         document.getElementById('especieID').focus();
+        
+        $("#data1").mask("99/99/9999");
+        $("#data2").mask("99/99/9999");
+        
+        $(".input-box").datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+            dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+            nextText: 'Próximo',
+            prevText: 'Anterior'
+        });
         
         $("#especieID").change( function(){
             var select = jQuery('#sexo');

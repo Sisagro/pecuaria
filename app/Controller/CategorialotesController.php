@@ -35,6 +35,11 @@ class CategorialotesController extends AppController {
         // Categorias
         $filtroCategorias = array('' => '-- Categorias --');
         
+        // busca lotes cadastrados
+        $this->Categorialote->Lote->recursive = -1;
+        $lotes = $this->Categorialote->Lote->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('empresa_id' => $dadosUser['empresa_id'], 'ativo' => 'S')));
+        
+        
         $this->Filter->addFilters(
             array(
                 'filter1' => array(
@@ -50,6 +55,11 @@ class CategorialotesController extends AppController {
                 'filter3' => array(
                     'Categorialote.categoria_id' => array(
                         'select' => $filtroCategorias
+                    ),
+                ),
+                'filter4' => array(
+                    'Categorialote.lote_id' => array(
+                        'select' => $lotes
                     ),
                 ),
             )

@@ -2,8 +2,23 @@
 echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adicionar", "title" => "Adicionar")), array('action' => 'add'), array('escape' => false));
 //echo $this->Html->link($this->Html->image("botoes/imprimir.png", array("alt" => "Imprimir", "title" => "Imprimir")), array('action' => 'print'), array('escape' => false));
 ?>
-<br>
-<br>
+
+<div id="filtroGrade">
+    <?php
+    echo $this->Search->create();
+    echo $this->Search->input('filter1', array('class' => 'select-box', 'empty' => '-- Espécie --'));
+    echo $this->Html->image("separador.png");
+    ?>
+    <input type="submit" value="Filtrar" class="botaoFiltro"/>
+
+</div>
+
+<form action="/FNRCake/Categorias/delete/1230920390239" name="post_69348294s3efsfd989" id="post_69348294s3efsfd989" style="display:none;" method="post">
+    <input type="hidden" name="_method" value="POST"/>
+</form>
+<a href="#" onclick="if (confirm('Você realmete deseja apagar esse item?')) { document.post_69348294s3efsfd989.submit(); } event.returnValue = false; return false;">
+</a>
+
 <table cellpadding="0" cellspacing="0">
     <tr>
         <th><?php echo $this->Paginator->sort('id'); ?></th>

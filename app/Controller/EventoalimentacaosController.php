@@ -25,13 +25,66 @@ class EventoalimentacaosController extends AppController {
     public function index() {
         
         $dadosUser = $this->Session->read();
+
         $this->Eventoalimentacao->recursive = 2;
-        $this->Paginator->settings = array(
-            'conditions' => array('Eventoalimentacao.empresa_id' => $dadosUser['empresa_id']),
-            'order' => array('dtalimentacao' => 'desc'),
+
+        // busca espécies cadastradas
+        $this->Eventoalimentacao->Categorialote->Categoria->Especy->recursive = -1;
+        $especies = $this->Eventoalimentacao->Categorialote->Categoria->Especy->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('holding_id' => $dadosUser['Auth']['User']['holding_id'])));
+        $this->set('especies', $especies);
+
+        // Sexos
+        $sexos = array('M' => 'MACHO', 'F' => 'FÊMEA');
+        $this->set('sexos', $sexos);
+
+        // Categorias
+        $filtroCategorias = array('' => '-- Categorias --');
+
+        // Lotes
+        $this->Eventoalimentacao->Categorialote->Lote->recursive = -1;
+        $lotes = $this->Eventoalimentacao->Categorialote->Lote->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('empresa_id' => $dadosUser['empresa_id'], 'ativo' => 'S')));
+
+
+        $this->Filter->addFilters(
+                array(
+                    'filter1' => array(
+                        'Categorialote.categoria_id' => array(
+                            'select' => $filtroCategorias
+                        ),
+                    ),
+                    'filter2' => array(
+                        'Categorialote.lote_id' => array(
+                            'select' => $lotes
+                        ),
+                    ),
+                    'filter3' => array(
+                        'Eventoalimentacao.dtalimentacao' => array(
+                            'operator' => 'BETWEEN',
+                            'between' => array(
+                                'text' => __(' e ', true),
+                                'date' => true
+                            )
+                        )
+                    ),
+                )
         );
+
+        $this->Filter->setPaginate('order', array('dtpesagem' => 'desc'));
+
+        $this->Filter->setPaginate('conditions', array($this->Filter->getConditions(), 'Eventoalimentacao.empresa_id' => $dadosUser['empresa_id']));
+
+        $this->set('itens', $this->paginate());
         
-        $this->set('itens', $this->Paginator->paginate('Eventoalimentacao'));
+        
+        
+//        $dadosUser = $this->Session->read();
+//        $this->Eventoalimentacao->recursive = 2;
+//        $this->Paginator->settings = array(
+//            'conditions' => array('Eventoalimentacao.empresa_id' => $dadosUser['empresa_id']),
+//            'order' => array('dtalimentacao' => 'desc'),
+//        );
+//        
+//        $this->set('itens', $this->Paginator->paginate('Eventoalimentacao'));
         
     }
     

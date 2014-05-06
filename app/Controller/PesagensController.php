@@ -103,12 +103,31 @@ class PesagensController extends AppController {
         // Categorias
         $filtroCategorias = array('' => '-- Categorias --');
         
+        // Lotes
+        $this->Pesagen->Categorialote->Lote->recursive = -1;
+        $lotes = $this->Pesagen->Categorialote->Lote->find('list', array('order' => 'descricao ASC', 'fields' => array('id', 'descricao'), 'conditions' => array('empresa_id' => $dadosUser['empresa_id'], 'ativo' => 'S')));
+        
+        
         $this->Filter->addFilters(
             array(
                 'filter1' => array(
                     'Categorialote.categoria_id' => array(
                         'select' => $filtroCategorias
                     ),
+                ),
+                'filter2' => array(
+                    'Categorialote.lote_id' => array(
+                        'select' => $lotes
+                    ),
+                ),
+                'filter3' => array(
+                    'Pesagen.dtpesagem' => array(
+                        'operator' => 'BETWEEN',
+                        'between' => array(
+                            'text' => __(' e ', true),
+                            'date' => true
+                        )
+                    )
                 ),
             )
         );
