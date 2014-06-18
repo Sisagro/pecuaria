@@ -4,6 +4,8 @@ App::uses('AppController', 'Controller');
 
 App::import('Controller', 'Users');
 
+App::import('Vendor', 'PHPJasperXML/ReportToPDF');
+
 /**
  * Alimentacaos Controller
  */
@@ -17,6 +19,65 @@ class EventoalimentacaosController extends AppController {
         $Users = new UsersController;
         return $Users->validaAcesso($this->Session->read(), $this->request->controller);
         return parent::isAuthorized($user);
+    }
+    
+    /**
+     * imprimir method
+     */
+    public function imprimir() {
+
+        $dadosUser = $this->Session->read();
+
+        $tprelatorio = array(1 => 'Sintético', 2 => 'Analítico');
+        $this->set('tprelatorio', $tprelatorio);
+
+        $lotes = $this->Eventoalimentacao->Categorialote->find('list', array(
+            'fields' => array('Lote.id', 'Lote.descricao'),
+            "joins" => array(
+                array(
+                    "table" => "lotes",
+                    "alias" => "Lote",
+                    "type" => "INNER",
+                    "conditions" => array("Categorialote.lote_id = Lote.id",
+                                          "Lote.empresa_id = " . $dadosUser['empresa_id'])
+                )
+            ),
+            'order' => array('Lote.descricao' => 'asc')
+        ));
+
+        $this->set(compact('lotes'));
+
+        if ($this->request->is('post')) {
+
+            if (empty($this->request->data['Relatorio']['lote_id'])) {
+                $lote = 0;
+            } else {
+                $lote = $this->request->data['Relatorio']['lote_id'];
+            }
+
+            if (empty($this->request->data['Relatorio']['categoria_id'])) {
+                $categoria = 0;
+            } else {
+                $categoria = $this->request->data['Relatorio']['categoria_id'];
+            }
+
+            $params = array(
+                'empresa_id' => $dadosUser['empresa_id'],
+                'lote_id' => $lote,
+                'categoria_id' => $categoria,
+                'nomedaempresa' => $dadosUser['nomeEmpresa'],
+                'nomedousuario' => $dadosUser['Auth']['User']['nome'],
+                'data' => date("d/m/Y"),
+            );
+
+//            debug($this->request->data['Relatorio']['tprelatorio']); die();
+
+            if ($this->request->data['Relatorio']['tprelatorio'] == 1) {
+                ReportToPDF::generateReport($params, 'evento_alimentacao_sintetico.jrxml', '1', 'Eventoalimentacaos');
+            } else {
+                ReportToPDF::generateReport($params, 'evento_alimentacao_analitico.jrxml', '1', 'Eventoalimentacaos');
+            }
+        }
     }
     
     /**

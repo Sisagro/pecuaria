@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0016ac41-3f74-4b94-870b-e1fa278f4714">
-	<property name="ireport.zoom" value="1.1000000000000005"/>
-	<property name="ireport.x" value="185"/>
+	<property name="ireport.zoom" value="1.100000000000001"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa_id" class="java.lang.String"/>
 	<parameter name="lote_id" class="java.lang.String"/>
@@ -24,21 +24,6 @@
      categorialotes.`categoria_id` AS categorialotes_categoria_id,
      categorialotes.`potreiro_id` AS categorialotes_potreiro_id,
      categorialotes.`observacao` AS categorialotes_observacao,
-     eventosanitarios.`id` AS eventosanitarios_id,
-     eventosanitarios.`categorialote_id` AS eventosanitarios_categorialote_id,
-     eventosanitarios.`dtevento` AS eventosanitarios_dtevento,
-     eventosanitarios.`dosagem` AS eventosanitarios_dosagem,
-     eventosanitarios.`observacao` AS eventosanitarios_observacao,
-     eventosanitarios.`created` AS eventosanitarios_created,
-     eventosanitarios.`modified` AS eventosanitarios_modified,
-     eventosanitarios.`user_id` AS eventosanitarios_user_id,
-     eventosanitarios.`medicamento_id` AS eventosanitarios_medicamento_id,
-     eventosanitarios.`empresa_id` AS eventosanitarios_empresa_id,
-     medicamentos.`id` AS medicamentos_id,
-     medicamentos.`grpeventosanitario_id` AS medicamentos_grpeventosanitario_id,
-     medicamentos.`descricao` AS medicamentos_descricao,
-     medicamentos.`palavrachave` AS medicamentos_palavrachave,
-     medicamentos.`principioativo` AS medicamentos_principioativo,
      categorias.`id` AS categorias_id,
      categorias.`especie_id` AS categorias_especie_id,
      categorias.`abreveatura` AS categorias_abreveatura,
@@ -48,13 +33,25 @@
      especies.`id` AS especies_id,
      especies.`holding_id` AS especies_holding_id,
      especies.`descricao` AS especies_descricao,
-     eventosanitarios.`valor` AS eventosanitarios_valor
+     eventoalimentacaos.`id` AS eventoalimentacaos_id,
+     eventoalimentacaos.`alimentacao_id` AS eventoalimentacaos_alimentacao_id,
+     eventoalimentacaos.`categorialote_id` AS eventoalimentacaos_categorialote_id,
+     eventoalimentacaos.`dtalimentacao` AS eventoalimentacaos_dtalimentacao,
+     eventoalimentacaos.`created` AS eventoalimentacaos_created,
+     eventoalimentacaos.`modified` AS eventoalimentacaos_modified,
+     eventoalimentacaos.`user_id` AS eventoalimentacaos_user_id,
+     eventoalimentacaos.`empresa_id` AS eventoalimentacaos_empresa_id,
+     eventoalimentacaos.`observacao` AS eventoalimentacaos_observacao,
+     eventoalimentacaos.`valor` AS eventoalimentacaos_valor,
+     alimentacaos.`id` AS alimentacaos_id,
+     alimentacaos.`holding_id` AS alimentacaos_holding_id,
+     alimentacaos.`descricao` AS alimentacaos_descricao
 FROM
      `lotes` lotes INNER JOIN `categorialotes` categorialotes ON lotes.`id` = categorialotes.`lote_id`
-     INNER JOIN `eventosanitarios` eventosanitarios ON categorialotes.`id` = eventosanitarios.`categorialote_id`
      INNER JOIN `categorias` categorias ON categorialotes.`categoria_id` = categorias.`id`
+     INNER JOIN `eventoalimentacaos` eventoalimentacaos ON categorialotes.`id` = eventoalimentacaos.`categorialote_id`
+     INNER JOIN `alimentacaos` alimentacaos ON eventoalimentacaos.`alimentacao_id` = alimentacaos.`id`
      INNER JOIN `especies` especies ON categorias.`especie_id` = especies.`id`
-     INNER JOIN `medicamentos` medicamentos ON eventosanitarios.`medicamento_id` = medicamentos.`id`
 WHERE
      lotes.empresa_id = $P{empresa_id}
  AND categorialotes.lote_id = IF($P{lote_id} = 0,categorialotes.lote_id,$P{lote_id})
@@ -72,21 +69,6 @@ WHERE
 	<field name="categorialotes_categoria_id" class="java.lang.Integer"/>
 	<field name="categorialotes_potreiro_id" class="java.lang.Integer"/>
 	<field name="categorialotes_observacao" class="java.lang.String"/>
-	<field name="eventosanitarios_id" class="java.lang.Integer"/>
-	<field name="eventosanitarios_categorialote_id" class="java.lang.Integer"/>
-	<field name="eventosanitarios_dtevento" class="java.sql.Date"/>
-	<field name="eventosanitarios_dosagem" class="java.math.BigDecimal"/>
-	<field name="eventosanitarios_observacao" class="java.lang.String"/>
-	<field name="eventosanitarios_created" class="java.sql.Timestamp"/>
-	<field name="eventosanitarios_modified" class="java.sql.Timestamp"/>
-	<field name="eventosanitarios_user_id" class="java.lang.Integer"/>
-	<field name="eventosanitarios_medicamento_id" class="java.lang.Integer"/>
-	<field name="eventosanitarios_empresa_id" class="java.lang.Integer"/>
-	<field name="medicamentos_id" class="java.lang.Integer"/>
-	<field name="medicamentos_grpeventosanitario_id" class="java.lang.Integer"/>
-	<field name="medicamentos_descricao" class="java.lang.String"/>
-	<field name="medicamentos_palavrachave" class="java.lang.String"/>
-	<field name="medicamentos_principioativo" class="java.lang.String"/>
 	<field name="categorias_id" class="java.lang.Integer"/>
 	<field name="categorias_especie_id" class="java.lang.Integer"/>
 	<field name="categorias_abreveatura" class="java.lang.String"/>
@@ -96,7 +78,19 @@ WHERE
 	<field name="especies_id" class="java.lang.Integer"/>
 	<field name="especies_holding_id" class="java.lang.Integer"/>
 	<field name="especies_descricao" class="java.lang.String"/>
-	<field name="eventosanitarios_valor" class="java.math.BigDecimal"/>
+	<field name="eventoalimentacaos_id" class="java.lang.Integer"/>
+	<field name="eventoalimentacaos_alimentacao_id" class="java.lang.Integer"/>
+	<field name="eventoalimentacaos_categorialote_id" class="java.lang.Integer"/>
+	<field name="eventoalimentacaos_dtalimentacao" class="java.sql.Date"/>
+	<field name="eventoalimentacaos_created" class="java.sql.Date"/>
+	<field name="eventoalimentacaos_modified" class="java.sql.Date"/>
+	<field name="eventoalimentacaos_user_id" class="java.lang.Integer"/>
+	<field name="eventoalimentacaos_empresa_id" class="java.lang.Integer"/>
+	<field name="eventoalimentacaos_observacao" class="java.lang.String"/>
+	<field name="eventoalimentacaos_valor" class="java.math.BigDecimal"/>
+	<field name="alimentacaos_id" class="java.lang.Integer"/>
+	<field name="alimentacaos_holding_id" class="java.lang.Integer"/>
+	<field name="alimentacaos_descricao" class="java.lang.String"/>
 	<sortField name="lotes_descricao"/>
 	<sortField name="eventosanitarios_dtevento"/>
 	<variable name="valor_SUM" class="java.lang.Long" resetType="Group" resetGroup="Lote" incrementType="Report" calculation="Sum">
@@ -130,16 +124,18 @@ WHERE
 					<reportElement x="0" y="26" width="802" height="1" uuid="f144f5d0-5294-421d-ba4a-a84c2e8a96b5"/>
 				</line>
 				<staticText>
-					<reportElement x="460" y="3" width="100" height="20" uuid="0d629b6c-d0bd-4969-b2d8-9e488ef2ec41"/>
+					<reportElement x="406" y="3" width="100" height="20" uuid="0d629b6c-d0bd-4969-b2d8-9e488ef2ec41"/>
 					<textElement textAlignment="Right">
 						<font size="12" isBold="true" isUnderline="false"/>
 					</textElement>
 					<text><![CDATA[Valor_total]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="573" y="3" width="103" height="20" uuid="52e6087a-6e1f-4637-9bf0-7a4c0fbc1fe9"/>
-					<textElement textAlignment="Right"/>
-					<textFieldExpression><![CDATA[$V{valor_SUM}]]></textFieldExpression>
+					<reportElement x="515" y="3" width="74" height="20" uuid="52e6087a-6e1f-4637-9bf0-7a4c0fbc1fe9"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{eventoalimentacaos_valor}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -154,7 +150,7 @@ WHERE
 				<textElement textAlignment="Center">
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Evento sanitário por lote (sintético)]]></text>
+				<text><![CDATA[Aplica alimentação (sintético)]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="628" y="18" width="171" height="14" uuid="311aa29a-f38d-4f4e-8413-9120f898ad51"/>
@@ -190,24 +186,17 @@ WHERE
 				<textElement textAlignment="Center">
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Data evento]]></text>
+				<text><![CDATA[Data alimentação]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="461" y="13" width="100" height="20" uuid="4d27b5cd-9bff-4f4d-aa9f-580ba78c5e5e"/>
-				<textElement textAlignment="Right">
-					<font isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Dosagem]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="285" y="13" width="158" height="20" uuid="cbe32ec0-a218-4171-bcfc-f3f40ab5ee69"/>
+				<reportElement x="285" y="13" width="221" height="20" uuid="cbe32ec0-a218-4171-bcfc-f3f40ab5ee69"/>
 				<textElement>
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Medicamento]]></text>
+				<text><![CDATA[Alimentação]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="573" y="13" width="103" height="20" uuid="fcfefd44-93b1-4927-bbf6-9fca25994d92"/>
+				<reportElement x="515" y="13" width="74" height="20" uuid="fcfefd44-93b1-4927-bbf6-9fca25994d92"/>
 				<textElement textAlignment="Right">
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
@@ -217,24 +206,18 @@ WHERE
 	</columnHeader>
 	<detail>
 		<band height="27" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy">
-				<reportElement isPrintRepeatedValues="false" x="173" y="3" width="100" height="20" uuid="a862d55c-da2c-4af1-ae09-6676ef844ebf"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{eventosanitarios_dtevento}]]></textFieldExpression>
-			</textField>
 			<textField>
-				<reportElement isPrintRepeatedValues="false" x="285" y="3" width="158" height="20" uuid="fe00c1b8-7395-476b-a66c-8e56d1b105df"/>
-				<textFieldExpression><![CDATA[$F{medicamentos_descricao}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="461" y="3" width="100" height="20" uuid="0f38a60b-ac23-4d22-8bd9-91369a1d27bb"/>
+				<reportElement x="515" y="2" width="74" height="20" uuid="d0e57396-5896-41a2-891e-7ba4d5017c0a"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{eventosanitarios_dosagem}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{eventoalimentacaos_valor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="573" y="3" width="103" height="20" uuid="31060ac2-6128-4f8b-80a7-05ac64f4dea2"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{eventosanitarios_valor}]]></textFieldExpression>
+				<reportElement x="173" y="2" width="100" height="20" uuid="845f4ec2-ce65-419d-968c-7eef58f9f8a7"/>
+				<textFieldExpression><![CDATA[$F{eventoalimentacaos_dtalimentacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="2" width="221" height="20" uuid="f46e8e67-1ced-40ef-81f1-e3720bae0fc7"/>
+				<textFieldExpression><![CDATA[$F{alimentacaos_descricao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
