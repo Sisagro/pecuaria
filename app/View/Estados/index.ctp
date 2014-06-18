@@ -6,14 +6,14 @@ echo $this->Html->link($this->Html->image("botoes/add.png", array("alt" => "Adic
 <br>
 <table cellpadding="0" cellspacing="0">
     <tr>
-        <th><?php echo $this->Paginator->sort('id'); ?></th>
+        <th><?php echo $this->Paginator->sort('id'); ?></th>        
         <th><?php echo $this->Paginator->sort('nome', 'Nome'); ?></th>
         <th><?php echo $this->Paginator->sort('Paise.nome', 'País'); ?></th>
         <th class="actions"><?php echo __('Ações'); ?></th>
     </tr>
     <?php foreach ($estados as $item): ?>
         <tr>
-            <td><?php echo h($item['Estado']['id']); ?>&nbsp;</td>
+            <td><?php echo h($item['Estado']['id']); ?>&nbsp;</td>            
             <td><?php echo h($item['Estado']['nome']); ?>&nbsp;</td>
             <td><?php echo h($item['Paise']['nome']); ?>&nbsp;</td>
             <td>

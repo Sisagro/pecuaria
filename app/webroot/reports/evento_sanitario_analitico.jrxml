@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a66d5b75-f6b0-482d-82a1-b4315efee82e">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="1.0000000000000022"/>
+	<property name="ireport.x" value="70"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa_id" class="java.lang.String"/>
 	<parameter name="lote_id" class="java.lang.String"/>
@@ -57,16 +57,18 @@
      animais.`caracteristica` AS animais_caracteristica,
      animais.`ativo` AS animais_ativo,
      animaleventos.`animai_id` AS animaleventos_animai_id,
-     animaleventos.`eventosanitario_id` AS animaleventos_eventosanitario_id
+     animaleventos.`eventosanitario_id` AS animaleventos_eventosanitario_id,
+     eventosanitarios.`valor` AS eventosanitarios_valor
 FROM
      `lotes` lotes INNER JOIN `categorialotes` categorialotes ON lotes.`id` = categorialotes.`lote_id`
      INNER JOIN `eventosanitarios` eventosanitarios ON categorialotes.`id` = eventosanitarios.`categorialote_id`
      INNER JOIN `medicamentos` medicamentos ON eventosanitarios.`medicamento_id` = medicamentos.`id`
      INNER JOIN `animaleventos` animaleventos ON eventosanitarios.`id` = animaleventos.`eventosanitario_id`
      INNER JOIN `animais` animais ON animaleventos.`animai_id` = animais.`id`
-WHERE animais.empresa_id = $P{empresa_id}
-  AND categorialotes.lote_id = IF($P{lote_id} = 0, categorialotes.lote_id, $P{lote_id})
-  AND animais.categoria_id = IF($P{categoria_id} = 0, animais.categoria_id, $P{categoria_id})]]>
+WHERE
+     animais.empresa_id = $P{empresa_id}
+ AND IF($P{lote_id} = 0,categorialotes.lote_id,$P{lote_id})
+ AND IF($P{categoria_id} = 0,animais.categoria_id,$P{categoria_id})]]>
 	</queryString>
 	<field name="lotes_id" class="java.lang.Integer"/>
 	<field name="lotes_empresa_id" class="java.lang.Integer"/>
@@ -114,8 +116,13 @@ WHERE animais.empresa_id = $P{empresa_id}
 	<field name="animais_ativo" class="java.lang.String"/>
 	<field name="animaleventos_animai_id" class="java.lang.Integer"/>
 	<field name="animaleventos_eventosanitario_id" class="java.lang.Integer"/>
+	<field name="eventosanitarios_valor" class="java.math.BigDecimal"/>
 	<sortField name="lotes_descricao"/>
 	<sortField name="eventosanitarios_dtevento"/>
+	<variable name="valor_SUM" class="java.lang.Long" resetType="Group" resetGroup="Lote" calculation="Sum">
+		<variableExpression><![CDATA[$F{eventosanitarios_valor}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<group name="Lote">
 		<groupExpression><![CDATA[$F{lotes_id}]]></groupExpression>
 		<groupHeader>
@@ -137,11 +144,25 @@ WHERE animais.empresa_id = $P{empresa_id}
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="9">
+			<band height="30">
 				<elementGroup/>
 				<line>
-					<reportElement x="0" y="4" width="802" height="1" uuid="cf1672ba-ba28-4a68-a0ae-edad8e4b10d7"/>
+					<reportElement x="0" y="25" width="802" height="1" uuid="cf1672ba-ba28-4a68-a0ae-edad8e4b10d7"/>
 				</line>
+				<textField>
+					<reportElement x="696" y="3" width="100" height="20" uuid="21b32311-c35c-4c37-8379-1186f604e8ad"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valor_SUM}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="583" y="3" width="100" height="20" uuid="4437f959-acbb-45e1-a7e7-3e4a3cbb926c"/>
+					<textElement textAlignment="Right">
+						<font size="12" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Valor_total]]></text>
+				</staticText>
 			</band>
 		</groupFooter>
 	</group>
@@ -208,42 +229,54 @@ WHERE animais.empresa_id = $P{empresa_id}
 	<columnHeader>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="691" y="12" width="100" height="20" uuid="dbc613bd-e5be-48f2-9c4c-4313800d88a2"/>
+				<reportElement x="581" y="12" width="100" height="20" uuid="dbc613bd-e5be-48f2-9c4c-4313800d88a2"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Dosagem]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="525" y="12" width="163" height="20" uuid="64313328-924c-4110-a51e-585cfa2ceaa0"/>
+				<reportElement x="375" y="12" width="196" height="20" uuid="64313328-924c-4110-a51e-585cfa2ceaa0"/>
 				<textElement>
 					<font size="12" isBold="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Medicamento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="310" y="12" width="207" height="20" uuid="d5804ea5-05c1-4f07-bf3c-045823722c72"/>
+				<reportElement x="154" y="12" width="207" height="20" uuid="d5804ea5-05c1-4f07-bf3c-045823722c72"/>
 				<textElement>
 					<font size="12" isBold="false" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Identificação do animal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="696" y="12" width="100" height="20" uuid="b62fcdc3-72de-4db1-b075-af16b7b8be59"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="26" splitType="Stretch">
 			<textField>
-				<reportElement x="525" y="3" width="163" height="20" uuid="b37178dc-9d53-441d-a02a-f55ba7bdb2a7"/>
+				<reportElement x="375" y="3" width="196" height="20" uuid="b37178dc-9d53-441d-a02a-f55ba7bdb2a7"/>
 				<textFieldExpression><![CDATA[$F{medicamentos_descricao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="691" y="3" width="100" height="20" uuid="484de164-321e-4322-8fe0-ae66cb47461c"/>
+				<reportElement x="581" y="3" width="100" height="20" uuid="484de164-321e-4322-8fe0-ae66cb47461c"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{eventosanitarios_dosagem}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="310" y="3" width="207" height="20" uuid="4188eefa-3899-43d3-ab7e-2aa27c94ec45"/>
+				<reportElement x="154" y="3" width="207" height="20" uuid="4188eefa-3899-43d3-ab7e-2aa27c94ec45"/>
 				<textFieldExpression><![CDATA["B:  " + $F{animais_brinco} + "  T:  " + $F{animais_tatuagem} + "  HBB/SBB/FBB:  " + $F{animais_hbbsbb}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="696" y="4" width="100" height="20" uuid="d60d0164-dd17-479a-b857-08c36295ae6b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{eventosanitarios_valor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -256,9 +289,6 @@ WHERE animais.empresa_id = $P{empresa_id}
 				</textElement>
 				<text><![CDATA[tel: (53) 3027.1711]]></text>
 			</staticText>
-			<line>
-				<reportElement x="0" y="0" width="794" height="1" uuid="0e7fa17b-c572-44a9-a4ba-5f4187f964b5"/>
-			</line>
 			<staticText>
 				<reportElement x="0" y="19" width="799" height="16" forecolor="#5F7846" uuid="9ff4a2e6-6a86-4d08-85c9-da091d372be6"/>
 				<textElement textAlignment="Center">
@@ -273,6 +303,9 @@ WHERE animais.empresa_id = $P{empresa_id}
 				</textElement>
 				<text><![CDATA[www.sisagro.com]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="802" height="1" uuid="0e7fa17b-c572-44a9-a4ba-5f4187f964b5"/>
+			</line>
 		</band>
 	</columnFooter>
 	<pageFooter>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0016ac41-3f74-4b94-870b-e1fa278f4714">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="185"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa_id" class="java.lang.String"/>
 	<parameter name="lote_id" class="java.lang.String"/>
@@ -47,16 +47,18 @@
      categorias.`sexo` AS categorias_sexo,
      especies.`id` AS especies_id,
      especies.`holding_id` AS especies_holding_id,
-     especies.`descricao` AS especies_descricao
+     especies.`descricao` AS especies_descricao,
+     eventosanitarios.`valor` AS eventosanitarios_valor
 FROM
      `lotes` lotes INNER JOIN `categorialotes` categorialotes ON lotes.`id` = categorialotes.`lote_id`
      INNER JOIN `eventosanitarios` eventosanitarios ON categorialotes.`id` = eventosanitarios.`categorialote_id`
      INNER JOIN `categorias` categorias ON categorialotes.`categoria_id` = categorias.`id`
      INNER JOIN `especies` especies ON categorias.`especie_id` = especies.`id`
      INNER JOIN `medicamentos` medicamentos ON eventosanitarios.`medicamento_id` = medicamentos.`id`
-WHERE lotes.empresa_id = $P{empresa_id}
-  AND categorialotes.lote_id = IF($P{lote_id} = 0, categorialotes.lote_id, $P{lote_id})
-  AND categorialotes.categoria_id = IF($P{categoria_id} = 0, categorialotes.categoria_id, $P{categoria_id})]]>
+WHERE
+     lotes.empresa_id = $P{empresa_id}
+ AND IF($P{lote_id} = 0,categorialotes.lote_id,$P{lote_id})
+ AND IF($P{categoria_id} = 0,categorialotes.categoria_id,$P{categoria_id})]]>
 	</queryString>
 	<field name="lotes_id" class="java.lang.Integer"/>
 	<field name="lotes_empresa_id" class="java.lang.Integer"/>
@@ -94,8 +96,13 @@ WHERE lotes.empresa_id = $P{empresa_id}
 	<field name="especies_id" class="java.lang.Integer"/>
 	<field name="especies_holding_id" class="java.lang.Integer"/>
 	<field name="especies_descricao" class="java.lang.String"/>
+	<field name="eventosanitarios_valor" class="java.math.BigDecimal"/>
 	<sortField name="lotes_descricao"/>
 	<sortField name="eventosanitarios_dtevento"/>
+	<variable name="valor_SUM" class="java.lang.Long" resetType="Group" resetGroup="Lote" incrementType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{eventosanitarios_valor}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<group name="Lote">
 		<groupExpression><![CDATA[$F{lotes_id}]]></groupExpression>
 		<groupHeader>
@@ -117,11 +124,23 @@ WHERE lotes.empresa_id = $P{empresa_id}
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="9">
+			<band height="29">
 				<elementGroup/>
 				<line>
-					<reportElement x="0" y="5" width="802" height="1" uuid="f144f5d0-5294-421d-ba4a-a84c2e8a96b5"/>
+					<reportElement x="0" y="26" width="802" height="1" uuid="f144f5d0-5294-421d-ba4a-a84c2e8a96b5"/>
 				</line>
+				<staticText>
+					<reportElement x="460" y="3" width="100" height="20" uuid="0d629b6c-d0bd-4969-b2d8-9e488ef2ec41"/>
+					<textElement textAlignment="Right">
+						<font size="12" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Valor_total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="573" y="3" width="103" height="20" uuid="52e6087a-6e1f-4637-9bf0-7a4c0fbc1fe9"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{valor_SUM}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -187,6 +206,13 @@ WHERE lotes.empresa_id = $P{empresa_id}
 				</textElement>
 				<text><![CDATA[Medicamento]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="573" y="13" width="103" height="20" uuid="fcfefd44-93b1-4927-bbf6-9fca25994d92"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -204,6 +230,11 @@ WHERE lotes.empresa_id = $P{empresa_id}
 				<reportElement isPrintRepeatedValues="false" x="461" y="3" width="100" height="20" uuid="0f38a60b-ac23-4d22-8bd9-91369a1d27bb"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{eventosanitarios_dosagem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="573" y="3" width="103" height="20" uuid="31060ac2-6128-4f8b-80a7-05ac64f4dea2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{eventosanitarios_valor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
