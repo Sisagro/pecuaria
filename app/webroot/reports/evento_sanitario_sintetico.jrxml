@@ -138,6 +138,7 @@ WHERE
 				</staticText>
 				<textField>
 					<reportElement x="573" y="3" width="103" height="20" uuid="52e6087a-6e1f-4637-9bf0-7a4c0fbc1fe9"/>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$V{valor_SUM}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -232,6 +233,7 @@ WHERE
 			</textField>
 			<textField>
 				<reportElement x="573" y="3" width="103" height="20" uuid="31060ac2-6128-4f8b-80a7-05ac64f4dea2"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{eventosanitarios_valor}]]></textFieldExpression>
 			</textField>
 		</band>
