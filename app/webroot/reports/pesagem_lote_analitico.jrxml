@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pesagem_lotes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="068f4314-210d-49ec-9d52-b3a13bfbd1e2">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="101"/>
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="170"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="empresa_id" class="java.lang.String"/>
 	<parameter name="lote_id" class="java.lang.String"/>
@@ -131,19 +131,12 @@ WHERE pesagens.empresa_id = $P{empresa_id}
 			<band height="31">
 				<elementGroup/>
 				<textField>
-					<reportElement x="634" y="5" width="100" height="20" uuid="b2c7ee6d-dd2d-4f7d-b834-fd42e240b5db"/>
+					<reportElement x="588" y="5" width="146" height="20" uuid="b2c7ee6d-dd2d-4f7d-b834-fd42e240b5db"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{peso_SUM}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Peso total:  " + $V{peso_SUM}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="524" y="5" width="100" height="20" uuid="78e13d05-5099-4848-bebc-60d47c8053af"/>
-					<textElement textAlignment="Right">
-						<font size="12" isBold="true" isUnderline="false"/>
-					</textElement>
-					<text><![CDATA[Peso_total]]></text>
-				</staticText>
 			</band>
 		</groupFooter>
 	</group>

@@ -143,19 +143,12 @@ WHERE
 				<line>
 					<reportElement x="0" y="25" width="802" height="1" uuid="cf1672ba-ba28-4a68-a0ae-edad8e4b10d7"/>
 				</line>
-				<staticText>
-					<reportElement x="469" y="3" width="100" height="20" uuid="4437f959-acbb-45e1-a7e7-3e4a3cbb926c"/>
-					<textElement textAlignment="Right">
-						<font size="12" isBold="true" isUnderline="false"/>
-					</textElement>
-					<text><![CDATA[Valor_total]]></text>
-				</staticText>
 				<textField>
-					<reportElement x="576" y="3" width="72" height="20" uuid="838ad048-c1db-4af1-a976-f9b3fe107000"/>
+					<reportElement x="486" y="3" width="162" height="20" uuid="838ad048-c1db-4af1-a976-f9b3fe107000"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{valor_SUM}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Valor total:  " + $V{valor_SUM}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>

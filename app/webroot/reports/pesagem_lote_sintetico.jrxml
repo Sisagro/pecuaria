@@ -121,19 +121,12 @@ WHERE pesagens.empresa_id = $P{empresa_id}
 		<groupFooter>
 			<band height="30">
 				<elementGroup/>
-				<staticText>
-					<reportElement x="192" y="5" width="100" height="20" uuid="e56c6c81-94ac-4e3c-8f72-6508c024ea9f"/>
-					<textElement textAlignment="Right">
-						<font isBold="true" isUnderline="false"/>
-					</textElement>
-					<text><![CDATA[Peso_total]]></text>
-				</staticText>
 				<textField>
-					<reportElement x="304" y="5" width="100" height="20" uuid="4e200815-1c41-460e-a95f-4045bf8505cb"/>
+					<reportElement x="259" y="5" width="145" height="20" uuid="4e200815-1c41-460e-a95f-4045bf8505cb"/>
 					<textElement textAlignment="Right">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{peso_SUM}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Peso total:  " + $V{peso_SUM}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
